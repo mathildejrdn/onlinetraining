@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : db
--- Généré le : lun. 24 juin 2024 à 11:46
+-- Généré le : lun. 24 juin 2024 à 13:13
 -- Version du serveur : 8.0.37
 -- Version de PHP : 8.2.8
 
@@ -50,10 +50,7 @@ CREATE TABLE `products` (
   `color` varchar(255) NOT NULL,
   `composition` text NOT NULL,
   `stock_product` int NOT NULL,
-  `picture1` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `picture2` varchar(255) NOT NULL,
-  `picture3` varchar(255) NOT NULL,
-  `picture4` varchar(255) NOT NULL,
+  `picture` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `category_product` varchar(255) NOT NULL,
   `discount` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -70,8 +67,9 @@ CREATE TABLE `users` (
   `last_name` varchar(255) NOT NULL,
   `birth_date` date NOT NULL,
   `adress` varchar(255) NOT NULL,
+  `phone_number` int NOT NULL,
   `email` varchar(255) NOT NULL,
-  `role` varchar(255) NOT NULL
+  `sexe` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --

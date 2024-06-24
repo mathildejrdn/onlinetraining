@@ -1,0 +1,1 @@
+grid des produits quand on affiche la totalité

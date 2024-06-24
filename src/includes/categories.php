@@ -1,0 +1,1 @@
+tri par catégories via filtre et grid simple 

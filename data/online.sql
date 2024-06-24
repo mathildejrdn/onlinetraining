@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : db
--- Généré le : lun. 24 juin 2024 à 13:13
+-- Généré le : lun. 24 juin 2024 à 14:49
 -- Version du serveur : 8.0.37
 -- Version de PHP : 8.2.8
 
@@ -20,6 +20,21 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `online`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `message`
+--
+
+CREATE TABLE `message` (
+  `id` int NOT NULL,
+  `id_from` int NOT NULL,
+  `id_to` int NOT NULL,
+  `message` varchar(255) NOT NULL,
+  `date_message` datetime NOT NULL,
+  `read` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -58,6 +73,17 @@ CREATE TABLE `products` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `roles`
+--
+
+CREATE TABLE `roles` (
+  `role_id` int NOT NULL,
+  `role_nom` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `users`
 --
 
@@ -65,6 +91,7 @@ CREATE TABLE `users` (
   `id` int NOT NULL,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `birth_date` date NOT NULL,
   `adress` varchar(255) NOT NULL,
   `phone_number` int NOT NULL,
@@ -72,9 +99,26 @@ CREATE TABLE `users` (
   `sexe` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `users_roles`
+--
+
+CREATE TABLE `users_roles` (
+  `user_id` int NOT NULL,
+  `role_id` int NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 --
 -- Index pour les tables déchargées
 --
+
+--
+-- Index pour la table `message`
+--
+ALTER TABLE `message`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `products`
@@ -91,6 +135,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
+
+--
+-- AUTO_INCREMENT pour la table `message`
+--
+ALTER TABLE `message`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `products`

@@ -3,7 +3,7 @@ services:
         image: php:8.3-apache
         container_name: online_php8_3
         ports:
-            - "8006:80" # on définit le port pour accéder à l'application sur la première valeur (localhost:8000 si on a 8000:80)
+            - "8060:80" # on définit le port pour accéder à l'application sur la première valeur (localhost:8000 si on a 8000:80)
         volumes:
             - ./src:/var/www/html # on monte le dossier courant dans le dossier /var/www/html du container
         build:

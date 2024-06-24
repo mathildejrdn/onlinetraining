@@ -37,17 +37,32 @@ if ($mysqli->connect_error) {
             if(empty($_SESSION['panier'])){
                 echo"Votre pannier est vide";
             } else {
-                 $ids = array_keys($_SESSION['panier']);
+                $ids = array_keys($_SESSION['panier']);
+                if (count($ids) > 0) {
+                $ids = implode(',', array_map('intval', $ids));
+                $products = $mysqli->query("SELECT * FROM panier WHERE id IN ($ids)");
+                if($products && $products->num_rows > 0){
+                $total = 0;
+                while($product = $products->fetch_assoc()) {
+                    $total += $product['quantity'] * $_SESSION['panier'][$product['id']];
             }
-
+        }
+    }
+}
         ?>
+        <tr>
+            <td><?= $panier["user_id"] ?></td>
+            <td><?= $panier["user_name"] ?></td>
+            <td><?= $panier["product_id"] ?></td>
+            <td><?= $panier["product_name"] ?></td>
+            <td><?= $panier["quantity"] ?></td>
+        </tr>
 
-        <th><?= $panier["user_id"]?></th>
-        <th><?= $panier["user_name"]?></th>
-        <th><?= $panier["product_id"]?></th>
-        <th><?= $panier["product_name"]?></th>
-        <th><?= $panier["quantity"]?></th>
     </table>
+
+    <tr>
+        <th>Quantité Total:<?=array_sum($_SESSION['panier']) ?></th>
+    </tr>
 
 </body>
 

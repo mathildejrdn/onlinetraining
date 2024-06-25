@@ -1,4 +1,4 @@
 <?php
 session_start();
 unset($_SESSION["user"]);
-header("Location: index.php");0
+.header("Location: index.php");

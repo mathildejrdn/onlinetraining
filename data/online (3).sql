@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : db
--- Généré le : lun. 24 juin 2024 à 14:49
+-- Généré le : mar. 25 juin 2024 à 12:13
 -- Version du serveur : 8.0.37
 -- Version de PHP : 8.2.8
 
@@ -20,6 +20,24 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `online`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `administrateurs`
+--
+
+CREATE TABLE `administrateurs` (
+  `id` int NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `birth_date` date NOT NULL,
+  `adress` varchar(255) NOT NULL,
+  `phone_number` int NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `sexe` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -58,16 +76,17 @@ CREATE TABLE `panier` (
 
 CREATE TABLE `products` (
   `id` int NOT NULL,
-  `name_product` varchar(255) NOT NULL,
-  `price_product` int NOT NULL,
-  `description_product` text NOT NULL,
-  `size` varchar(255) NOT NULL,
-  `color` varchar(255) NOT NULL,
-  `composition` text NOT NULL,
-  `stock_product` int NOT NULL,
-  `picture` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `category_product` varchar(255) NOT NULL,
-  `discount` tinyint(1) NOT NULL
+  `reference produit` int NOT NULL,
+  `marque` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `type de produits` varchar(255) NOT NULL,
+  `couleur` varchar(255) NOT NULL,
+  `matiere` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `motif` varchar(255) NOT NULL,
+  `taille` varchar(255) NOT NULL,
+  `sexe` varchar(255) NOT NULL,
+  `quantité en stock` int NOT NULL,
+  `prix HT` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -115,6 +134,12 @@ CREATE TABLE `users_roles` (
 --
 
 --
+-- Index pour la table `administrateurs`
+--
+ALTER TABLE `administrateurs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `message`
 --
 ALTER TABLE `message`
@@ -135,6 +160,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
+
+--
+-- AUTO_INCREMENT pour la table `administrateurs`
+--
+ALTER TABLE `administrateurs`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `message`

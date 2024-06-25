@@ -24,11 +24,28 @@ if(!empty($_POST)){
             $query->execute();
             $user = $query->fetch();
 
-            
+            if(!$user){
+                $_SESSION["error"][]="l'utilisateur et/ou le mdp est incorrect";
+            } else {
+                // on vérifie si le mdp correspond
+                if(!password_verify($_POST["pass"], $user["password"])){
+                    $_SESSION["error"][]="L'utilisateur et ou le mot de passe est incorrect";
+                } else {
+                    $_SESSION["user"]=[
+                        "id" =>  $user["id"],
+                        "firstname" => $user['first_name'],
+                        "name" => $user['last_name'],
+                        "email" => $user['email'],
+                        "birthdate" => $user["birth_date"],
+                        "adress" => 
+                    ]
+                }
+            }
+
         }
 
     }
-        
+}        
 
 
 ?>

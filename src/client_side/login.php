@@ -2,10 +2,10 @@
 session_start();
 $_SESSION["error"] = [];
 
-if(isset($_SESSION["user"]) || isset($_SESSION["admin"])){
-    header("Location: index.php");
-    exit;
-}
+// if(isset($_SESSION["user"]) || isset($_SESSION["admin"])){
+//     header("Location: ../index.php");
+//     exit;
+// }
 
 if(!empty($_POST)){
   
@@ -15,7 +15,7 @@ if(!empty($_POST)){
         if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
             $_SESSION["error"][]="Ce n'est pas un email";
         } else {
-            // require_once("connect.php");
+            require_once("../connect.php");
 
             $sql = "SELECT * FROM `users` WHERE `email` = :email";
 
@@ -33,7 +33,7 @@ if(!empty($_POST)){
                     "birthdate" => $user["birth_date"],
                     "adress" => $user["adress"]
                 ];
-                header("Location: index.php");
+                header("Location: ../index.php");
                 exit;
             }
 
@@ -53,7 +53,7 @@ if(!empty($_POST)){
                     "birthdate" => $admin["birth_date"],
                     "adress" => $admin["adress"]
                 ];
-                header("Location: index.php");
+                header("Location: ../index.php");
                 exit;
             }
 

@@ -4,13 +4,13 @@ $_SESSION["error"] = [];
 
 if(!empty($_POST)){
     if(isset($_POST["firstname"], $_POST["name"],$_POST["email"], $_POST["pass"], $_POST["pass2"], $_POST["birthdate"], $_POST["adress"], $_POST["phone"], $_POST["sexe"]) 
-    && !empty($_POST["firstname"]) && !empty($_POST["name"]) && !empty($_POST["email"]) && !empty($_POST["pass"]) && !empty($_POST["pass2"]) && !empty($_POST["birthdate"]) && !empty($_POST["adress"]) && !empty($_POST["phone"]), && !empty($_POST["sexe"]))
+    && !empty($_POST["firstname"]) && !empty($_POST["name"]) && !empty($_POST["email"]) && !empty($_POST["pass"]) && !empty($_POST["pass2"]) && !empty($_POST["birthdate"]) && !empty($_POST["adress"]) && !empty($_POST["phone"]) && !empty($_POST["sexe"]))
     {
         if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
             $_SESSION["error"][] = "L'adresse email est incorrecte"; 
         }
         $pass = password_hash($_POST["pass"], PASSWORD_ARGON2ID);
-        require_once("connect.php");
+        require_once("../connect.php");
 
         $sql = "INSERT INTO `users` (`first_name`, `last_name`,`password`, birth_date`, adress`, `phone_number`, `email`, `sexe`) VALUE (:first_name, :last_name, '$pass', :birth_date, :adress, :phone_number :email, :sexe)";
 
@@ -83,6 +83,7 @@ if(!empty($_POST)){
                 <option value="sexe">Quel est votre sexe ?</option>
                 <option value="homme">Homme</option>
                 <option value="femme">Femme</option>
+                <option value="autre">Autre</option>
             </select required>
         </div>
         <div id="signup_btn">

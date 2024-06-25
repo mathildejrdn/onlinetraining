@@ -37,17 +37,27 @@ if(!empty($_POST)){
                         "name" => $user['last_name'],
                         "email" => $user['email'],
                         "birthdate" => $user["birth_date"],
-                        "adress" => 
-                    ]
+                        "adress" => $user["adress"]
+                    ];
+                header("Location: index.php");
+                    exit;
                 }
             }
 
         }
 
+    } else {
+        $_SESSION["error"][]="Le formulaire est incomplet";
     }
-}        
-
-
+} 
+if(isset($_SESSION["error"])){
+    foreach($_SESSION["error"] as $message){
+        ?>
+        <p><?=$message?></p>
+        <?php
+    }
+    unset($_SESSION["error"]);
+}
 ?>
 <form class="login_form" method="post">
     <h1>Connexion</h1>

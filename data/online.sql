@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : db
--- Généré le : lun. 24 juin 2024 à 14:49
+-- Généré le : mar. 25 juin 2024 à 09:22
 -- Version du serveur : 8.0.37
 -- Version de PHP : 8.2.8
 
@@ -58,16 +58,16 @@ CREATE TABLE `panier` (
 
 CREATE TABLE `products` (
   `id` int NOT NULL,
-  `name_product` varchar(255) NOT NULL,
-  `price_product` int NOT NULL,
-  `description_product` text NOT NULL,
-  `size` varchar(255) NOT NULL,
-  `color` varchar(255) NOT NULL,
-  `composition` text NOT NULL,
-  `stock_product` int NOT NULL,
-  `picture` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `category_product` varchar(255) NOT NULL,
-  `discount` tinyint(1) NOT NULL
+  `reference produit` int NOT NULL,
+  `marque` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `type de produits` varchar(255) NOT NULL,
+  `couleur` varchar(255) NOT NULL,
+  `matiere` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `motif` varchar(255) NOT NULL,
+  `taille` varchar(255) NOT NULL,
+  `sexe` varchar(255) NOT NULL,
+  `quantité en stock` int NOT NULL,
+  `prix HT` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------

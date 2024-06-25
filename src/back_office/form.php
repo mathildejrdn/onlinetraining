@@ -33,7 +33,7 @@ session_start();
       <p>Message</p>
       <textarea name="content" cols="40" rows="10"id=""></textarea>
       <p>date_message</p>  
-      <input type="text" name="name" style="display: bloc">
+      <input type="date" name="name" style="display: bloc">
       <p>read</p>  
       <input type="text" name="name" style="display: bloc">
       <input type="submit" value="Envoyer">

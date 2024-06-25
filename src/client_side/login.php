@@ -15,7 +15,7 @@ if(!empty($_POST)){
         if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
             $_SESSION["error"][]="Ce n'est pas un email";
         } else {
-            // require_once("connect.php");
+            //require_once("connect.php");
 
             $sql = "SELECT * FROM `users` WHERE `email` = :email";
 

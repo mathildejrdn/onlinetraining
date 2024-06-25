@@ -3,7 +3,7 @@
 session_start();
 
 // Vérifier si la session utilisateur est définie
-if (!isset($_SESSION['users_id'])) {
+if (!isset($_SESSION['user'][id])) {
     die('Vous devez être connecté pour accéder à cette page.');
 }
 

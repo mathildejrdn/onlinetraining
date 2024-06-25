@@ -2,23 +2,26 @@
 // Démarrer la session
 session_start();
 
-// Vérifier si la session utilisateur est définie
-if (!isset($_SESSION['user'][id])) {
-    die('Vous devez être connecté pour accéder à cette page.');
-}
+// // Vérifier si la session utilisateur est définie
+// if (!isset($_SESSION['user'][id])) {
+//     die('Vous devez être connecté pour accéder à cette page.');
+// }
 
-// Vérifier si l'utilisateur est un administrateur
-if ($_SESSION['formateur'] !== "full") {
-    die('Vous n\'avez pas les permissions nécessaires pour accéder à cette page.');
-}
+// // Vérifier si l'utilisateur est un administrateur
+// if ($_SESSION['formateur'] !== "full") {
+//     die('Vous n\'avez pas les permissions nécessaires pour accéder à cette page.');
+// }
 
-// Inclure le fichier de connexion à la base de données
-require_once('connect.php');
+// // Inclure le fichier de connexion à la base de données
+// require_once('connect.php');
 
-// Préparer la requête SQL pour sélectionner les utilisateurs et leurs rôles
-$sql = "SELECT users.id, users.first_name, users.last_name, users.email, user_roles.role
-        FROM users
-        LEFT JOIN user_roles ON users.id = user_roles.user_id";
+// // Préparer la requête SQL pour sélectionner les utilisateurs et leurs rôles
+// $sql = "SELECT users.id, users.first_name, users.last_name, users.email, user_roles.role
+//         FROM users
+//         LEFT JOIN user_roles ON users.id = user_roles.user_id";
+
+require_once("../connect.php");
+$sql = 
 
 // Exécuter la requête
 $query = $db->prepare($sql);

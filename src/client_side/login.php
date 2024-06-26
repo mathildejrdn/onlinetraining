@@ -8,7 +8,6 @@ $_SESSION["error"] = [];
 // }
 
 if(!empty($_POST)){
-  
     if(isset($_POST["email"], $_POST["pass"]) && !empty($_POST["email"]) && !empty($_POST["pass"])
     ){
 

@@ -6,22 +6,26 @@ require_once("connect.php");
 
 /* Gestion du panier */
 
- if(!isset($_SESSION['panier'])){
-     $_SESSION['panier'] = array();
- }
+if (!isset($_SESSION['panier'])) {
+    $_SESSION['panier'] = array();
+}
 
 /* Ajouter au panier */
 
-function ajouterAuPanier($id, $nomProduit, $quantite) {
+function ajouterAuPanier($id, $nomProduit, $quantite, $prix) {
     $nomProduit = htmlspecialchars($nomProduit);
     $quantite = (int)$quantite;
-    
+     $prix = (float)$prix;
+
     if (isset($_SESSION['panier'][$id])) {
         $_SESSION['panier'][$id]['quantite'] += $quantite;
+        $_SESSION['panier'][$id]['prix_total'] += $prix * $quantite;
     } else {
         $_SESSION['panier'][$id] = array(
             'nomProduit' => $nomProduit,
-            'quantite' => $quantite
+            'quantite' => $quantite,
+            'prix_unitaire' => $prix,
+            'prix_total' => $prix * $quantite
         );
     }
 }
@@ -33,14 +37,16 @@ function afficherPanier() {
         echo "Votre panier est vide.";
     } else {
         echo "<table border='1'>";
-            echo "<th>Nom du produit</th>
-                <th>Quantité</th>
-                <th>Action</th></tr>";
+        echo "<tr><th>Nom du produit</th><th>Quantité</th><th>Prix Unitaire</th><th>Prix Total</th><th>Action</th></tr>";
         foreach ($_SESSION['panier'] as $id => $produit) {
+            echo "<tr>";
             echo "<td>{$produit['nomProduit']}</td>";
             echo "<td>{$produit['quantite']}</td>";
-            echo "<td><a href='?action=update&id=$id'>Modifier</a></td>",
-                 "<td><a href='?action=remove&id=$id'>Supprimer</a></td>";
+            echo "<td>{$produit['prix_unitaire']} €</td>";
+            echo "<td>{$produit['prix_total']} €</td>";
+            echo "<td><a href='panier.php?action=update&id=$id&newQuantite=" . ($produit['quantite'] + 1) . "'>+1</a> | ";
+            echo "<a href='panier.php?action=update&id=$id&newQuantite=" . ($produit['quantite'] - 1) . "'>-1</a> | ";
+            echo "<a href='panier.php?action=remove&id=$id'>Supprimer</a></td>";
             echo "</tr>";
         }
         echo "</table>";
@@ -53,11 +59,12 @@ function modifierQuantite($id, $quantite) {
     $id = htmlspecialchars($id);
     $quantite = (int)$quantite;
 
-    if(isset($_SESSION['panier'][$id])){
+    if (isset($_SESSION['panier'][$id])) {
         $_SESSION['panier'][$id]['quantite'] = $quantite;
-        if($_SESSION['panier'][$id]['quantite'] <= 0) {
-            unset($_SESSION['panier']['$id']);
-        }   
+        $_SESSION['panier'][$id]['prix_total'] = $_SESSION['panier'][$id]['prix_unitaire'] * $quantite;
+        if ($_SESSION['panier'][$id]['quantite'] <= 0) {
+            unset($_SESSION['panier'][$id]);
+        }
     }
 }
 
@@ -65,10 +72,13 @@ function modifierQuantite($id, $quantite) {
 
 function supprimerDuPanier($id) {
     $id = htmlspecialchars($id);
+
     if (isset($_SESSION['panier'][$id])) {
         unset($_SESSION['panier'][$id]);
     }
 }
+
+/* Traitement des actions */
 
 if (isset($_GET['action'])) {
     switch ($_GET['action']) {
@@ -78,8 +88,8 @@ if (isset($_GET['action'])) {
             }
             break;
         case 'update':
-            if (isset($_GET['id']) && isset($_GET['quantite'])) {
-                modifierQuantite($_GET['id'], $_GET['quantite']);
+            if (isset($_GET['id']) && isset($_GET['newQuantite'])) {
+                modifierQuantite($_GET['id'], $_GET['newQuantite']);
             }
             break;
         case 'remove':
@@ -90,7 +100,10 @@ if (isset($_GET['action'])) {
     }
 }
 
+/* Affichage du panier */
+
 afficherPanier();
+
 ?>
 
 <!DOCTYPE html>
@@ -104,7 +117,9 @@ afficherPanier();
 
 <body>
 
-    <a href="panier.php?action=add&id=?ID_DU_PRODUIT&nomProduit=NomDuProduit&quantite=1">Ajouter un produit</a>
+    <a href="panier.php?action=add&id=ID_DU_PRODUIT&nomProduit=NomDuProduit&quantite=1">Ajouter un produit</a>
+
+    <a href="panier.php?action=id=1">Retourner à la boutique</a>
 
 </body>
 

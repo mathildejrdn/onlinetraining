@@ -5,28 +5,32 @@ session_start();
 
 if(isset($_SESSION["id"]) AND !empty($_SESSION["id"])){
    if(isset($_POST['envoi_message'])) {
-    if(
-        isset($_POST['destinataire'],$_POST['message']) AND !empty($_POST['destinataire']) AND !empty($_POST['message'])) {
+    if(isset($_POST['destinataire'], $_POST['message']) && !empty($_POST['destinataire']) && !empty($_POST['message'])) {
             //on securise les variable qui transite information
             $destinataire = htmlspecialchars($_POST['destinataire']);
             $message = htmlspecialchars($_POST['message']); 
-
+            //récupérer l'ID du destinataire
             $id_destinataire = $db->prepare("SELECT id FROM administrateurs WHERE last_name = ?");
             $id_destinataire ->execute(array($destinataire));
             $id_destinataire = $id_destinataire->fetch();
-            $id_destinataire = $id_destinataire["id"];
+            $id_to = $id_destinataire["id"];
+            //Définir la date du message
+            $date_message = date("Y-m-d H:i:s");
 
-            //inserer le message
-            $ins = $db->prepare("INSERT INTO message(id_from,id_to,message,date_message,read) VALUES (?,?,?,?,?)");
-            $ins->execute(array($_SESSION["id"], $id_to, $message, $date_message));
 
-            $error = "Votre message a bien ete envoye ! "
+            //insérer le message
+            $ins = $db->prepare("INSERT INTO message(id_from,id_to,message,date_message,`read`) VALUES (?,?,?,?,?)");
+            $ins->execute(array($_SESSION["id"], $id_to, $message, $date_message,0));
+
+            $error = "Votre message a bien ete envoye ! ";
             
-    else {
+        }else {
         $error = "Veuillez completer tous les champs";
     }
    }
-
+   //Afficher les destinataire
+   $destinataires = $db->query('SELECT last_name FROM administrateurs ORDER BY last_name');
+?>
    
 
 
@@ -57,5 +61,9 @@ if(isset($_SESSION["id"]) AND !empty($_SESSION["id"])){
     </body>
     </html>
 <?php
+ } else {
+    header('Location:inbox.php');
  }
+
+
  ?>

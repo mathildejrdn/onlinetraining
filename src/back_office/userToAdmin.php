@@ -29,15 +29,15 @@ if(isset($_GET["id"]) && !empty($_GET["id"])){
         $query->bindValue(":genre",  $user["genre"]);
         
         $query->execute();
-        // on récupère l'id du nouvel utilisateur
-        $id = $db->lastInsertId();
+     
 
-        // $_SESSION["user"] = [
-        //     "id"=>$id,
-        //     "firstname" => $_POST["firstname"],
-        //     "name"=> $_POST["lastname"],
-        //     "email"=>$_POST["email"],
-        // ];
+        // Supprimer l'utilisateur de la table users
+        $sql = "DELETE FROM users WHERE id = :id";
+        $query = $db->prepare($sql);
+        $query->bindValue(":id", $id, PDO::PARAM_INT);
+        $query->execute();
+        
+        
         header("Location: userlist.php");
         
     }

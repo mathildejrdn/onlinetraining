@@ -27,6 +27,7 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
 <div id="liste_produit" class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <h1>Liste des utilisateurs</h1>
+    <a href="adminList.php">Voir le tableau des administrateurs</a>
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b">
             <tr>
@@ -73,7 +74,7 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
                 <td><?=$user["phone_number"]?></td>
                 <td><?=$user["genre"]?></td>
                 <td>
-                    <a href="userToAdmin.php?id=<?= $user['id']?>" >Basculer en ADMIN</a>
+                    <a href="#" onclick="confirmAdminTransfer(<?= $user['id'] ?>)">Basculer en ADMIN</a>
                     <a href="deleteUser.php?id=<?= $user['id']?>">SUPPRIMER</a>
                 </td>
             </tr>
@@ -83,9 +84,21 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
         </tbody>
     </table>
 </div>
-       
+
+<script>
+function confirmAdminTransfer(id) {
+    let confirmation = confirm("Êtes-vous sûr de vouloir trasnférer cet utilisateur en tant qu'admin? Son passage dans la table des administrateurs entraînera la suppression du compte utilisateur.");
+    if (confirmation) {
+        window.location.href = "userToAdmin.php?id=" + id;
+    } else {
+        window.location.href = "userlist.php";
+    }
+}
+</script>
+
 </body>
 </html>
+
 <!--             
         //     echo '<tr class="odd:bg-white  even:bg-gray-50 border-b">';
         //         echo '<th scope="row" class="px-2 py-4 font-medium text-gray-900 whitespace-nowrap ">';

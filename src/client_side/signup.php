@@ -3,8 +3,8 @@ session_start();
 $_SESSION["error"] = [];
 
 if(!empty($_POST)){
-    if(isset($_POST["firstname"], $_POST["lastname"], $_POST["email"], $_POST["pass"], $_POST["pass2"], $_POST["birthdate"], $_POST["adress"], $_POST["phonenumber"], $_POST["sexe"]) 
-    && !empty($_POST["firstname"]) && !empty($_POST["lastname"]) && !empty($_POST["email"]) && !empty($_POST["pass"]) && !empty($_POST["pass2"]) && !empty($_POST["birthdate"]) && !empty($_POST["adress"]) && !empty($_POST["phonenumber"]) && !empty($_POST["sexe"]))
+    if(isset($_POST["firstname"], $_POST["lastname"], $_POST["email"], $_POST["pass"], $_POST["pass2"], $_POST["birthdate"], $_POST["adress"], $_POST["phonenumber"], $_POST["genre"]) 
+    && !empty($_POST["firstname"]) && !empty($_POST["lastname"]) && !empty($_POST["email"]) && !empty($_POST["pass"]) && !empty($_POST["pass2"]) && !empty($_POST["birthdate"]) && !empty($_POST["adress"]) && !empty($_POST["phonenumber"]) && !empty($_POST["genre"]))
     {
         if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
             $_SESSION["error"][] = "L'adresse email est incorrecte"; 
@@ -20,7 +20,7 @@ if(!empty($_POST)){
         $pass = password_hash($_POST["pass"], PASSWORD_ARGON2ID);
         require_once("../connect.php");
 
-        $sql = "INSERT INTO `users` (`first_name`, `last_name`,`password`, `birth_date`, `adress`, `phone_number`, `email`, `sexe`) VALUE (:first_name, :last_name, :password, :birth_date, :adress, :phone_number, :email, :sexe)";
+        $sql = "INSERT INTO `users` (`first_name`, `last_name`,`password`, `birth_date`, `adress`, `phone_number`, `email`, `genre`) VALUE (:first_name, :last_name, :password, :birth_date, :adress, :phone_number, :email, :genre)";
 
         $query = $db->prepare($sql);
         $query->bindValue(":first_name",  $_POST["firstname"]);
@@ -30,7 +30,7 @@ if(!empty($_POST)){
         $query->bindValue(":password", $pass, PDO::PARAM_STR);
         $query->bindValue(":phone_number",  $_POST["phonenumber"], PDO::PARAM_INT);
         $query->bindValue(":email",  $_POST["email"]);
-        $query->bindValue(":sexe",  $_POST["sexe"]);
+        $query->bindValue(":genre",  $_POST["genre"]);
         
         $query->execute();
         // on récupère l'id du nouvel utilisateur
@@ -96,9 +96,9 @@ unset($_SESSION["error"]);
             <input type="tel" name="phonenumber" id="phonenumber" pattern="[0-9]{10}" required>
         </div>
         <div id="sexe_container">
-            <label for="sexe">Sexe</label><br>
-            <select name="sexe" id="sexe">
-                <option value="sexe">Quel est votre sexe ?</option>
+            <label for="genre">Genre</label><br>
+            <select name="genre" id="genre">
+                <option value="genre">Quel est votre sexe ?</option>
                 <option value="homme">Homme</option>
                 <option value="femme">Femme</option>
                 <option value="autre">Autre</option>

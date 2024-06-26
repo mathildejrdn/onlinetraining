@@ -101,21 +101,14 @@ unset($_SESSION["error"]);
             <input type="tel" name="phonenumber" id="phonenumber" pattern="[0-9]{10}" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
             <label for="phonenumber" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Numéro de téléphone</label>
         </div>
-<<<<<<< HEAD
         <div class="relative z-0 w-full mb-5 group">
-            <select name="sexe" id="sexe" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" required>
-                <option value="" disabled selected>Quel est votre sexe ?</option>
-=======
-        <div id="sexe_container">
-            <label for="genre">Genre</label><br>
-            <select name="genre" id="genre">
-                <option value="genre">Quel est votre sexe ?</option>
->>>>>>> 32a66d11cbe1fa8cfd8ac495e0303a4529c8bbbf
+            <select name="genre" id="genre" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" required>
+                <option value="" disabled selected>Quel est votre genre ?</option>
                 <option value="homme">Homme</option>
                 <option value="femme">Femme</option>
                 <option value="autre">Autre</option>
             </select>
-            <label for="sexe" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Sexe</label>
+            <label for="genre" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Sexe</label>
         </div>
         <div id="signup_btn">
             <button type="submit" class="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600">M'inscrire</button>

@@ -73,22 +73,32 @@ if(isset($_SESSION["error"])){
     unset($_SESSION["error"]);
 }
 ?>
-<form class="login_form" method="post">
-    <h1>Connexion</h1>
-    <div class="login_container">
-        <div class="email">
-            <label for="email">Email</label>
-            <input type="email" name="email" class="email" required>
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Online Training</title>
+  <link rel="stylesheet" href="../styles/output.css">
+  <link rel="stylesheet" href="../styles/reset.css">
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+    <form class="max-w-md mx-auto bg-white p-6 rounded shadow-md w-full" method="post">
+        <h1 class="text-2xl font-bold mb-4">Connexion</h1>
+        <div class="relative z-0 w-full mb-5 group">
+            <input type="email" name="email" id="email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+            <label for="email" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>
         </div>
-        <div class="password_container">
-            <label for="pass">Mot de passe</label>
-            <input type="password" name="pass" id="pass" required>
+        <div class="relative z-0 w-full mb-5 group">
+            <input type="password" name="pass" id="pass" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+            <label for="pass" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Mot de passe</label>
         </div>
         <div id="bouton">
-            <button type="submit">Me connecter</button>
+            <button type="submit" class="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600">Me connecter</button>
         </div>
-    </div>
-</form>
-<div id="inscription"><a href="singup.php">Cliquez ici si vous n'êtes pas enregistré</a></div>
+        <div id="inscription" class="mt-4 text-center">
+        <a href="signup.php" class="text-red-700 hover:underline">Cliquez ici si vous n'êtes pas enregistré</a>
+    </div>  
+    </form>
+   
 </body>
 </html>

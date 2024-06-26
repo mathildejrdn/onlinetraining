@@ -1,8 +1,8 @@
-<?php
+<!-- <?php
 // Démarrer la session
 session_start();
 
-// // Vérifier si la session utilisateur est définie
+// Vérifier si la session utilisateur est définie
 // if (!isset($_SESSION['user'][id])) {
 //     die('Vous devez être connecté pour accéder à cette page.');
 // }
@@ -24,15 +24,29 @@ require_once("../connect.php");
 $sql = 
 
 // Exécuter la requête
-$query = $db->prepare($sql);
-$query->execute();
+//$query = $db->prepare($sql);
+//$query->execute();
 
 // Récupérer les résultats
-$users = $query->fetchAll(PDO::FETCH_ASSOC);
+//$users = $query->fetchAll(PDO::FETCH_ASSOC);
 
 // Fermer la connexion à la base de données
-require_once('close_bdd.php');
-?>
+//require_once('close_bdd.php');
+?> -->
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Online Training</title>
+  <link rel="stylesheet" href="../styles/output.css">
+  <link rel="stylesheet" href="../styles/reset.css">
+  <link rel="stylesheet" href="../styles/font.css">
+</head>
+<body>
+
+
+
+
 
 <div id="liste_produit" class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
@@ -95,7 +109,10 @@ require_once('close_bdd.php');
                 
                 echo '</td>';
                 echo '</tr>';}
-        }?>
+        }?> 
+        </body>
+        </html>
+        
             
         </tbody>
     </table>

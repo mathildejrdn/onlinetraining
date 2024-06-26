@@ -1,6 +1,6 @@
 <?php
 session_start();
-    include '../connect.php' ;
+    include 'connect.php' ;
 
 
 if(isset($_SESSION["id"]) AND !empty($_SESSION["id"])){
@@ -52,7 +52,7 @@ if(isset($_SESSION["id"]) AND !empty($_SESSION["id"])){
     <?php } ?>
     </select>
     <br />
-    <textarea placeholder="Votre message"   name="" id=""></textarea>
+    <textarea placeholder="Votre message"   name="message" ></textarea>
     <br />   <br /> 
     <input type="submit" value="Envoyer" name="envoi_message"/>
     <br />   <br /> 

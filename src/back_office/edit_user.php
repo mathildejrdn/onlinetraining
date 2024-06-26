@@ -1,74 +1,15 @@
-<?php
-session_start();
-$_SESSION["error"] = [];
-
-if(!empty($_POST)){
-    if(isset($_POST["firstname"], $_POST["lastname"], $_POST["email"], $_POST["pass"], $_POST["pass2"], $_POST["birthdate"], $_POST["adress"], $_POST["phonenumber"], $_POST["genre"]) 
-    && !empty($_POST["firstname"]) && !empty($_POST["lastname"]) && !empty($_POST["email"]) && !empty($_POST["pass"]) && !empty($_POST["pass2"]) && !empty($_POST["birthdate"]) && !empty($_POST["adress"]) && !empty($_POST["phonenumber"]) && !empty($_POST["genre"]))
-    {
-        if(!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)){
-            $_SESSION["error"][] = "L'adresse email est incorrecte"; 
-        }
-        if($_POST["pass"] !== $_POST["pass2"]){
-            $_SESSION["error"][] = "Les mots de passe ne correspondent pas";
-        }
-
-        // Validate phone number
-        if (!preg_match('/^[0-9]{10}$/', $_POST["phonenumber"])) {
-            $_SESSION["error"][] = "Le numéro de téléphone est incorrect";
-        }
-        $pass = password_hash($_POST["pass"], PASSWORD_ARGON2ID);
-        require_once("../connect.php");
-
-        $sql = "INSERT INTO `users` (`first_name`, `last_name`,`password`, `birth_date`, `adress`, `phone_number`, `email`, `genre`) VALUE (:first_name, :last_name, :password, :birth_date, :adress, :phone_number, :email, :genre)";
-
-        $query = $db->prepare($sql);
-        $query->bindValue(":first_name",  $_POST["firstname"]);
-        $query->bindValue(":last_name",  $_POST["lastname"]);
-        $query->bindValue(":birth_date",  $_POST["birthdate"], PDO::PARAM_STR);
-        $query->bindValue(":adress",  $_POST["adress"]);
-        $query->bindValue(":password", $pass, PDO::PARAM_STR);
-        $query->bindValue(":phone_number",  $_POST["phonenumber"], PDO::PARAM_INT);
-        $query->bindValue(":email",  $_POST["email"]);
-        $query->bindValue(":genre",  $_POST["genre"]);
-        
-        $query->execute();
-        // on récupère l'id du nouvel utilisateur
-        $id = $db->lastInsertId();
-
-        $_SESSION["user"] = [
-            "id"=>$id,
-            "firstname" => $_POST["firstname"],
-            "name"=> $_POST["lastname"],
-            "email"=>$_POST["email"],
-        ];
-        header("Location: ../index.php");
-        
-    } else {
-        $_SESSION["error"][] = "Erreur lors de l'inscription. Veuillez réessayer.";
-    }
-} 
-
-if(isset($_SESSION["error"]) && !empty($_SESSION["error"])){
-foreach($_SESSION["error"] as $message){
-echo "<p>{$message}</p>";
-}
-unset($_SESSION["error"]);
-}
-
-// include_once("components/navbar.php");
-?>
 <!doctype html>
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>Online Training</title>
+  <title>Profil Utilisateur</title>
   <link rel="stylesheet" href="../styles/output.css">
   <link rel="stylesheet" href="../styles/reset.css">
 </head>
 <body class="flex items-center justify-center min-h-screen bg-gray-100">
-    <form id="signup_form" class="max-w-md mx-auto bg-white p-6 rounded shadow-md w-full" method="post">
-        <h1 class="text-2xl font-bold mb-4">Inscription</h1>
+    <form id="profile_form" class="max-w-md mx-auto bg-white p-6 rounded shadow-md w-full" method="post">
+        <h1 class="text-2xl font-bold mb-4">Éditer le Profil</h1>
+        <h2 class="text-xl font-semibold text-red-600 mb-4">Rôle: Utilisateur</h2>
         <div class="relative z-0 w-full mb-5 group">
             <input type="text" name="firstname" id="firstname" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
             <label for="firstname" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Prénom</label>
@@ -108,29 +49,50 @@ unset($_SESSION["error"]);
                 <option value="femme">Femme</option>
                 <option value="autre">Autre</option>
             </select>
-            <label for="genre" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Sexe</label>
+            <label for="genre" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Genre</label>
         </div>
-        <div id="signup_btn">
-            <button type="submit" class="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600">M'inscrire</button>
+        
+        <!-- Section pour les rôles (visible uniquement pour le compte formateur) -->
+        <div class="relative z-0 w-full mb-5 group">
+            <fieldset>
+                <legend class="text-sm text-gray-500">Rôles des utilisateurs (réservé aux formateurs)</legend>
+                <div class="mt-2 space-y-2">
+                    <div class="flex items-center">
+                        <input id="role1" name="roles" type="checkbox" value="role1" class="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
+                        <label for="role1" class="ml-2 block text-sm text-gray-900">Role 1</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="role2" name="roles" type="checkbox" value="role2" class="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
+                        <label for="role2" class="ml-2 block text-sm text-gray-900">Role 2</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="role3" name="roles" type="checkbox" value="role3" class="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
+                        <label for="role3" class="ml-2 block text-sm text-gray-900">Role 3</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="role4" name="roles" type="checkbox" value="role4" class="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
+                        <label for="role4" class="ml-2 block text-sm text-gray-900">Role 4</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="role5" name="roles" type="checkbox" value="role5" class="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
+                        <label for="role5" class="ml-2 block text-sm text-gray-900">Role 5</label>
+                    </div>
+                </div>
+            </fieldset>
         </div>
+        
+        <div id="profile_btn">
+            <button type="submit" class="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600 mb-5">Mettre à jour</button>
+        </div>
+        <div id="profile_btn">
+    <button type="submit" class="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600 mt-5 flex items-center justify-center space-x-2">
+        <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+        </svg>
+        <span>Supprimer l'utilisateur</span>
+    </button>
+</div>
+
     </form>
-</body>
-</html>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var form = document.getElementById("signup_form");
-        form.addEventListener("submit", function(event) {
-            var pass1 = document.getElementById("pass").value;
-            var pass2 = document.getElementById("pass2").value;
-
-            if (pass1 !== pass2) {
-                alert("Les mots de passe ne correspondent pas !");
-                event.preventDefault(); // Empêche l'envoi du formulaire
-            }
-        });
-    });
-</script>
-
 </body>
 </html>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : db
--- Généré le : mar. 25 juin 2024 à 12:13
+-- Généré le : mer. 26 juin 2024 à 09:53
 -- Version du serveur : 8.0.37
 -- Version de PHP : 8.2.8
 
@@ -36,8 +36,15 @@ CREATE TABLE `administrateurs` (
   `adress` varchar(255) NOT NULL,
   `phone_number` int NOT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `sexe` varchar(255) NOT NULL
+  `genre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `administrateurs`
+--
+
+INSERT INTO `administrateurs` (`id`, `first_name`, `last_name`, `password`, `birth_date`, `adress`, `phone_number`, `email`, `genre`) VALUES
+(1, 'gui', 'admin', '$argon2id$v=19$m=65536,t=4,p=1$aElabkFiOUdRc2FkRTJuZA$WL0dAj/9AgVr5/RgrcHtUkJQqLB0RKlincp/f06i7mY', '2024-06-19', '12 rue de la rrep', 516565, 'zizou@zizou.fr', 'homme');
 
 -- --------------------------------------------------------
 
@@ -115,8 +122,15 @@ CREATE TABLE `users` (
   `adress` varchar(255) NOT NULL,
   `phone_number` int NOT NULL,
   `email` varchar(255) NOT NULL,
-  `sexe` varchar(255) NOT NULL
+  `genre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `users`
+--
+
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `password`, `birth_date`, `adress`, `phone_number`, `email`, `genre`) VALUES
+(1, 'gui', 'admin', '$argon2id$v=19$m=65536,t=4,p=1$aElabkFiOUdRc2FkRTJuZA$WL0dAj/9AgVr5/RgrcHtUkJQqLB0RKlincp/f06i7mY', '2024-06-19', '12 rue de la rrep', 516565, 'zizou@zizou.fr', 'homme');
 
 -- --------------------------------------------------------
 
@@ -165,7 +179,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `administrateurs`
 --
 ALTER TABLE `administrateurs`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `message`
@@ -183,7 +197,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

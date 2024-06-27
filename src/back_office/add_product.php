@@ -143,12 +143,12 @@ if(!empty($_POST))
             require_once("../connect.php");
 
              // Écrire la requête
-             $sql = "INSERT INTO `products`(`reference_produit`, `marque`, `image`, `type`, `couleur`, `matiere`, `stock`, `motif`,`taille`,`genre`,`prix`) VALUES (:reference_produit, :marque, :image, :type, :couleur, :matiere, :stock, :motif, :taille, :genre, :prix)";
+             $sql = "INSERT INTO `products`(`reference_produit`, `marque`, `image`, `type_de_produits`, `couleur`, `matiere`, `stock`, `motif`,`taille`,`genre`,`prix`) VALUES (:reference_produit, :marque, :image, :type_de_produits, :couleur, :matiere, :stock, :motif, :taille, :genre, :prix)";
              $query = $db->prepare($sql);
              $query->bindValue(":reference_produit", $ref, PDO::PARAM_INT);
              $query->bindValue(":marque", $marque, PDO::PARAM_STR);
              $query->bindValue(":image", $newfilename, PDO::PARAM_STR);
-             $query->bindValue(":type", $type, PDO::PARAM_STR);
+             $query->bindValue(":type_de_produits", $type, PDO::PARAM_STR);
              $query->bindValue(":couleur", $couleur, PDO::PARAM_STR);
              $query->bindValue(":matiere", $matiere, PDO::PARAM_STR);
              $query->bindValue(":stock", $stock, PDO::PARAM_INT);
@@ -158,7 +158,7 @@ if(!empty($_POST))
              $query->bindValue(":prix", $prix, PDO::PARAM_STR);
 
              $query->execute();
-            header("Location: tableauProduits.php");
+            header("Location: products.php");
             exit();
             }
         } else {

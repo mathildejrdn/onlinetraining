@@ -89,6 +89,9 @@
                     <button type="button" class="text-white bg-red-700 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2">
                         Supprimer les produits sélectionnés
                     </button>
+                    <button type="button" class="text-white bg-red-700 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2">
+                        Ajouter un produit
+                    </button>
                 </td>
             </tr>
         </tfoot>

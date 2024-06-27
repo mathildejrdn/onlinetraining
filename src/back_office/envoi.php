@@ -1,9 +1,9 @@
 <?php
 session_start();
-    include 'connect.php' ;
+$_SESSION["id"] = 2; // TEMPORAIRE A RETIRER PAR LA SUITE
+    include("../connect.php");
 
 
-if(isset($_SESSION["id"]) AND !empty($_SESSION["id"])){
    if(isset($_POST['envoi_message'])) {
     if(isset($_POST['destinataire'], $_POST['message']) && !empty($_POST['destinataire']) && !empty($_POST['message'])) {
             //on securise les variable qui transite information
@@ -12,8 +12,13 @@ if(isset($_SESSION["id"]) AND !empty($_SESSION["id"])){
             //récupérer l'ID du destinataire
             $id_destinataire = $db->prepare("SELECT id FROM administrateurs WHERE last_name = ?");
             $id_destinataire ->execute(array($destinataire));
+
             $id_destinataire = $id_destinataire->fetch();
+
+        //    print_r($id_destinataire);
+
             $id_to = $id_destinataire["id"];
+            print_r($id_destinataire);
             //Définir la date du message
             $date_message = date("Y-m-d H:i:s");
 
@@ -61,9 +66,10 @@ if(isset($_SESSION["id"]) AND !empty($_SESSION["id"])){
     </body>
     </html>
 <?php
- } else {
-    header('Location:inbox.php');
- }
+  //else {
+    //header('Location:inbox.php');
+    //exit();
+ 
 
 
  ?>

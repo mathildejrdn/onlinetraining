@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulaire de Contact</title>
-    <link rel="stylesheet" href="../styles/output.css">
-    <link rel="stylesheet" href="../styles/reset.css">
-</head>
-<body class="bg-gray-100">
+
 
     <div class="flex items-center justify-center min-h-screen">
 
@@ -43,5 +34,4 @@
    <img src='../images/contact.png' alt="madame avec des sacs" class="hidden md:block w-1/4 h-1/4 bg-cover bg-no-repeat bg-right">
 </img>
     </div>
-</body>
-</html>
+

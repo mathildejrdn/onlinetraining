@@ -12,22 +12,13 @@ $query->execute();
 $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
 // Fermer la connexion à la base de données
-//require_once('close_bdd.php');
+require_once('close_bdd.php');
 ?> 
-<!doctype html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8">
-  <title>Online Training</title>
-  <link rel="stylesheet" href="../styles/output.css">
-  <link rel="stylesheet" href="../styles/reset.css">
-  <link rel="stylesheet" href="../styles/font.css">
-</head>
-<body>
+
 
 <div id="liste_produit" class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <h1>Liste des utilisateurs</h1>
-    <a href="adminList.php">Voir le tableau des administrateurs</a>
+     <a href="adminList.php">Voir le tableau des administrateurs</a> 
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b">
             <tr>
@@ -96,8 +87,6 @@ function confirmAdminTransfer(id) {
 }
 </script>
 
-</body>
-</html>
 
 <!--             
         //     echo '<tr class="odd:bg-white  even:bg-gray-50 border-b">';

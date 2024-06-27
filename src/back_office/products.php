@@ -1,12 +1,4 @@
-<!doctype html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8">
-  <title>Online Training</title>
-  <link rel="stylesheet" href="../styles/output.css">
-  <link rel="stylesheet" href="../styles/reset.css">
-</head>
-<body class="flex items-center justify-center min-h-screen bg-gray-100">
+
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
 <form class="max-w-md mx-auto mb-5">   
     <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
@@ -97,5 +89,3 @@
         </tfoot>
     </table>
 </div>
-</body>
-</html>

@@ -32,7 +32,7 @@ $produits= $query->fetchAll(PDO::FETCH_ASSOC);
         <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-red-700 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2">Rechercher</button>
     </div>
 </form>
-
+<form action="deleteProduct.php" method="post">
     <table class="w-full text-sm text-left text-gray-500">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
@@ -62,11 +62,11 @@ $produits= $query->fetchAll(PDO::FETCH_ASSOC);
                 <td colspan="13" class="px-6 py-4 text-center">Aucun produit enregistré.</td>
             </tr>
         <?php }else { ?>
-            <?php foreach ($produits as $produit) ?>
+            <?php foreach ($produits as $produit){ ?>
             <tr class="bg-white border-b hover:bg-gray-50">
                 <td class="w-4 p-4">
                     <div class="flex items-center">
-                        <input id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 product-checkbox">
+                        <input name="<?=$produit["id"]?>" id="checkbox-table-search-1" type="checkbox" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 focus:ring-2 product-checkbox">
                         <label for="checkbox-table-search-1" class="sr-only">checkbox</label>
                         <input type="hidden" value="1" class="product-id">
                     </div>
@@ -99,29 +99,32 @@ $produits= $query->fetchAll(PDO::FETCH_ASSOC);
                     </a>
                 </td>
             </tr>
+            <?php } ?>
             <!-- Répétez ce bloc <tr> pour chaque ligne de votre tableau -->
         </tbody>
         <tfoot class="bg-gray-50">
             <tr>
                 <td colspan="13" class="px-6 py-3 text-right">
-                    <button type="button" class="text-white bg-red-700 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2">
+                    <button type="submit" class="text-white bg-red-700 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300  font-medium rounded-lg text-sm px-4 py-2">
                         Supprimer les produits sélectionnés
                     </button>
-                    <button type="button" class="text-white bg-red-700 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2">
+                    <a href="add_product.php"><button type="button" class="text-white bg-red-700 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2">
                         Ajouter un produit
-                    </button>
+                    </button></a>
                 </td>
             </tr>
+            
         </tfoot>
     </table>
     <?php
-        }
+         }
         ?>
+</form>
 </div>
 <script>
     function toggleCheckboxes(source) {
         checkboxes = document.querySelectorAll('.product-checkbox');
-        for(var i = 0; i < checkboxes.length; i++) {
+        for(let i = 0; i < checkboxes.length; i++) {
             checkboxes[i].checked = source.checked;
         }
     }

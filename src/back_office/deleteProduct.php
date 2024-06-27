@@ -2,6 +2,22 @@
 session_start();
 
 
+if(isset($_POST) &&!empty($_POST)){
+    require_once("../connect.php");
+    foreach($_POST as $key => $value) {
+
+        $sql= "DELETE FROM products WHERE id = :id";
+        $query =$db->prepare($sql);
+        $query->bindValue(":id", $key, PDO::PARAM_INT);
+        $query->execute();
+        
+       
+    }
+  
+}else {
+    die("les produits ne sont pas supprimé");
+}
+if(empty($_POST)){
 if(isset($_GET["id"]) && !empty($_GET["id"])){
     require_once("../connect.php");
 
@@ -25,4 +41,5 @@ if(isset($_GET["id"]) && !empty($_GET["id"])){
     }
 } else {
     die("le produit n'est pas supprimé");
+}
 }

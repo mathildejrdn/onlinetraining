@@ -1,14 +1,16 @@
 <?php
 session_start();
-$_SESSION["id"] = 2; // TEMPORAIRE A RETIRER PAR LA SUITE
-    include("../connect.php");
+ include("../connect.php");
 
 
+   
+    
+        //envoi_message c'est <input type="submit" value="Envoyer" name="envoi_message"/>
    if(isset($_POST['envoi_message'])) {
     if(isset($_POST['destinataire'], $_POST['message']) && !empty($_POST['destinataire']) && !empty($_POST['message'])) {
             //on securise les variable qui transite information
             $destinataire = htmlspecialchars($_POST['destinataire']);
-            $message = htmlspecialchars($_POST['message']); 
+            $message = nl2br(htmlspecialchars($_POST['message'])); 
             //récupérer l'ID du destinataire
             $id_destinataire = $db->prepare("SELECT id FROM administrateurs WHERE last_name = ?");
             $id_destinataire ->execute(array($destinataire));
@@ -63,6 +65,7 @@ $_SESSION["id"] = 2; // TEMPORAIRE A RETIRER PAR LA SUITE
     <br />   <br /> 
     <?php if(isset($error)) { echo '<span style="color:red">'.$error.'</span>'; } ?>
     </form>
+    <a href="inbox.php"> <button> Retour</button></a>
     </body>
     </html>
 <?php

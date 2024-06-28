@@ -74,6 +74,11 @@
       </li>
     </ul>
   </section>
+
+
+
+
+
   <section class="w-6/12 bg-gray-200 p-8 rounded-r-3xl overflow-y-scroll"> <!-- ici les messages cachés sur le côté en JS, le code se répète par rapport au dessus et affiche le contenu du mail -->
     <div id="message-1" class="message-content hidden">
       <h1 class="text-2xl font-bold">Message from Akhil Gautam</h1>
@@ -89,6 +94,8 @@
       <h1 class="text-2xl font-bold">Message from Sophie Mark</h1>
       <p class="mt-4">Here are the documents you asked</p>
     </div>
+    <br> <br> <br> <br> <br> <br>
+    <a href="envoi.php"> <button> Repondre</button></a>
   </section>
 </main>
 

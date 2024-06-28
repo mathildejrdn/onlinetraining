@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-
+if(!empty($_POST)){
 if(isset($_POST) &&!empty($_POST)){
     require_once("../connect.php");
     foreach($_POST as $key => $value) {
@@ -11,14 +11,14 @@ if(isset($_POST) &&!empty($_POST)){
         $query->bindValue(":id", $key, PDO::PARAM_INT);
         $query->execute();
         
-       
-    }
+    }header("Location: products.php");
+        exit;
   
 }else {
     die("les produits ne sont pas supprimé");
 }
-if(empty($_POST)){
-if(isset($_GET["id"]) && !empty($_GET["id"])){
+
+}if(isset($_GET["id"]) && !empty($_GET["id"])){
     require_once("../connect.php");
 
     $id = strip_tags($_GET['id']);
@@ -41,5 +41,4 @@ if(isset($_GET["id"]) && !empty($_GET["id"])){
     }
 } else {
     die("le produit n'est pas supprimé");
-}
 }

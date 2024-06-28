@@ -1,17 +1,109 @@
 <?php 
 
-$host = 'db';  
-$user = 'online';
-$password = 'online_password';
-$database = 'online';
-$port = 3306; 
-
 session_start();
 
-$mysqli = new mysqli($host, $user, $password, $database, $port);
-if ($mysqli->connect_error) {
-    die("Erreur de connexion : " . $mysqli->connect_error);
+require_once("../connect.php");
+
+/* Gestion du panier */
+
+if (!isset($_SESSION['panier'])) {
+    $_SESSION['panier'] = array();
 }
+
+/* Ajouter au panier */
+
+function ajouterAuPanier($id, $nomProduit, $quantite, $prix) {
+    $nomProduit = htmlspecialchars($nomProduit);
+    $quantite = (int)$quantite;
+     $prix = (float)$prix;
+
+    if (isset($_SESSION['panier'][$id])) {
+        $_SESSION['panier'][$id]['quantite'] += $quantite;
+        $_SESSION['panier'][$id]['prix_unitaire'] += $prix =
+        $_SESSION['panier'][$id]['prix_total'] += $prix * $quantite;
+    } else {
+        $_SESSION['panier'][$id] = array(
+            'nomProduit' => $nomProduit,
+            'quantite' => $quantite,
+            'prix_unitaire' => $prix,
+            'prix_total' => $prix * $quantite
+        );
+    }
+}
+
+/* Afficher le panier */
+
+function afficherPanier() {
+    if (empty($_SESSION['panier'])) {
+        echo "Votre panier est vide.";
+    } else {
+        echo "<table border='1'>";
+        echo "<tr><th>Nom du produit</th><th>Quantité</th><th>Prix unitaire</th><th>Prix total</th><th>Action</th></tr>";
+        foreach ($_SESSION['panier'] as $id => $produit) {
+            echo "<tr>";
+            echo "<td>{$produit['nomProduit']}</td>";
+            echo "<td>{$produit['quantite']}</td>";
+            echo "<td>{$produit['prix_unitaire']} €</td>";
+            echo "<td>{$produit['prix_total']} €</td>";
+            echo "<td><a href='panier.php?action=update&id=$id&newQuantite=" . ($produit['quantite'] + 1) . "'>+1</a> | ";
+            echo "<a href='panier.php?action=update&id=$id&newQuantite=" . ($produit['quantite'] - 1) . "'>-1</a> | ";
+            echo "<a href='panier.php?action=remove&id=$id'>Supprimer</a></td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+    }
+}
+
+/* Modifier la quantité d'un produit */
+
+function modifierQuantite($id, $quantite) {
+    $id = htmlspecialchars($id);
+    $quantite = (int)$quantite;
+
+    if (isset($_SESSION['panier'][$id])) {
+        $_SESSION['panier'][$id]['quantite'] = $quantite;
+        $_SESSION['panier'][$id]['prix_total'] = $_SESSION['panier'][$id]['prix_unitaire'] * $quantite;
+        if ($_SESSION['panier'][$id]['quantite'] <= 0) {
+            unset($_SESSION['panier'][$id]);
+        }
+    }
+}
+
+/* Supprimer un produit du panier */
+
+function supprimerDuPanier($id) {
+    $id = htmlspecialchars($id);
+
+    if (isset($_SESSION['panier'][$id])) {
+        unset($_SESSION['panier'][$id]);
+    }
+}
+
+/* Traitement des actions */
+
+if (isset($_GET['action'])) {
+    switch ($_GET['action']) {
+        case 'add':
+            if (isset($_GET['id']) && isset($_GET['nomProduit']) && isset($_GET['quantite']) && isset($_GET['prix'])) {
+                ajouterAuPanier($_GET['id'], $_GET['nomProduit'], $_GET['quantite'], $_GET['quantite'], $_GET['prix']);
+            }
+            break;
+        case 'update':
+            if (isset($_GET['id']) && isset($_GET['newQuantite'])) {
+                modifierQuantite($_GET['id'], $_GET['newQuantite']);
+            }
+            break;
+        case 'remove':
+            if (isset($_GET['id'])) {
+                supprimerDuPanier($_GET['id']);
+            }
+            break;
+    }
+}
+
+/* Affichage du panier */
+
+afficherPanier();
 
 ?>
 
@@ -25,44 +117,8 @@ if ($mysqli->connect_error) {
 </head>
 
 <body>
-    <table>
-        <tr>
-            <th>id</th>
-            <th>Nom</th>
-            <th>Produits</th>
-            <th>Nom du produits</th>
-            <th>Quantité</th>
-        </tr>
-        <?php
-            if(empty($_SESSION['panier'])){
-                echo"Votre pannier est vide";
-            } else {
-                $ids = array_keys($_SESSION['panier']);
-                if (count($ids) > 0) {
-                $ids = implode(',', array_map('intval', $ids));
-                $products = $mysqli->query("SELECT * FROM panier WHERE id IN ($ids)");
-                if($products && $products->num_rows > 0){
-                $total = 0;
-                while($product = $products->fetch_assoc()) {
-                    $total += $product['quantity'] * $_SESSION['panier'][$product['id']];
-            }
-        }
-    }
-}
-        ?>
-        <tr>
-            <td><?= $panier["user_id"] ?></td>
-            <td><?= $panier["user_name"] ?></td>
-            <td><?= $panier["product_id"] ?></td>
-            <td><?= $panier["product_name"] ?></td>
-            <td><?= $panier["quantity"] ?></td>
-        </tr>
 
-    </table>
-
-    <tr>
-        <th>Quantité Total:<?=array_sum($_SESSION['panier']) ?></th>
-    </tr>
+    <a href="panier.php?action=add&id=ID_DU_PRODUIT&nomProduit=NomDuProduit&quantite&prix=1">Retourner à la boutique</a>
 
 </body>
 

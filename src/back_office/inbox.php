@@ -1,20 +1,3 @@
-<!doctype html>
-<html lang="fr">
-<head>
-  <meta charset="utf-8">
-  <title>Online Training</title>
-  <link rel="stylesheet" href="../styles/output.css">
-  <link rel="stylesheet" href="../styles/reset.css">
-  <link rel="stylesheet" href="../styles/font.css">
-</head>
-<body>
-
-
-
-
-
-
-
 
 <main class="flex w-full h-full shadow-lg rounded-3xl">
   <section class="flex flex-col w-2/12 bg-white rounded-l-3xl">

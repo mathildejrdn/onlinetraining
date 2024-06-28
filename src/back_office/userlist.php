@@ -81,41 +81,5 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-<!--             
-        //     echo '<tr class="odd:bg-white  even:bg-gray-50 border-b">';
-        //         echo '<th scope="row" class="px-2 py-4 font-medium text-gray-900 whitespace-nowrap ">';
-        //             echo $user['first_name'];
-        //         echo '</th>';
-        //         echo '<td class="px-2 py-4">';
-        //         echo $users['last_name'];
-        //         echo '</td>';
-        //         echo '<th scope="row" class="px-2 py-4 font-medium text-gray-900 whitespace-nowrap ">';
-        //             echo $users['email'];
-        //         echo '</th>';
-        //         echo '<td class="px-2 py-4">';
-        //         echo $users_roles['role_id'];
-        //         echo '</td>';
-               
-        //         echo '<td class="px-2 py-4">';
-        //         if ($users_roles['role_id'] === "self"){
-        //         echo '<button class="text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-orange-600 hover:bg-purple-800 my-2"><a href="pages/change_rights.php?id=' . $user['id'] . '&rights=" class="font-medium ">- Droits</a></button>';
-        //         echo '<button class="text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-green-600 hover:bg-purple-800 my-2"><a href="pages/change_rights.php?id=' . $user['id'] . '&rights=full" class="font-medium ">+ Droits</a></button>';
-                
-        //         echo '<button class="text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-red-700  hover:bg-red-600 my-2 deleteButton" onclick="displayDeleteButton">Supprimer</button>';
-        //         echo '<button class="text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-neutral-950  hover:bg-neutral-500 my-2 deleteConfirmationButton"><a href="pages/delete_user_back.php?id=' . $user['id'] . '" class="font-medium">Confirmer</a></button>';
-        //         }
-        //         elseif ($users_roles['role_id'] === "full"){
-        //             echo '<button class="text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-orange-600 hover:bg-purple-800 my-2"><a href="pages/change_rights.php?id=' . $user['id'] . '&rights=self" class="font-medium ">- Droits</a></button>';
-        //             echo '<button class="text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-red-700  hover:bg-red-600 my-2 deleteButton" onclick="displayDeleteButton">Supprimer</button>';
-        //         echo '<button class="text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-neutral-950  hover:bg-neutral-500 my-2 deleteConfirmationButton"><a href="pages/delete_user_back.php?id=' . $user['id'] . '" class="font-medium">Confirmer</a></button>';
-        //             }
-        //             elseif (empty($users_roles['role_id'])){
-        //                 echo '<button class="text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-green-600 hover:bg-purple-800 my-2"><a href="pages/change_rights.php?id=' . $user['id'] . '&rights=self" class="font-medium ">+ Droits</a></button>';
-        //                 echo '<button class="text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-red-700  hover:bg-red-600 my-2 deleteButton" onclick="displayDeleteButton">Supprimer</button>';
-        //         echo '<button class="text-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center bg-neutral-950  hover:bg-neutral-500 my-2 deleteConfirmationButton"><a href="pages/delete_user_back.php?id=' . $user['id'] . '" class="font-medium">Confirmer</a></button>';
-        //             }
-                
-        //         echo '</td>';
-        //         echo '</tr>';}
-        // } -->
+
     

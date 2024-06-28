@@ -1,3 +1,5 @@
+
+
 <!doctype html>
 <html lang="fr">
 <head>
@@ -43,43 +45,15 @@
             <label for="phonenumber" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Numéro de téléphone</label>
         </div>
         <div class="relative z-0 w-full mb-5 group">
-            <select name="genre" id="genre" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" required>
-                <option value="" disabled selected>Quel est votre genre ?</option>
-                <option value="homme">Homme</option>
-                <option value="femme">Femme</option>
-                <option value="autre">Autre</option>
+            <select name="role" id="role" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" required>
+                <option value="" disabled selected>rôle de l'administrateur</option>
+                <option value="secretaire">Secrétaire</option>
+                <option value="logisticien">logisticien</option>
+                <option value="comptable">comptable</option>
             </select>
-            <label for="genre" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Genre</label>
+            <label for="role" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Rôle</label>
         </div>
-        
         <!-- Section pour les rôles (visible uniquement pour le compte formateur) -->
-        <div class="relative z-0 w-full mb-5 group">
-            <fieldset>
-                <legend class="text-sm text-gray-500">Rôles des utilisateurs (réservé aux formateurs)</legend>
-                <div class="mt-2 space-y-2">
-                    <div class="flex items-center">
-                        <input id="role1" name="roles" type="checkbox" value="role1" class="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
-                        <label for="role1" class="ml-2 block text-sm text-gray-900">Role 1</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input id="role2" name="roles" type="checkbox" value="role2" class="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
-                        <label for="role2" class="ml-2 block text-sm text-gray-900">Role 2</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input id="role3" name="roles" type="checkbox" value="role3" class="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
-                        <label for="role3" class="ml-2 block text-sm text-gray-900">Role 3</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input id="role4" name="roles" type="checkbox" value="role4" class="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
-                        <label for="role4" class="ml-2 block text-sm text-gray-900">Role 4</label>
-                    </div>
-                    <div class="flex items-center">
-                        <input id="role5" name="roles" type="checkbox" value="role5" class="h-4 w-4 text-red-600 border-gray-300 rounded focus:ring-red-500">
-                        <label for="role5" class="ml-2 block text-sm text-gray-900">Role 5</label>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
         
         <div id="profile_btn">
             <button type="submit" class="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600 mb-5">Mettre à jour</button>

@@ -2,10 +2,10 @@
 session_start();
 $_SESSION["error"] = [];
 
-// if(isset($_SESSION["user"]) || isset($_SESSION["admin"])){
-//     header("Location: ../index.php");
-//     exit;
-// }
+if(isset($_SESSION["user"]) || isset($_SESSION["admin"])){
+    header("Location: ../index.php");
+    exit;
+}
 
 if(!empty($_POST)){
     if(isset($_POST["email"], $_POST["pass"]) && !empty($_POST["email"]) && !empty($_POST["pass"])

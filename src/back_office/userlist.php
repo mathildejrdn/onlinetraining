@@ -12,10 +12,9 @@ $query->execute();
 $users = $query->fetchAll(PDO::FETCH_ASSOC);
 
 // Fermer la connexion à la base de données
-require_once('close_bdd.php');
+// require_once('close_bdd.php');
+
 ?> 
-
-
 <div id="liste_produit" class="relative overflow-x-auto shadow-md sm:rounded-lg">
     <h1>Liste des utilisateurs</h1>
      <a href="adminList.php">Voir le tableau des administrateurs</a> 

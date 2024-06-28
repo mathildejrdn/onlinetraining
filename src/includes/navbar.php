@@ -1,4 +1,7 @@
-<nav class="bg-white border-gray-200">
+<?php
+session_start();
+?>
+
 <nav class="bg-white border-gray-200 max-w-screen-xl mx-auto p-4 flex items-center justify-between">
   <a href="#" class="flex items-left">
     <img src="./images/logo.png" class="h-8" alt="Online training Logo" />
@@ -51,9 +54,18 @@
         <li>
           <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0">À propos</a>
         </li>
+        
+        <?php if (isset($_SESSION["admin"]) || isset($_SESSION["user"])): ?>
+        <li>
+        <a href="../client_side/logout.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0">Déconnexion</a>
+        </li>
+        <?php else : ?>
         <li>
         <a href="../client_side/login.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0">Connexion</a>
         </li>
+        
+        <?php endif; ?>
+        
       </ul>
     </div>
   </div>

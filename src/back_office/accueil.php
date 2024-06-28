@@ -23,7 +23,9 @@ header("Location: connexion.php");
    while($administrateur = $recupUser->fetch()){
     ?>
     <a href="message.php?id=<?php echo $administrateur['id']?>">
-        <p><?php echo $administrateur["last_name"]; ?></p>
+        <p><?php echo $administrateur["last_name"]; ?>
+        <?php echo $administrateur["first_name"]; ?></p>
+        
     </a>
     <?php
    }

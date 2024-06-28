@@ -59,6 +59,7 @@ if(isset($_GET['id']) AND !empty($_GET['id'])){
         ?> 
     <p style='color:red;'><?= $message['message']; ?>
     <p><?= $message['date_message']; ?>
+    
 </p>
 
         <?php

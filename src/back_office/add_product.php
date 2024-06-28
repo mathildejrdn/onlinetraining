@@ -65,6 +65,7 @@ if(!empty($_POST))
             die("Le formulaire est incomplet.");
         }  
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">

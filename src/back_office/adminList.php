@@ -59,6 +59,7 @@ $admins= $query->fetchAll(PDO::FETCH_ASSOC);
               <td>
                 <a href="#" onclick="confirmAdminTransfer(<?= $admin['id'] ?>)">Basculer en utilisateur</a>
                 <a href="deleteAdmin.php?id=<?= $admin['id']?>">SUPPRIMER</a>
+                <a href="edit_user.php?id=<?= $user['id']?>">Ajouter un métier</a>
               </td>
             </tr>
           <?php endforeach; ?>    

@@ -10,6 +10,7 @@
   <script src="script.js"></script>
 </head>
 <body>
+<?php include('./client_side/navbar.php'); ?>
 
   
   <a href="../back_office/add_category.php">Ajouter une catégorie (super amdin)</a>
@@ -26,15 +27,11 @@
   <a href="../client_side/signup.php">Formulaire d'inscription</a>
   <a href="../client_side/panier.php">panier</a>
 
-  <!-- Your content here -->
-<!-- <br>
-Le front ici
+
   <?php 
-    include 'includes/nav.php';
-    include 'includes/garanties.php';
-    include 'includes/newsletter.php';
-    include 'includes/footer.php'; 
-  ?> -->
+    include 'client_side/contact.php';
+
+  ?> 
 
 </body>
 </html>

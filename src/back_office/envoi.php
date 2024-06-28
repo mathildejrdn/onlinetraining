@@ -1,19 +1,26 @@
 <?php
 session_start();
-    include 'connect.php' ;
+ include("../connect.php");
 
 
-if(isset($_SESSION["id"]) AND !empty($_SESSION["id"])){
+   
+    
+        //envoi_message c'est <input type="submit" value="Envoyer" name="envoi_message"/>
    if(isset($_POST['envoi_message'])) {
     if(isset($_POST['destinataire'], $_POST['message']) && !empty($_POST['destinataire']) && !empty($_POST['message'])) {
             //on securise les variable qui transite information
             $destinataire = htmlspecialchars($_POST['destinataire']);
-            $message = htmlspecialchars($_POST['message']); 
+            $message = nl2br(htmlspecialchars($_POST['message'])); 
             //récupérer l'ID du destinataire
             $id_destinataire = $db->prepare("SELECT id FROM administrateurs WHERE last_name = ?");
             $id_destinataire ->execute(array($destinataire));
+
             $id_destinataire = $id_destinataire->fetch();
+
+        //    print_r($id_destinataire);
+
             $id_to = $id_destinataire["id"];
+            print_r($id_destinataire);
             //Définir la date du message
             $date_message = date("Y-m-d H:i:s");
 
@@ -58,12 +65,14 @@ if(isset($_SESSION["id"]) AND !empty($_SESSION["id"])){
     <br />   <br /> 
     <?php if(isset($error)) { echo '<span style="color:red">'.$error.'</span>'; } ?>
     </form>
+    <a href="inbox.php"> <button> Retour</button></a>
     </body>
     </html>
 <?php
- } else {
-    header('Location:inbox.php');
- }
+  //else {
+    //header('Location:inbox.php');
+    //exit();
+ 
 
 
  ?>

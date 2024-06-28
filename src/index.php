@@ -10,6 +10,7 @@
   <script src="script.js"></script>
 </head>
 <body>
+<?php include('./client_side/navbar.php'); ?>
 
   
   <a href="../back_office/add_category.php">Ajouter une catégorie (super amdin)</a>

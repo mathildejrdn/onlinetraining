@@ -57,7 +57,9 @@ if(isset($_GET['id']) AND !empty($_GET['id'])){
     while($message = $recupMessage->fetch()){
        if($message['id_to'] == $_SESSION['id']){
         ?> 
-    <p style='color:red;'><?= $message['message']; ?></p>
+    <p style='color:red;'><?= $message['message']; ?>
+    <p><?= $message['date_message']; ?>
+</p>
 
         <?php
        }elseif ($message['id_to'] == $getid) {

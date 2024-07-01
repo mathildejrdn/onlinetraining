@@ -53,7 +53,7 @@ if(!empty($_POST))
             // uniqid est un TIMESTAMP et md5 permet de le chiffré histoire d'avoir un string aléatoire
             $newname=md5(uniqid());
             // on génère le chemin complet vers le fichier:
-            $newfilename = "uploads/$newname.$imageExtension";
+            $newfilename = "back_office/uploads/$newname.$imageExtension";
             if(!move_uploaded_file($_FILES["image"]["tmp_name"], $newfilename)){
                 die("l'upload a échoué");
             }

@@ -33,7 +33,6 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
       <table class="w-full text-sm text-left rtl:text-right text-gray-500">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b">
           <tr>
-            <th scope="col" class="px-2 py-3">id</th>
             <th scope="col" class="px-2 py-3">Prénom</th>
             <th scope="col" class="px-2 py-3">Nom</th>
             <th scope="col" class="px-2 py-3">Email</th>
@@ -47,7 +46,6 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
         <tbody>
           <?php foreach ($users as $user): ?>
             <tr>
-              <td><?=$user["id"]?></td>
               <td><?=$user["first_name"]?></td>
               <td><?=$user["last_name"]?></td>
               <td><?=$user["email"]?></td>

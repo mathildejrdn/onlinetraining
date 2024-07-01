@@ -1,4 +1,14 @@
-<?php include('./includes/navbar.php'); ?>
+<?php 
+
+require_once("connect.php");
+
+$sql = "SELECT * FROM products";
+
+$query=$db->prepare($sql);
+$query->execute();
+
+$products= $query->fetchAll(PDO::FETCH_ASSOC);
+include('./includes/navbar.php'); ?>
 <!doctype html>
 <html lang="fr">
 <head>
@@ -29,6 +39,24 @@
   <a href="../client_side/signup.php">Formulaire d'inscription</a>
   <a href="../client_side/panier.php">panier</a>
 
+  <?php
+  foreach($products as $product){?>
+  <section>
+    <article><a href="product.php?id=<?=$product["id"]?>">
+      <img src="<?=$product["image"]?>" alt="">
+      <div class="info-article">
+        <div class="article-name">
+          <span><?=$product["type_de_produits"]?></span>
+        </div>
+        <div class="article-price">
+        <span><?=$product["prix"]?>€</span>
+        </div>
+      </div></a>
+      
+    </article>
+  </section>
+  <?php
+  }?>
 
   <?php 
     include 'client_side/contact.php';

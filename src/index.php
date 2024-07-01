@@ -85,7 +85,11 @@ include('./includes/navbar.php'); ?>
   foreach($products as $product){?>
   <section>
     <article><a href="product.php?id=<?=$product["id"]?>">
-      <img src="<?=$product["image"]?>" alt="">
+    <?php
+            $imagePath=$product["image"];
+            $class = 'back_office/' . $imagePath; 
+            ?>
+      <img src="<?=$class?>" alt="">
       <div class="info-article">
         <div class="article-name">
           <span><?=$product["type_de_produits"]?></span>

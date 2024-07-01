@@ -1,11 +1,12 @@
 <?php
 if(!empty($_POST))
 {
-    if(isset($_POST["ref"], $_POST["marque"], $_POST["type"], $_POST["couleur"], $_POST["matiere"], $_POST["motif"], $_POST["taille"], $_POST["genre"], $_POST["stock"], $_POST["prix"]) && !empty($_POST["ref"]) && !empty($_POST["marque"]) && !empty($_POST["type"]) && !empty($_POST["couleur"]) && !empty($_POST["matiere"]) && !empty($_POST["motif"]) && !empty($_POST["taille"]) && !empty($_POST["genre"])&& !empty($_POST["stock"]) && !empty($_POST["prix"]))
+    if(isset($_POST["ref"], $_POST["marque"], $_POST["type"], $_POST["nom"], $_POST["couleur"], $_POST["matiere"], $_POST["motif"], $_POST["taille"], $_POST["genre"], $_POST["stock"], $_POST["prix"], $_POST["description"]) && !empty($_POST["ref"]) && !empty($_POST["marque"]) && !empty($_POST["type"]) && !empty($_POST["nom"]) && !empty($_POST["couleur"]) && !empty($_POST["matiere"]) && !empty($_POST["motif"]) && !empty($_POST["taille"]) && !empty($_POST["genre"])&& !empty($_POST["stock"]) && !empty($_POST["prix"]) && !empty($_POST["description"]))
 
     $ref= strip_tags($_POST["ref"]);
     $marque= strip_tags($_POST["marque"]);
     $type= strip_tags($_POST["type"]);
+    $nom= strip_tags($_POST["nom"]);
     $couleur= strip_tags($_POST["couleur"]);
     $matiere= strip_tags($_POST["matiere"]);
     $motif= strip_tags($_POST["motif"]);
@@ -13,6 +14,7 @@ if(!empty($_POST))
     $genre= strip_tags($_POST["genre"]);
     $stock= strip_tags($_POST["stock"]);
     $prix= strip_tags($_POST["prix"]);
+    $description= strip_tags($_POST["description"]);
 
     if (isset($_FILES["image"]) && $_FILES["image"]["error"] === UPLOAD_ERR_OK) 
         {
@@ -35,7 +37,7 @@ if(!empty($_POST))
             // uniqid est un TIMESTAMP et md5 permet de le chiffré histoire d'avoir un string aléatoire
             $newname=md5(uniqid());
             // on génère le chemin complet vers le fichier:
-            $newfilename = "back_office/uploads/$newname.$imageExtension";
+            $newfilename = "uploads/$newname.$imageExtension";
             if(!move_uploaded_file($_FILES["image"]["tmp_name"], $newfilename)){
                 die("l'upload a échoué");
             }
@@ -43,12 +45,13 @@ if(!empty($_POST))
             require_once("../connect.php");
 
              // Écrire la requête
-             $sql = "INSERT INTO `products`(`reference_produit`, `marque`, `image`, `type_de_produits`, `couleur`, `matiere`, `stock`, `motif`,`taille`,`genre`,`prix`) VALUES (:reference_produit, :marque, :image, :type_de_produits, :couleur, :matiere, :stock, :motif, :taille, :genre, :prix)";
+             $sql = "INSERT INTO `products`(`reference_produit`, `marque`, `image`, `type_de_produits`, `nom`, `couleur`, `matiere`, `stock`, `motif`,`taille`,`genre`,`prix`,`description`) VALUES (:reference_produit, :marque, :image, :type_de_produits, :nom, :couleur, :matiere, :stock, :motif, :taille, :genre, :prix, :description)";
              $query = $db->prepare($sql);
              $query->bindValue(":reference_produit", $ref, PDO::PARAM_INT);
              $query->bindValue(":marque", $marque, PDO::PARAM_STR);
              $query->bindValue(":image", $newfilename, PDO::PARAM_STR);
              $query->bindValue(":type_de_produits", $type, PDO::PARAM_STR);
+             $query->bindValue(":nom", $nom, PDO::PARAM_STR);
              $query->bindValue(":couleur", $couleur, PDO::PARAM_STR);
              $query->bindValue(":matiere", $matiere, PDO::PARAM_STR);
              $query->bindValue(":stock", $stock, PDO::PARAM_INT);
@@ -56,6 +59,7 @@ if(!empty($_POST))
              $query->bindValue(":taille", $taille, PDO::PARAM_STR);
              $query->bindValue(":genre", $genre, PDO::PARAM_STR);
              $query->bindValue(":prix", $prix, PDO::PARAM_INT);
+             $query->bindValue(":description", $description, PDO::PARAM_STR);
 
              $query->execute();
             header("Location: products.php");
@@ -92,10 +96,28 @@ if(!empty($_POST))
             <label for="marque" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Marque</label>
         </div>
         
-        <!-- Type de produits -->
+        <!-- Categorie -->
+        <!-- // Requête pour récupérer les catégories -->
+         <?php
+        
+        $sql = "SELECT * FROM categories";
+        $query = $db->prepare($sql);
+        $categorie = $query->fecth();
+        ?>
         <div class="relative z-0 w-full mb-5 group">
-            <input type="text" name="type" id="type" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
-            <label for="type" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Type de produits</label>
+            <select name="categorie" id="categorie" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" required>
+                <option value="" disabled selected></option>
+                <option value=""></option>
+                <option value=""></option>
+                <option value=""></option>
+            </select>
+            <label for="categorie" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Categorie</label>
+        </div>
+
+        <!-- Nom du prodnom -->
+        <div class="relative z-0 w-full mb-5 group">
+            <input type="text" name="nom" id="nom" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+            <label for="nom" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nom du produit</label>
         </div>
         
         <!-- Couleur -->
@@ -115,7 +137,13 @@ if(!empty($_POST))
             <input type="text" name="motif" id="motif" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
             <label for="motif" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Motif</label>
         </div>
-        
+
+        <!-- description -->
+        <div class="relative z-0 w-full mb-5 group">
+            <textarea name="description" id="description" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required></textarea>
+            <label for="description" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Description</label>
+        </div>
+
         <!-- Taille -->
         <div class="relative z-0 w-full mb-5 group">
             <input type="text" name="taille" id="taille" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
@@ -125,7 +153,7 @@ if(!empty($_POST))
         <!-- Sexe -->
         <div class="relative z-0 w-full mb-5 group">
             <input type="text" name="genre" id="genre" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
-            <label for="genre" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peexlate-y-6">Sexe</label>
+            <label for="genre" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peexlate-y-6">Genre</label>
         </div>
         
         <!-- Quantité en stock -->

@@ -47,12 +47,14 @@ $produits = $query->fetchAll(PDO::FETCH_ASSOC);
               <th scope="col" class="px-6 py-3">Référence produit</th>
               <th scope="col" class="px-6 py-3">Image</th>
               <th scope="col" class="px-6 py-3">Marque</th>
-              <th scope="col" class="px-6 py-3">Type de produit</th>
+              <th scope="col" class="px-6 py-3">Nom</th>
+              <th scope="col" class="px-6 py-3">Catégorie</th>
               <th scope="col" class="px-6 py-3">Couleur</th>
               <th scope="col" class="px-6 py-3">Matière</th>
               <th scope="col" class="px-6 py-3">Motif</th>
               <th scope="col" class="px-6 py-3">Taille</th>
               <th scope="col" class="px-6 py-3">Genre</th>
+              <th scope="col" class="px-6 py-3">Description</th>
               <th scope="col" class="px-6 py-3">Quantité en stock</th>
               <th scope="col" class="px-6 py-3">Prix hors taxe</th>
               <th scope="col" class="px-6 py-3">Action</th>
@@ -78,12 +80,14 @@ $produits = $query->fetchAll(PDO::FETCH_ASSOC);
                     <img src="<?=$produit["image"]?>" alt="photo de<?=$produit["reference_produit"]?>" class="w-8 h-8">
                   </td>
                   <td class="px-6 py-4"><?=$produit["marque"]?></td>
+                  <td class="px-6 py-4"><?=$produit["nom"]?></td>
                   <td class="px-6 py-4"><?=$produit["type_de_produits"]?></td>
                   <td class="px-6 py-4"><?=$produit["couleur"]?></td>
                   <td class="px-6 py-4"><?=$produit["matiere"]?></td>
                   <td class="px-6 py-4"><?=$produit["motif"]?></td>
                   <td class="px-6 py-4"><?=$produit["taille"]?></td>
                   <td class="px-6 py-4"><?=$produit["genre"]?></td>
+                  <td class="px-6 py-4"><?=$produit["description"]?></td>
                   <td class="px-6 py-4"><?=$produit["stock"]?></td>
                   <td class="px-6 py-4"><?=$produit["prix"]?></td>
                   <td class="flex items-center px-6 py-4">

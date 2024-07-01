@@ -21,7 +21,7 @@
       </ul>
     </li>
     <li>
-      <a href="comptabilite.php" class="block py-2 px-4 bg-white border-b border-gray-300 hover:bg-gray-100">Comptabilité</a>
+      <a href="sales.php" class="block py-2 px-4 bg-white border-b border-gray-300 hover:bg-gray-100">Comptabilité</a>
     </li>
     <li>
       <a href="userlist.php" class="block py-2 px-4 bg-white border-b border-gray-300 hover:bg-gray-100">Gestion des utilisateurs</a>

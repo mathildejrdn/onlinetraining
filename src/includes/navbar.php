@@ -71,46 +71,43 @@ session_start();
   </div>
 </nav>
 
-<script>// JavaScript for dropdown toggle
+<script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Function to handle dropdown toggle
+  // Fonction pour gérer l'ouverture/fermeture des dropdowns
   function handleDropdownToggle(event) {
     const target = event.currentTarget;
     const dropdownId = target.getAttribute('data-dropdown-toggle');
     const dropdown = document.getElementById(dropdownId);
     
     if (dropdown.classList.contains('hidden')) {
-      // Show dropdown
+      // Afficher le dropdown
       dropdown.classList.remove('hidden');
       dropdown.classList.add('block');
       target.setAttribute('aria-expanded', 'true');
     } else {
-      // Hide dropdown
+      // Masquer le dropdown
       dropdown.classList.remove('block');
       dropdown.classList.add('hidden');
       target.setAttribute('aria-expanded', 'false');
     }
   }
 
-  // Get all dropdown toggles and add click event listener
+  // Sélectionner tous les toggles de dropdown et ajouter un écouteur d'événement 'click'
   const dropdownToggles = document.querySelectorAll('[data-dropdown-toggle]');
   dropdownToggles.forEach(function(toggle) {
     toggle.addEventListener('click', handleDropdownToggle);
   });
 
-  // Close dropdowns when clicking outside
+  // Fermer les dropdowns lorsqu'on clique en dehors
   document.addEventListener('click', function(event) {
     const isClickInsideNavbar = event.target.closest('.max-w-screen-xl') !== null;
     if (!isClickInsideNavbar) {
-      const dropdowns = document.querySelectorAll('.dropdown-menu');
-      dropdowns.forEach(function(dropdown) {
+      dropdownToggles.forEach(function(toggle) {
+        const dropdownId = toggle.getAttribute('data-dropdown-toggle');
+        const dropdown = document.getElementById(dropdownId);
         dropdown.classList.remove('block');
         dropdown.classList.add('hidden');
-        const toggleId = dropdown.getAttribute('aria-labelledby');
-        const toggle = document.querySelector('[data-dropdown-toggle="' + toggleId + '"]');
-        if (toggle) {
-          toggle.setAttribute('aria-expanded', 'false');
-        }
+        toggle.setAttribute('aria-expanded', 'false');
       });
     }
   });
@@ -128,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
       menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
 
-    // Close menu when clicking outside
+    // Fermer le menu lorsqu'on clique en dehors
     document.addEventListener('click', function(event) {
       const isClickInsideNavbar = event.target.closest('.max-w-screen-xl') !== null;
       if (!isClickInsideNavbar && navbarDropdown.classList.contains('block')) {
@@ -139,5 +136,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
-
 </script>
+
+

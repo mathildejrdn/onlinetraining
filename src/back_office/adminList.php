@@ -32,12 +32,10 @@ $admins= $query->fetchAll(PDO::FETCH_ASSOC);
       <table class="w-full text-sm text-left rtl:text-right text-gray-500">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b">
           <tr>
-            <th scope="col" class="px-2 py-3">id</th>
             <th scope="col" class="px-2 py-3">Prénom</th>
             <th scope="col" class="px-2 py-3">Nom</th>
             <th scope="col" class="px-2 py-3">Email</th>
             <th scope="col" class="px-2 py-3">Date de naissance</th>
-            <th scope="col" class="px-2 py-3">Adresse</th>
             <th scope="col" class="px-2 py-3">N° de téléphone</th>
             <th scope="col" class="px-2 py-3">Genre</th>
             <th scope="col" class="px-2 py-3">Rôles</th>
@@ -47,19 +45,17 @@ $admins= $query->fetchAll(PDO::FETCH_ASSOC);
         <tbody>
           <?php foreach ($admins as $admin): ?>
             <tr>
-              <td><?=$admin["id"]?></td>
               <td><?=$admin["first_name"]?></td>
               <td><?=$admin["last_name"]?></td>
               <td><?=$admin["email"]?></td>
               <td><?=$admin["birth_date"]?></td>
-              <td><?=$admin["adress"]?></td>
               <td><?=$admin["phone_number"]?></td>
               <td><?=$admin["genre"]?></td>
-              <td></td>
+              <td><?=$admin["role"]?></td>
               <td>
                 <a href="#" onclick="confirmAdminTransfer(<?= $admin['id'] ?>)">Basculer en utilisateur</a>
                 <a href="deleteAdmin.php?id=<?= $admin['id']?>">SUPPRIMER</a>
-                <a href="edit_user.php?id=<?= $user['id']?>">Ajouter un métier</a>
+                <a href="edit_user.php?id=<?= $admin['id']?>">Ajouter un métier</a>
               </td>
             </tr>
           <?php endforeach; ?>    

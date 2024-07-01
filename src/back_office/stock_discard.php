@@ -1,0 +1,1 @@
+pertes dans les stocks

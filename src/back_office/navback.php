@@ -16,8 +16,8 @@
       </a>
       <ul id="logistique-dropdown" class="hidden flex-col bg-white border border-gray-300 w-full z-10 mt-1">
         <li><a href="orders.php" class="block py-2 px-4 hover:bg-gray-100">Bons de commandes</a></li>
-        <li><a href="retours_pertes.php" class="block py-2 px-4 hover:bg-gray-100">Retours & pertes</a></li>
-        <li><a href="commandes_terminees.php" class="block py-2 px-4 hover:bg-gray-100">Commandes terminées</a></li>
+        <li><a href="stock_discard.php" class="block py-2 px-4 hover:bg-gray-100">Retours & pertes</a></li>
+        <li><a href="orders_finished.php" class="block py-2 px-4 hover:bg-gray-100">Commandes terminées</a></li>
       </ul>
     </li>
     <li>

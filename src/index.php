@@ -80,25 +80,6 @@ include('./includes/navbar.php'); ?>
 
 <script src="https://unpkg.com/@themesberg/flowbite@1.1.1/dist/flowbite.bundle.js"></script>
 <script src="https://unpkg.com/flowbite@1.4.1/dist/flowbite.js"></script>
-  <?php 
-    include 'client_side/contact.php';
-
-  ?> 
-
-  
-<!-- <a href="../back_office/add_category.php">Ajouter une catégorie (super amdin)</a>
-  <a href="../back_office/userlist.php">Liste des users (super admin)</a> <br>
-  <a href="../back_office/inbox.php">Messagerie</a>
-  <a href="../back_office/orders.php">Commades</a>
-  <a href="../back_office/edit_orders.php">Editer une commade</a>
-  <a href="../back_office/products.php">Produits</a>
-  <a href="../back_office/add_product.php">Ajouter un produit</a>
-  <a href="../back_office/add_category.php">Editer un produit</a>
-  <br>
-  <a href="../client_side/contact.php">Formulaire de contact</a>
-  <a href="../client_side/login.php">Formulaire de connection</a>
-  <a href="../client_side/signup.php">Formulaire d'inscription</a>
-  <a href="../client_side/panier.php">panier</a>
 
   <?php
   foreach($products as $product){?>
@@ -117,12 +98,27 @@ include('./includes/navbar.php'); ?>
     </article>
   </section>
   <?php
-  }?>
-
-  <?php 
-    include 'client_side/contact.php';
+  }
+  include 'client_side/contact.php';
 
   ?> 
+
+  
+<!-- <a href="../back_office/add_category.php">Ajouter une catégorie (super amdin)</a>
+  <a href="../back_office/userlist.php">Liste des users (super admin)</a> <br>
+  <a href="../back_office/inbox.php">Messagerie</a>
+  <a href="../back_office/orders.php">Commades</a>
+  <a href="../back_office/edit_orders.php">Editer une commade</a>
+  <a href="../back_office/products.php">Produits</a>
+  <a href="../back_office/add_product.php">Ajouter un produit</a>
+  <a href="../back_office/add_category.php">Editer un produit</a>
+  <br>
+  <a href="../client_side/contact.php">Formulaire de contact</a>
+  <a href="../client_side/login.php">Formulaire de connection</a>
+  <a href="../client_side/signup.php">Formulaire d'inscription</a>
+  <a href="../client_side/panier.php">panier</a>
+
+  
 
 </body>
 </html>

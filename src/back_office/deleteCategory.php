@@ -3,25 +3,24 @@ session_start();
 
 if(isset($_GET["id"]) && !empty($_GET["id"])){
     require_once("../connect.php");
-
-    $id = strip_tags($_GET['id']);
-    $sql = "SELECT * FROM administrateurs WHERE id = :id";
-    $query =$db->prepare($sql);
+    $id = strip_tags($_GET["id"]);
+    $sql="SELECT * FROM categories WHERE id = :id";
+    $query=$db->prepare($sql);
     $query->bindValue(":id", $id, PDO::PARAM_INT);
     $query->execute();
-    $admin = $query->fetch();
+    $categorie= $query->fetch();
 
-    if(!$admin){
+    if(!$categorie){
         header("Location: ../index.php");
         exit;
     } else {
-        $sql= "DELETE FROM administrateurs WHERE id = :id";
+        $sql= "DELETE FROM categories WHERE id = :id";
         $query = $db->prepare($sql);
         $query->bindValue(":id", $id, PDO::PARAM_INT);
         $query->execute();
-        header("Location: adminList.php");
+        header("Location: categories.php");
         exit;
     }
 } else {
-    die("l'administrateur n'est pas supprimé");
+    die("la catégorie n'est pas supprimée");
 }

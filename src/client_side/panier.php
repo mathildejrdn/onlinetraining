@@ -15,12 +15,11 @@ if (!isset($_SESSION['panier'])) {
 function ajouterAuPanier($id, $nomProduit, $quantite, $prix) {
     $nomProduit = htmlspecialchars($nomProduit);
     $quantite = (int)$quantite;
-     $prix = (float)$prix;
+    $prix = (float)$prix;
 
     if (isset($_SESSION['panier'][$id])) {
         $_SESSION['panier'][$id]['quantite'] += $quantite;
-        $_SESSION['panier'][$id]['prix_unitaire'] += $prix =
-        $_SESSION['panier'][$id]['prix_total'] += $prix * $quantite;
+        $_SESSION['panier'][$id]['prix_total'] = $_SESSION['panier'][$id]['prix_unitaire'] * $_SESSION['panier'][$id]['quantite'];
     } else {
         $_SESSION['panier'][$id] = array(
             'nomProduit' => $nomProduit,
@@ -85,7 +84,7 @@ if (isset($_GET['action'])) {
     switch ($_GET['action']) {
         case 'add':
             if (isset($_GET['id']) && isset($_GET['nomProduit']) && isset($_GET['quantite']) && isset($_GET['prix'])) {
-                ajouterAuPanier($_GET['id'], $_GET['nomProduit'], $_GET['quantite'], $_GET['quantite'], $_GET['prix']);
+                ajouterAuPanier($_GET['id'], $_GET['nomProduit'], $_GET['quantite'], $_GET['prix']);
             }
             break;
         case 'update':
@@ -97,6 +96,10 @@ if (isset($_GET['action'])) {
             if (isset($_GET['id'])) {
                 supprimerDuPanier($_GET['id']);
             }
+            break;
+        case 'validate':
+            echo "Commande validée !";
+            $_SESSION['panier'] = array();
             break;
     }
 }
@@ -118,7 +121,22 @@ afficherPanier();
 
 <body>
 
-    <a href="panier.php?action=add&id=ID_DU_PRODUIT&nomProduit=NomDuProduit&quantite&prix=1">Retourner à la boutique</a>
+    <h1>Panier de la commande</h1>
+
+    <form action="panier.php" method="GET">
+        <input type="hidden" name="action" value="add">
+        <label for="id">Numéro du produit</label>
+        <input type="text" name="id" id="id" required>
+        <label for="nomProduit">Nom du produit</label>
+        <input type="text" name="nomProduit" id="nomProduit" required>
+        <label for="quantite">Quantité</label>
+        <input type="number" name="quantite" id="quantite" required>
+        <label for="prix">Prix unitaire :</label>
+        <input type="number" name="prix" id="prix" required>
+        <input type="submit" value="Ajouter au panier">
+    </form>
+
+    <a href="#">Retourner à la boutique</a>
 
 </body>
 

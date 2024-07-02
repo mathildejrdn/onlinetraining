@@ -3,7 +3,10 @@ session_start();
 include("../connect.php");
 if(!$_SESSION['email']){
 header("Location: connexion.php");
+
 }
+$myId = $_SESSION['id'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,8 +20,9 @@ header("Location: connexion.php");
 <body>
 
    <?php 
-   $recupUser = $db->query("SELECT * FROM administrateurs");
-
+   $recupUser = $db->prepare("SELECT * FROM administrateurs WHERE id != :myId");
+   $recupUser->bindValue(':myId', $myId, PDO::PARAM_INT);
+   $recupUser->execute();
    //AFFICHER UN BOUCLE POUR MONTRER LES ADMIN
    while($administrateur = $recupUser->fetch()){
     ?>

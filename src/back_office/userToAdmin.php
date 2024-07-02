@@ -16,7 +16,7 @@ if(isset($_GET["id"]) && !empty($_GET["id"])){
         exit;
 
     } else {
-        $sql = "INSERT INTO `administrateurs` (`first_name`, `last_name`,`password`, `birth_date`, `adress`, `phone_number`, `email`, `genre`) VALUE (:first_name, :last_name, :password, :birth_date, :adress, :phone_number, :email, :genre)";
+        $sql = "INSERT INTO `administrateurs` (`first_name`, `last_name`,`password`, `birth_date`, `adress`, `phone_number`, `email`, `genre`, `role`) VALUE (:first_name, :last_name, :password, :birth_date, :adress, :phone_number, :email, :genre, :role)";
 
         $query = $db->prepare($sql);
         $query->bindValue(":first_name",  $user["first_name"]);
@@ -27,6 +27,7 @@ if(isset($_GET["id"]) && !empty($_GET["id"])){
         $query->bindValue(":phone_number",  $user["phone_number"], PDO::PARAM_INT);
         $query->bindValue(":email",  $user["email"]);
         $query->bindValue(":genre",  $user["genre"]);
+        $query->bindValue(":role",  $user["role"]);
         
         $query->execute();
      

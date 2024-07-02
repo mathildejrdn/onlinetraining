@@ -113,6 +113,7 @@ unset($_SESSION["error"]);
             </select>
             <label for="genre" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Sexe</label>
         </div>
+        <input type="hidden" name="role">
         <div id="signup_btn">
             <button type="submit" class="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600">M'inscrire</button>
         </div>
@@ -122,10 +123,10 @@ unset($_SESSION["error"]);
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        var form = document.getElementById("signup_form");
+        let form = document.getElementById("signup_form");
         form.addEventListener("submit", function(event) {
-            var pass1 = document.getElementById("pass").value;
-            var pass2 = document.getElementById("pass2").value;
+            let pass1 = document.getElementById("pass").value;
+            let pass2 = document.getElementById("pass2").value;
 
             if (pass1 !== pass2) {
                 alert("Les mots de passe ne correspondent pas !");

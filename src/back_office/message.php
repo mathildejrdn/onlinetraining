@@ -19,7 +19,7 @@ if(isset($_GET['id']) AND !empty($_GET['id'])){
             $date_message = date("Y-m-d H:i:s");
             $filePath = '';
 
-// Обработка файла
+// File
 if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] == 0) {
     $fileName = basename($_FILES['attachment']['name']);
     $filePath = '../messages/uploads/' . $fileName;
@@ -63,10 +63,10 @@ if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] == 0) {
 </head>
 <body>
     <form action="" method="POST" enctype="multipart/form-data">
-    <label for="message">Сообщение:</label>
+    <label for="message">Message:</label>
       <textarea name="message" id=""></textarea>
       <br>  <br>
-      <label for="attachment">Файл:</label>
+      <label for="attachment">File:</label>
         <input type="file"  name="attachment"><br>
       <input type="submit" name="envoyer">
     </form>

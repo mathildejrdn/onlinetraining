@@ -15,7 +15,7 @@
   
   .container img {
     height: auto; 
-    max-width: 25%; 
+    max-width: 50%; 
   }
   
   @media (min-width: 768px) {
@@ -23,9 +23,9 @@
       flex-direction: row;
     }
     .container img {
-      width: 50%; /* 50% de la largeur du conteneur parent */
-      height: auto; /* Mise à l'échelle proportionnelle */
-      max-width: 50%; /* Empêche l'étirement */
+      width: 25%; 
+      height: auto; 
+      
     }
   }
   

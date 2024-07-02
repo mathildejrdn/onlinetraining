@@ -18,16 +18,13 @@ include('./includes/navbar.php'); ?>
   <link rel="stylesheet" href="./styles/output.css">
   <link rel="stylesheet" href="reset.css">
   <link rel="stylesheet" href="font.css">
-
 </head>
 <body>
 <?php 
     include 'includes/header.php';
-
   ?> 
   <?php 
     include 'client_side/contact.php';
-
   ?> 
 
   <br>
@@ -56,7 +53,7 @@ include('./includes/navbar.php'); ?>
       <img src="<?=$class?>" alt="">
       <div class="info-article">
         <div class="article-name">
-          <span><?=$product["categorie"]?></span>
+          <span><?=$product["type_de_produits"]?></span>
         </div>
         <div class="article-price">
         <span><?=$product["prix"]?>€</span>

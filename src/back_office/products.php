@@ -81,7 +81,7 @@ $produits = $query->fetchAll(PDO::FETCH_ASSOC);
                   </td>
                   <td class="px-6 py-4"><?=$produit["marque"]?></td>
                   <td class="px-6 py-4"><?=$produit["nom"]?></td>
-                  <td class="px-6 py-4"><?=$produit["type_de_produits"]?></td>
+                  <td class="px-6 py-4"><?=$produit["categorie"]?></td>
                   <td class="px-6 py-4"><?=$produit["couleur"]?></td>
                   <td class="px-6 py-4"><?=$produit["matiere"]?></td>
                   <td class="px-6 py-4"><?=$produit["motif"]?></td>

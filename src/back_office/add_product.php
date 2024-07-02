@@ -1,11 +1,11 @@
 <?php
 if(!empty($_POST))
 {
-    if(isset($_POST["ref"], $_POST["marque"], $_POST["type"], $_POST["nom"], $_POST["couleur"], $_POST["matiere"], $_POST["motif"], $_POST["taille"], $_POST["genre"], $_POST["stock"], $_POST["prix"], $_POST["description"]) && !empty($_POST["ref"]) && !empty($_POST["marque"]) && !empty($_POST["type"]) && !empty($_POST["nom"]) && !empty($_POST["couleur"]) && !empty($_POST["matiere"]) && !empty($_POST["motif"]) && !empty($_POST["taille"]) && !empty($_POST["genre"])&& !empty($_POST["stock"]) && !empty($_POST["prix"]) && !empty($_POST["description"]))
+    if(isset($_POST["ref"], $_POST["marque"], $_POST["categorie"], $_POST["nom"], $_POST["couleur"], $_POST["matiere"], $_POST["motif"], $_POST["taille"], $_POST["genre"], $_POST["stock"], $_POST["prix"], $_POST["description"]) && !empty($_POST["ref"]) && !empty($_POST["marque"]) && !empty($_POST["categorie"]) && !empty($_POST["nom"]) && !empty($_POST["couleur"]) && !empty($_POST["matiere"]) && !empty($_POST["motif"]) && !empty($_POST["taille"]) && !empty($_POST["genre"])&& !empty($_POST["stock"]) && !empty($_POST["prix"]) && !empty($_POST["description"]))
 
     $ref= strip_tags($_POST["ref"]);
     $marque= strip_tags($_POST["marque"]);
-    $type= strip_tags($_POST["type"]);
+    $categorie= strip_tags($_POST["categorie"]);
     $nom= strip_tags($_POST["nom"]);
     $couleur= strip_tags($_POST["couleur"]);
     $matiere= strip_tags($_POST["matiere"]);
@@ -42,15 +42,15 @@ if(!empty($_POST))
                 die("l'upload a échoué");
             }
             // Se connecter à la base de données
-            require_once("../connect.php");
+            require("../connect.php");
 
              // Écrire la requête
-             $sql = "INSERT INTO `products`(`reference_produit`, `marque`, `image`, `type_de_produits`, `nom`, `couleur`, `matiere`, `stock`, `motif`,`taille`,`genre`,`prix`,`description`) VALUES (:reference_produit, :marque, :image, :type_de_produits, :nom, :couleur, :matiere, :stock, :motif, :taille, :genre, :prix, :description)";
+             $sql = "INSERT INTO `products`(`reference_produit`, `marque`, `image`, `categorie`, `nom`, `couleur`, `matiere`, `stock`, `motif`,`taille`,`genre`,`prix`,`description`) VALUES (:reference_produit, :marque, :image, :categorie, :nom, :couleur, :matiere, :stock, :motif, :taille, :genre, :prix, :description)";
              $query = $db->prepare($sql);
              $query->bindValue(":reference_produit", $ref, PDO::PARAM_INT);
              $query->bindValue(":marque", $marque, PDO::PARAM_STR);
              $query->bindValue(":image", $newfilename, PDO::PARAM_STR);
-             $query->bindValue(":type_de_produits", $type, PDO::PARAM_STR);
+             $query->bindValue(":categorie", $categorie, PDO::PARAM_STR);
              $query->bindValue(":nom", $nom, PDO::PARAM_STR);
              $query->bindValue(":couleur", $couleur, PDO::PARAM_STR);
              $query->bindValue(":matiere", $matiere, PDO::PARAM_STR);
@@ -95,26 +95,25 @@ if(!empty($_POST))
             <input type="text" name="marque" id="marque" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
             <label for="marque" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Marque</label>
         </div>
-        
-        <!-- Categorie -->
-        <!-- // Requête pour récupérer les catégories -->
          <?php
-        
-        $sql = "SELECT * FROM categories";
-        $query = $db->prepare($sql);
-        $categorie = $query->fecth();
-        ?>
+                require("../connect.php");
+                $sql = "SELECT * FROM categories";
+                $query = $db->prepare($sql);
+                $query->execute();
+                $categories = $query->fetchAll(PDO::FETCH_ASSOC);
+                ?>
+        <!-- Categorie -->
         <div class="relative z-0 w-full mb-5 group">
             <select name="categorie" id="categorie" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" required>
-                <option value="" disabled selected></option>
-                <option value=""></option>
-                <option value=""></option>
-                <option value=""></option>
+                <option value="" disabled selected>Choisir une catégorie</option>
+                <?php foreach($categories as $categorie):?>
+                <option value="<?=$categorie["id"]?>"><?=$categorie["nom_categorie"]?></option>
+                <?php endforeach;?>
             </select>
             <label for="categorie" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Categorie</label>
         </div>
 
-        <!-- Nom du prodnom -->
+        <!-- Nom du produit-->
         <div class="relative z-0 w-full mb-5 group">
             <input type="text" name="nom" id="nom" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
             <label for="nom" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Nom du produit</label>
@@ -152,8 +151,12 @@ if(!empty($_POST))
         
         <!-- Sexe -->
         <div class="relative z-0 w-full mb-5 group">
-            <input type="text" name="genre" id="genre" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
-            <label for="genre" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peexlate-y-6">Genre</label>
+            <select name="genre" id="genre" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" required>
+                <option value="" disabled selected>Choisir une catégorie</option>
+                <option value="homme">Homme</option>
+                <option value="femme">Femme</option>
+            </select>
+            <label for="genre" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Genre</label>
         </div>
         
         <!-- Quantité en stock -->
@@ -175,7 +178,6 @@ if(!empty($_POST))
         </div>
         
         <!-- Bouton Envoyer -->
- 
         <div id="bouton">
         <div id="previsualiser" class="mt-4 text-center">
     <a href="signup.php" class="text-red-700 hover:underline inline-flex items-center space-x-2">

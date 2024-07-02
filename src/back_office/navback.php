@@ -33,9 +33,9 @@
 
   <!-- Bouton de déconnexion -->
   <div class="flex justify-center">
-    <button type="submit" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 w-full max-w-xs mx-auto mt-4">
+    <button type="submit" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 w-full max-w-xs mx-auto mt-4"><a href="../client_side/logout.php">
       Déconnexion
-    </button>
+    </a></button>
   </div>
 </nav>
 

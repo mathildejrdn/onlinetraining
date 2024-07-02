@@ -1,3 +1,21 @@
+<?php
+session_start();
+require_once("../connect.php");
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    try {
+        // Traiter les actions POST si nécessaire
+        
+        $_SESSION['orders'] = "Actions POST traitées avec succès.";
+    } catch (PDOException $e) {
+        $_SESSION['orders'] = "Erreur lors du traitement des actions POST : " . $e->getMessage();
+    }
+
+    header('Location: orders.php');
+    exit;
+}
+?>
+
 <!doctype html>
 <html lang="fr">
 <head>
@@ -14,7 +32,7 @@
   <div class="flex-1 p-6">
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
       <form class="max-w-md mx-auto mb-5">
-        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Search</label>
+        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">Recherche</label>
         <div class="relative">
           <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
             <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
@@ -25,13 +43,12 @@
           <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-red-700 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2">Rechercher</button>
         </div>
       </form>
-      <form action="deleteOrders.php" method="post">
+      <form action="orders_finished.php" method="post">
         <table class="w-full text-sm text-left text-gray-500">
           <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
               <th scope="col" class="px-6 py-3">Numéro de commande</th>
               <th scope="col" class="px-6 py-3">Date de la commande</th>
-              <th scope="col" class="px-6 py-3">Date de clôture</th>
               <th scope="col" class="px-6 py-3">Apprenant(e)</th>
               <th scope="col" class="px-6 py-3">Actions</th>
             </tr>
@@ -40,20 +57,13 @@
             <tr class="bg-white border-b hover:bg-gray-50">
               <td class="px-6 py-4">CMD001</td>
               <td class="px-6 py-4">2023-06-15</td>
-              <td class="px-6 py-4">-</td>
               <td class="px-6 py-4">John Doe</td>
               <td class="flex items-center px-6 py-4 space-x-2">
-                <a href="order_details.php?id=1" class="font-medium text-blue-600 hover:underline flex items-center space-x-1">
-                  <svg class="w-6 h-6 text-blue-600 hover:text-blue-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M10.779 17.779 4.36 19.918 6.5 13.5m4.279 4.279 8.364-8.643a3.027 3.027 0 0 0-2.14-5.165 3.03 3.03 0 0 0-2.14.886L6.5 13.5m4.279 4.279L6.499 13.5m2.14 2.14 6.213-6.504M12.75 7.04 17 11.28"/>
-                  </svg>
-                  <span>Détails</span>
-                </a>
-                <a href="order_archive.php?id=1" class="font-medium text-green-600 hover:underline flex items-center space-x-1">
+                <a href="orders.php" class="font-medium text-green-600 hover:underline flex items-center space-x-1">
                   <svg class="w-6 h-6 text-green-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 7 2 2 4-4m-5-9v4h4V3h-4Z"/>
                   </svg>
-                  <span>Désarchiver </span>
+                  <span>Désarchiver</span>
                 </a>
                 <a href="delete_order.php?id=1" class="font-medium text-red-600 hover:underline flex items-center space-x-1">
                   <svg class="w-6 h-6 text-red-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -66,20 +76,13 @@
             <tr class="bg-white border-b hover:bg-gray-50">
               <td class="px-6 py-4">CMD002</td>
               <td class="px-6 py-4">2023-06-16</td>
-              <td class="px-6 py-4">-</td>
               <td class="px-6 py-4">Jane Smith</td>
               <td class="flex items-center px-6 py-4 space-x-2">
-                <a href="order_details.php?id=2" class="font-medium text-blue-600 hover:underline flex items-center space-x-1">
-                  <svg class="w-6 h-6 text-blue-600 hover:text-blue-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M10.779 17.779 4.36 19.918 6.5 13.5m4.279 4.279 8.364-8.643a3.027 3.027 0 0 0-2.14-5.165 3.03 3.03 0 0 0-2.14.886L6.5 13.5m4.279 4.279L6.499 13.5m2.14 2.14 6.213-6.504M12.75 7.04 17 11.28"/>
-                  </svg>
-                  <span>Détails</span>
-                </a>
-                <a href="order_archive.php?id=2" class="font-medium text-green-600 hover:underline flex items-center space-x-1">
+                <a href="orders.php" class="font-medium text-green-600 hover:underline flex items-center space-x-1">
                   <svg class="w-6 h-6 text-green-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 7 2 2 4-4m-5-9v4h4V3h-4Z"/>
                   </svg>
-                  <span>Désarchiver </span>
+                  <span>Désarchiver</span>
                 </a>
                 <a href="delete_order.php?id=2" class="font-medium text-red-600 hover:underline flex items-center space-x-1">
                   <svg class="w-6 h-6 text-red-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -90,8 +93,8 @@
               </td>
             </tr>
           </tbody>
-        
         </table>
+        
       </form>
     </div>
   </div>

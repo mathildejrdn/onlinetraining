@@ -1,9 +1,40 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
+    $email = $_POST['email'];
+    $phone_number = $_POST['phone_number'];
+    $entrepot = $_POST['entrepot'];
+    $message = $_POST['message'];
 
+    // Récupérer les e-mails des secrétaires
+    $sql = "SELECT email FROM users WHERE role='secretaire'";
+    $result = $conn->query($sql);
+
+    if ($result->num_rows > 0) {
+        // Envoyer un e-mail à chaque secrétaire
+        while($row = $result->fetch_assoc()) {
+            $to = $row['email'];
+            $subject = "Nouveau message client";
+            $body = "Prénom: $first_name\nNom: $last_name\nEmail: $email\nTéléphone: $phone_number\nMagasin: $entrepot\n\nMessage:\n$message";
+            $headers = "From: $email";
+
+            if (mail($to, $subject, $body, $headers)) {
+                echo "Email envoyé avec succès";
+            } else {
+                echo "Échec de l'envoi de l'e-mail";
+            }
+        }
+    } else {
+        echo "Aucun(e) secrétaire trouvé(e).";
+    }
+}
+?>
 
     <div class="flex items-center justify-center min-h-screen">
 
     <div class="flex items-center justify-center min-h-screen">
-    <form class="max-w-md bg-white p-6 rounded shadow-md w-full" method="post">
+    <form class="max-w-md bg-white p-6 rounded shadow-md w-full" method="post" action="chemin vers l'envoi du message">
         <h1 class="text-2xl font-bold mb-4">Contactez nous</h1>
         <div class="relative z-0 w-full mb-5 group">
             <input type="text" name="first_name" id="first_name" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
@@ -41,7 +72,6 @@
             </button>
         </div>
     </form>
-   <!-- Image de fond à droite pour les écrans md et plus grands -->
    <img src='../images/contact.jpg' alt="femme sur son ordinateur" class="hidden md:block w-1/4 h-1/6 bg-cover bg-no-repeat bg-right">
 </img>
     </div>

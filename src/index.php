@@ -25,9 +25,14 @@ include 'includes/header.php';
 
 <!-- Affichage des images pour hommes et femmes -->
 <div class="container">
-  <img src="./images/femmes.jpg" alt="femme">
+  <img src="./images/femme.jpg" alt="femme">
+  <!-- ajouter l'effet de hover avec mode femme et mode homme -->
   <img src="./images/homme.jpg" alt="homme">
+  <img src="./images/beauty.jpg" alt="beaute">
+  <!-- les produits de beauté arrivent bientôt comme texte en hover -->
 </div>
+
+<?php include 'includes/guaranties.php'; ?>
 
 <!-- Affichage des produits récupérés depuis la base de données -->
 <?php foreach($products as $product): ?>

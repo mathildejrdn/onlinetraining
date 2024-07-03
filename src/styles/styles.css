@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root{ --txt: #000;
-}
+
 
 .container {
     display: flex;
@@ -15,7 +14,8 @@
   
   .container img {
     height: auto; 
-    max-width: 25%; 
+    max-width: 50%; 
+    object-fit: cover;
   }
   
   @media (min-width: 768px) {
@@ -23,9 +23,63 @@
       flex-direction: row;
     }
     .container img {
-      width: 50%; /* 50% de la largeur du conteneur parent */
-      height: auto; /* Mise à l'échelle proportionnelle */
-      max-width: 50%; /* Empêche l'étirement */
+      width: 25%; 
+      height: auto; 
+      
+    }
+  }
+  .image-grid {
+    display: flex;
+    justify-content: center;
+    gap: 150px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    background-color: rgb(241 245 249);
+    padding: 50px;
+  }
+  
+  .image-item {
+    max-width: 150px;
+    min-height: 150px; 
+    flex: 1 1 200px;
+    text-align: center; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .image-item img {
+    width: 100%;
+    height: auto;
+    align-self: center; 
+  }
+  
+  .image-item p {
+    font-size: 14px;
+    text-align: center;
+    width: 150px;
+    margin: 0 auto;
+    font-weight: bold;
+  }
+  
+  .image-item p span {
+    color: red;
+    font-weight: bold;
+  }
+  
+  @media (max-width: 767px) {
+    .image-grid {
+      justify-content: center; 
+      flex-direction: column; 
+      align-items: center; 
+      gap: 50px;
+    }
+
+  
+    .image-item p {
+      font-size: 0.9em; 
+      width: auto; 
+      margin-top: 10px; 
     }
   }
   

@@ -5,24 +5,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $phone_number = $_POST['phone_number'];
     $entrepot = $_POST['entrepot'];
-    $message = $_POST['message'];
+    $message_content = $_POST['message'];
 
-    // Récupérer les e-mails des secrétaires
-    $sql = "SELECT email FROM users WHERE role='secretaire'";
+    // Récupérer les informations des secrétaires
+    $sql = "SELECT id, email FROM users WHERE role='secretaire'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
-        // Envoyer un e-mail à chaque secrétaire
+        // Insérer les messages dans la table `message` et envoyer des e-mails
         while($row = $result->fetch_assoc()) {
-            $to = $row['email'];
-            $subject = "Nouveau message client";
-            $body = "Prénom: $first_name\nNom: $last_name\nEmail: $email\nTéléphone: $phone_number\nMagasin: $entrepot\n\nMessage:\n$message";
-            $headers = "From: $email";
+            $id_to = $row['id'];
+            $secretary_email = $row['email'];
 
-            if (mail($to, $subject, $body, $headers)) {
-                echo "Email envoyé avec succès";
+            // Insérer le message dans la base de données
+            $sql_insert = "INSERT INTO message (id_from, id_to, message, date_message, read) VALUES (NULL, ?, ?, NOW(), 0)";
+            $stmt = $conn->prepare($sql_insert);
+            $stmt->bind_param("is", $id_to, $message_content);
+            $stmt->execute();
+
+            // Envoyer un e-mail
+            $subject = "Nouveau message client"; //entête de l'email
+            $body = "Prénom: $first_name\nNom: $last_name\nEmail: $email\nTéléphone: $phone_number\nMagasin: $entrepot\n\nMessage:\n$message_content"; //contenu de l'email
+            $id_from = "$email"; //expéditeur
+
+            if (mail($secretary_email, $subject, $body, $id_from)) {
+                echo "Email envoyé avec succès à $secretary_email<br>";
             } else {
-                echo "Échec de l'envoi de l'e-mail";
+                echo "Échec de l'envoi de l'e-mail à $secretary_email<br>";
             }
         }
     } else {
@@ -30,7 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
     <div class="flex items-center justify-center min-h-screen">
 
     <div class="flex items-center justify-center min-h-screen">

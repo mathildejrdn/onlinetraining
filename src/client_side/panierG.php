@@ -159,5 +159,65 @@ if (isset($_POST['add_to_cart'])) {
         </div>
     </div>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const decrementButtons = document.querySelectorAll(".decrement-button");
+    const incrementButtons = document.querySelectorAll(".increment-button");
+
+    decrementButtons.forEach(button => {
+        button.addEventListener("click", function() {
+            const inputId = this.getAttribute("data-input-counter-decrement");
+            updateQuantity(inputId, -1);
+        });
+    });
+
+    incrementButtons.forEach(button => {
+        button.addEventListener("click", function() {
+            const inputId = this.getAttribute("data-input-counter-increment");
+            updateQuantity(inputId, 1);
+        });
+    });
+
+    function updateQuantity(inputId, change) {
+        const input = document.getElementById(inputId);
+        const currentQuantity = parseInt(input.value);
+        const newQuantity = currentQuantity + change;
+        const productId = input.getAttribute("data-product-id");
+
+        if (newQuantity >= 1) {
+            // AJAX request
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "updateQunatity_cart.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        input.value = newQuantity;
+                        const productTotalElement = document.querySelector(`.productTotal[data-product-id='${productId}']`);
+                        const productPrice = parseFloat(productTotalElement.getAttribute("data-product-price"));
+                        const newProductTotal = newQuantity * productPrice;
+                        productTotalElement.textContent = `${newProductTotal}€`;
+                        updateTotal();
+                    } else {
+                        alert(response.message);
+                    }
+                }
+            };
+            xhr.send(`product_id=${productId}&quantity=${newQuantity}`);
+        }
+    }
+
+    function updateTotal() {
+        let total = 0;
+        const productTotals = document.querySelectorAll(".productTotal");
+        productTotals.forEach(element => {
+            total += parseFloat(element.textContent.replace("€", ""));
+        });
+        document.getElementById("priceTotal").textContent = `${total}€`;
+        document.getElementById("priceTotalHiddenInput").value = total;
+    }
+});
+</script>
 </body>
 </html>

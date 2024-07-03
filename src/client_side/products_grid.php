@@ -1,3 +1,7 @@
+<?php
+ob_start();
+include('../includes/navbar.php');
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -32,59 +36,12 @@
                     </div>
                 </a>
 
-                <!-- autres articles test grid -->
-
-                <a href="article.php" class="relative bg-gray-100 sm:p-4 py-4 px-4 flex flex-col items-center shadow-md rounded-lg max-w-sm mx-auto hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-                    <img src="../images/polo.jpg" alt="polo" class="w-full h-auto mt-2">
-                    <div class="mt-2 text-center">
-                        <p class="text-xl leading-5 text-gray-600">Nom de l'article</p>
-                        <p class="text-xl font-semibold leading-5 text-gray-800">prix €</p>
-                    </div>
-                </a>
-                <a href="article.php" class="relative bg-gray-100 sm:p-4 py-4 px-4 flex flex-col items-center shadow-md rounded-lg max-w-sm mx-auto hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-                    <img src="../images/polo.jpg" alt="polo" class="w-full h-auto mt-2">
-                    <div class="mt-2 text-center">
-                        <p class="text-xl leading-5 text-gray-600">Nom de l'article</p>
-                        <p class="text-xl font-semibold leading-5 text-gray-800">prix €</p>
-                    </div>
-                </a>
-                <a href="article.php" class="relative bg-gray-100 sm:p-4 py-4 px-4 flex flex-col items-center shadow-md rounded-lg max-w-sm mx-auto hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-                    <img src="../images/polo.jpg" alt="polo" class="w-full h-auto mt-2">
-                    <div class="mt-2 text-center">
-                        <p class="text-xl leading-5 text-gray-600">Nom de l'article</p>
-                        <p class="text-xl font-semibold leading-5 text-gray-800">prix €</p>
-                    </div>
-                </a>
-                <a href="article.php" class="relative bg-gray-100 sm:p-4 py-4 px-4 flex flex-col items-center shadow-md rounded-lg max-w-sm mx-auto hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-                    <img src="../images/polo.jpg" alt="polo" class="w-full h-auto mt-2">
-                    <div class="mt-2 text-center">
-                        <p class="text-xl leading-5 text-gray-600">Nom de l'article</p>
-                        <p class="text-xl font-semibold leading-5 text-gray-800">prix €</p>
-                    </div>
-                </a><a href="article.php" class="relative bg-gray-100 sm:p-4 py-4 px-4 flex flex-col items-center shadow-md rounded-lg max-w-sm mx-auto hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-                    <img src="../images/polo.jpg" alt="polo" class="w-full h-auto mt-2">
-                    <div class="mt-2 text-center">
-                        <p class="text-xl leading-5 text-gray-600">Nom de l'article</p>
-                        <p class="text-xl font-semibold leading-5 text-gray-800">prix €</p>
-                    </div>
-                </a><a href="article.php" class="relative bg-gray-100 sm:p-4 py-4 px-4 flex flex-col items-center shadow-md rounded-lg max-w-sm mx-auto hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-                    <img src="../images/polo.jpg" alt="polo" class="w-full h-auto mt-2">
-                    <div class="mt-2 text-center">
-                        <p class="text-xl leading-5 text-gray-600">Nom de l'article</p>
-                        <p class="text-xl font-semibold leading-5 text-gray-800">prix €</p>
-                    </div>
-                </a><a href="article.php" class="relative bg-gray-100 sm:p-4 py-4 px-4 flex flex-col items-center shadow-md rounded-lg max-w-sm mx-auto hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">
-                    <img src="../images/polo.jpg" alt="polo" class="w-full h-auto mt-2">
-                    <div class="mt-2 text-center">
-                        <p class="text-xl leading-5 text-gray-600">Nom de l'article</p>
-                        <p class="text-xl font-semibold leading-5 text-gray-800">prix €</p>
-                    </div>
-                </a>
-            </div>
-        </div>
+               
     </div>
 
 </body>
 
 </html>
-
+<?php
+ob_end_flush();
+?>

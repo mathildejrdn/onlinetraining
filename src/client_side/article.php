@@ -1,10 +1,19 @@
+<?php
+ob_start();
+include('../includes/navbar.php');
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
-    <title>Formation en ligne</title>
+    <title>Online training</title>
+    <link rel="stylesheet" href="../styles/styles.css">
+  <link rel="stylesheet" href="../styles/output.css">
+  <link rel="stylesheet" href="../styles/reset.css">
+  <link rel="stylesheet" href="../styles/font.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
 </head>
 
 <body class="font-sans bg-gray-100">
@@ -34,7 +43,7 @@
 
                     <div class="flex items-center gap-4 mt-4">
                         <button type="button"
-                            class="px-4 py-2 border border-gray-800 bg-transparent text-gray-800 rounded-md hover:bg-gray-50">Ajouter au panier</button>
+                            class="px-4 py-2 border border-gray-800 bg-transparent text-gray-800 rounded-md hover:bg-red-600 hover:text-white">Ajouter au panier</button>
                     </div>
 
                     <hr class="my-8" />
@@ -69,8 +78,10 @@
             </div>
         </div>
     </div>
-
+    <?php include('../includes/guaranties.php'); ?>
 </body>
 
 </html>
-
+<?php
+ob_end_flush();
+?>

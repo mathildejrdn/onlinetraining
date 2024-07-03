@@ -41,12 +41,7 @@
               <td class="px-6 py-4">Produit endommagé</td>
               <td class="px-6 py-4">John Doe</td>
               <td class="flex items-center px-6 py-4 space-x-2">
-                <a href="order_details.php?id=1" class="font-medium text-blue-600 hover:underline flex items-center space-x-1">
-                  <svg class="w-6 h-6 text-blue-600 hover:text-blue-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M10.779 17.779 4.36 19.918 6.5 13.5m4.279 4.279 8.364-8.643a3.027 3.027 0 0 0-2.14-5.165 3.03 3.03 0 0 0-2.14.886L6.5 13.5m4.279 4.279L6.499 13.5m2.14 2.14 6.213-6.504M12.75 7.04 17 11.28"/>
-                  </svg>
-                  <span>Détails</span>
-                </a>
+               
                 <a href="delete_order.php?id=1" class="font-medium text-red-600 hover:underline flex items-center space-x-1">
                   <svg class="w-6 h-6 text-red-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
@@ -60,12 +55,7 @@
               <td class="px-6 py-4">Taille non correspondante</td>
               <td class="px-6 py-4">Jane Smith</td>
               <td class="flex items-center px-6 py-4 space-x-2">
-                <a href="order_details.php?id=2" class="font-medium text-blue-600 hover:underline flex items-center space-x-1">
-                  <svg class="w-6 h-6 text-blue-600 hover:text-blue-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M10.779 17.779 4.36 19.918 6.5 13.5m4.279 4.279 8.364-8.643a3.027 3.027 0 0 0-2.14-5.165 3.03 3.03 0 0 0-2.14.886L6.5 13.5m4.279 4.279L6.499 13.5m2.14 2.14 6.213-6.504M12.75 7.04 17 11.28"/>
-                  </svg>
-                  <span>Détails</span>
-                </a>
+              
                 <a href="delete_order.php?id=2" class="font-medium text-red-600 hover:underline flex items-center space-x-1">
                   <svg class="w-6 h-6 text-red-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
@@ -92,4 +82,3 @@
   </div>
 </body>
 </html>
-S

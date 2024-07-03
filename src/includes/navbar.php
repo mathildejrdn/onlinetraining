@@ -2,10 +2,11 @@
 session_start();
 ?>
 
-<nav class="bg-white border-gray-200 max-w-screen-xl mx-auto p-4 flex items-center justify-between">
-  <a href="#" class="flex items-left">
-    <img src="./images/logo.png" class="h-8" alt="Online training Logo" />
-  </a>
+<nav class="bg-white border-gray-200 w-full">
+  <div class="max-w-screen-xl mx-auto p-4 flex items-center justify-between">
+    <a href="#" class="flex items-left">
+      <img src="../images/logo.png" class="h-8" alt="Online training Logo" />
+    </a>
     <button data-collapse-toggle="navbar-dropdown" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-dropdown" aria-expanded="false">
       <span class="sr-only">Open main menu</span>
       <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
@@ -29,8 +30,6 @@ session_start();
               <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Vêtements</a></li>
               <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Chaussures</a></li>
               <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Accessoires</a></li>
-              <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Sacs</a></li>
-              <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Nouveautés</a></li>
             </ul>
           </div>
         </li>
@@ -46,13 +45,11 @@ session_start();
               <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Vêtements</a></li>
               <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Chaussures</a></li>
               <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Accessoires</a></li>
-              <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Sacs</a></li>
-              <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Nouveautés</a></li>
             </ul>
           </div>
         </li>
         <li>
-          <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0">À propos</a>
+          <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0">Beauté</a>
         </li>
         
         <?php if (isset($_SESSION["admin"]) || isset($_SESSION["user"])): ?>
@@ -72,33 +69,29 @@ session_start();
 </nav>
 
 <script>
+// JavaScript pour gérer l'ouverture/fermeture des dropdowns et du menu
 document.addEventListener('DOMContentLoaded', function() {
-  // Fonction pour gérer l'ouverture/fermeture des dropdowns
   function handleDropdownToggle(event) {
     const target = event.currentTarget;
     const dropdownId = target.getAttribute('data-dropdown-toggle');
     const dropdown = document.getElementById(dropdownId);
     
     if (dropdown.classList.contains('hidden')) {
-      // Afficher le dropdown
       dropdown.classList.remove('hidden');
       dropdown.classList.add('block');
       target.setAttribute('aria-expanded', 'true');
     } else {
-      // Masquer le dropdown
       dropdown.classList.remove('block');
       dropdown.classList.add('hidden');
       target.setAttribute('aria-expanded', 'false');
     }
   }
 
-  // Sélectionner tous les toggles de dropdown et ajouter un écouteur d'événement 'click'
   const dropdownToggles = document.querySelectorAll('[data-dropdown-toggle]');
   dropdownToggles.forEach(function(toggle) {
     toggle.addEventListener('click', handleDropdownToggle);
   });
 
-  // Fermer les dropdowns lorsqu'on clique en dehors
   document.addEventListener('click', function(event) {
     const isClickInsideNavbar = event.target.closest('.max-w-screen-xl') !== null;
     if (!isClickInsideNavbar) {
@@ -111,9 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     }
   });
-});
 
-document.addEventListener('DOMContentLoaded', function() {
   const menuToggle = document.querySelector('[data-collapse-toggle="navbar-dropdown"]');
   const navbarDropdown = document.getElementById('navbar-dropdown');
 
@@ -125,7 +116,6 @@ document.addEventListener('DOMContentLoaded', function() {
       menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
     });
 
-    // Fermer le menu lorsqu'on clique en dehors
     document.addEventListener('click', function(event) {
       const isClickInsideNavbar = event.target.closest('.max-w-screen-xl') !== null;
       if (!isClickInsideNavbar && navbarDropdown.classList.contains('block')) {
@@ -137,5 +127,4 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
-
 

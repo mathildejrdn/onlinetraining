@@ -20,13 +20,7 @@
         <div class="md:pl-3 md:w-8/12 2xl:w-3/4 flex flex-col justify-center">
           <div class="flex flex-col items-start w-full">
             <h3>PRODUCT_NAME_HERE</h3>
-            <select name="weight" id="size" class="size bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mb-2" data-product-id="PRODUCT_ID_HERE">
-              <option value="xs">xs</option>
-              <option value="s">s</option>
-              <option value="m">m</option>
-              <option value="l">l</option>
-              <option value="xl">xl</option>
-            </select>
+            
             <div class="flex flex-col items-start w-full">
               <label for="counter-input-PRODUCT_ID_HERE" class="flex-shrink-0 mb-2"><span>Quantité :</span></label>
               <div class="relative flex items-center">

@@ -1,1 +1,0 @@
-garanties du marchand

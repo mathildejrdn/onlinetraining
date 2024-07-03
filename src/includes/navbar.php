@@ -29,8 +29,6 @@ session_start();
               <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Vêtements</a></li>
               <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Chaussures</a></li>
               <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Accessoires</a></li>
-              <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Sacs</a></li>
-              <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Nouveautés</a></li>
             </ul>
           </div>
         </li>
@@ -46,13 +44,11 @@ session_start();
               <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Vêtements</a></li>
               <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Chaussures</a></li>
               <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Accessoires</a></li>
-              <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Sacs</a></li>
-              <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Nouveautés</a></li>
             </ul>
           </div>
         </li>
         <li>
-          <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0">À propos</a>
+          <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0">Beauté</a>
         </li>
         
         <?php if (isset($_SESSION["admin"]) || isset($_SESSION["user"])): ?>

@@ -3,7 +3,7 @@ session_start();
 include("../connect.php");
 if(!isset($_SESSION['email'])){
 header("Location: connexion.php");
-exit;
+
 }
 if(isset($_GET['id']) AND !empty($_GET['id'])){
 // Si il y a un id admin on execute le code si no echo
@@ -11,15 +11,18 @@ if(isset($_GET['id']) AND !empty($_GET['id'])){
     $recupUser = $db->prepare("SELECT * FROM administrateurs WHERE id = ?");
     $recupUser->execute(array($getid));
 
-    if($recupUser->rowCount() > 0){
+}if($recupUser->rowCount() > 0){
+        
+
+
         if(isset($_POST['envoyer'])){
            $id_to = $_GET["id"];
            $message = nl2br(htmlspecialchars($_POST["message"]));
             //Définir la date du message
-            $date_message = date("Y-m-d H:i:s");
+            $date_message = date("Y:m:d H:i:s");
             $filePath = '';
-
-// File
+        }
+// // Gestion des fichiers joints
 if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] == 0) {
     $fileName = basename($_FILES['attachment']['name']);
     $filePath = '../messages/uploads/' . $fileName;
@@ -37,20 +40,19 @@ if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] == 0) {
 
 
 //insérer le message
-            $insererMessage = $db->prepare('INSERT INTO message(id_from, id_to, message, date_message, `read`, `file`) VALUES (?, ?, ?, ?, ?, ?)');
-            $insererMessage->execute(array($_SESSION["id"], $_GET['id'], $message, $date_message, 0, $filePath));
 
-            echo "Message envoyé avec succès!";
-        }
-    }else{
-        echo "Aucun admin trouvé";
+if (!empty($message) || !empty($filePath)) {
+
+    $insererMessage = $db->prepare('INSERT INTO message(id_from, id_to, message, date_message, `read`, `file`) VALUES (?, ?, ?, ?, ?, ?)');
+    $insererMessage->execute(array($_SESSION["id"], $_GET['id'], $message, $date_message, 0, $filePath));
+
+    echo "Message envoyé avec succès!";
+           
+            
+    }else {
+        $messageStatus = "Le champ message et le fichier joint sont vides.";
     }
-
-
-}else{
-    echo "Aucun id trouvé";
 }
-
 
 ?>
 <!DOCTYPE html>
@@ -62,6 +64,7 @@ if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] == 0) {
     <meta charset="utf-8">
 </head>
 <body>
+
     <form action="" method="POST" enctype="multipart/form-data">
     <label for="message">Message:</label>
       <textarea name="message" id=""></textarea>
@@ -81,22 +84,48 @@ if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] == 0) {
     $recupMessage = $db->prepare('SELECT * FROM message WHERE id_from = ? AND id_to = ? OR id_from = ? AND id_to = ?');
     $recupMessage->execute(array($_SESSION['id'], $getid, $getid, $_SESSION['id']));
     while($message = $recupMessage->fetch()){
-       if($message['id_to'] == $_SESSION['id']){
+       if($message['id_to'] == $_SESSION['id'])
+       {
         ?> 
     <p style='color:red;'><?= $message['message']; ?>
-    <p><?= $message['date_message']; ?>
-    
-     <a href="<?= $message['file'] ?>"><img src="../images/pj.png" alt=""></a> 
-</p>
-
+    <p><?= $message['date_message']; ?></p>
+   <?php 
+   if(!empty( $message['file'])){
+    ?>
+        <a href="<?= $message['file'] ?>" download><img src="../images/pj.png" alt=""></a>
         <?php
+    }
+
+    
+    
+?>
+
+     
+
+
+    <?php
+ 
        }elseif ($message['id_to'] == $getid) {
 
        ?> 
     <p style='color:green;'><?= $message['message']; ?></p>
     <p><?= $message['date_message']; ?></p>
 
-    <a href="<?= $message['file'] ?>"><img src="../images/pj.png" alt=""></a> 
+    <?php 
+   if(!empty( $message['file'])){
+    ?>
+        <a target="_blank" href="<?= $message['file'] ?>" ><img src="../images/pj.png" alt=""></a>
+        <?php
+    }
+
+    
+    
+?>
+<a href="">Supprimer</a>
+
+
+
+    
         <?php
     }
 }

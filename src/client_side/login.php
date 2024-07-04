@@ -32,7 +32,7 @@ if(!empty($_POST)){
                     "birthdate" => $user["birth_date"],
                     "adress" => $user["adress"]
                 ];
-                header("Location: ../inbox.php");
+                header("Location: ../index.php");
                 exit;
             }
 

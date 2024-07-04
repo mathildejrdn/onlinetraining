@@ -32,9 +32,30 @@ include 'includes/header.php';
   <!-- les produits de beauté arrivent bientôt comme texte en hover -->
 </div>
 
-<?php include 'includes/guaranties.php'; ?>
+<?php include 'includes/guaranties.php'; ?> 
 
-<!-- Affichage des produits récupérés depuis la base de données -->
+<!-- Inclusion du formulaire de contact -->
+<?php include 'client_side/contact.php'; ?>
+
+<!-- Inclusion du formulaire de contact -->
+<?php include 'includes/footer.php'; ?>
+
+<!-- Liens supplémentaires commentés -->
+<!--
+<a href="../back_office/add_category.php">Ajouter une catégorie (super amdin)</a>
+<a href="../back_office/userlist.php">Liste des users (super admin)</a>
+<a href="../back_office/inbox.php">Messagerie</a>
+<a href="../back_office/orders.php">Commades</a>
+<a href="../back_office/edit_orders.php">Editer une commade</a>
+<a href="../back_office/products.php">Produits</a>
+<a href="../back_office/add_product.php">Ajouter un produit</a>
+<a href="../back_office/edit_product.php">Editer un produit</a>
+
+<a href="../client_side/contact.php">Formulaire de contact</a>
+<a href="../client_side/login.php">Formulaire de connection</a>
+<a href="../client_side/signup.php">Formulaire d'inscription</a>
+<a href="../client_side/panier.php">panier</a>
+
 <?php foreach($products as $product): ?>
   <section>
     <article><a href="product.php?id=<?= $product["id"] ?>">
@@ -55,25 +76,6 @@ include 'includes/header.php';
     </article>
   </section>
 <?php endforeach; ?>
-
-<!-- Inclusion du formulaire de contact -->
-<?php include 'client_side/contact.php'; ?>
-
-<!-- Liens supplémentaires commentés -->
-<!--
-<a href="../back_office/add_category.php">Ajouter une catégorie (super amdin)</a>
-<a href="../back_office/userlist.php">Liste des users (super admin)</a>
-<a href="../back_office/inbox.php">Messagerie</a>
-<a href="../back_office/orders.php">Commades</a>
-<a href="../back_office/edit_orders.php">Editer une commade</a>
-<a href="../back_office/products.php">Produits</a>
-<a href="../back_office/add_product.php">Ajouter un produit</a>
-<a href="../back_office/edit_product.php">Editer un produit</a>
-
-<a href="../client_side/contact.php">Formulaire de contact</a>
-<a href="../client_side/login.php">Formulaire de connection</a>
-<a href="../client_side/signup.php">Formulaire d'inscription</a>
-<a href="../client_side/panier.php">panier</a>
 -->
 
 </body>

@@ -118,15 +118,14 @@ if (isset($_POST['add_to_cart'])) {
                         <div class="flex items-center">
                             <a href="deleteItemCart.php?id=<?=$item['panier_id']?>"><p class="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer">Supprimer</p></a>
                         </div>
-                        <p class="productTotal text-base font-black leading-none text-gray-800" data-product-id="<?=$item['id']?>"><?=$item_total?>€</p>
+                        <p class="productTotal text-base font-black leading-none text-gray-800" data-product-id="<?=$item['id']?>" data-product-price="<?=$item['prix']?>"><?=$item_total?>€</p>
                     </div>
                 </div>
             </div>
             <?php
             }
             ?>
-            <input type="hidden" value="PRODUCT_ID_HERE" name="product_id">
-            <input type="hidden" value="PRODUCT_NAME_HERE" name="product_name">
+            
 
             <a href="../index.php" class="flex font-semibold text-red-600 text-sm mt-10">
                 <svg class="fill-current mr-2 text-red-600 w-4" viewBox="0 0 448 512">
@@ -138,24 +137,38 @@ if (isset($_POST['add_to_cart'])) {
 
         <!-- Résumé de la commande -->
         <div id="summary" class="w-full sm:w-1/4 md:w-1/2 px-8 py-10 bg-white">
+            <form action="paiementCommande.php" method="post">
             <h3>Résumé de votre commande</h3>
             <div>
                 <label class="font-medium inline-block mb-3 text-sm">
                     <span>Livraison</span>
                 </label>
-                <select class="block p-2 text-gray-600 w-full text-sm">
-                    <option>Livraison à domicile</option>
-                    <option>Livraison en point relai</option>
+                <select class="block p-2 text-gray-600 w-full text-sm" name="livraison" required>
+                <option value="" disabled selected>Choisisez votre livraison</option>
+                    <option value="livraison standard">Livraison standard</option>
+                    <option value="livraison chrono">Livraison chrono</option>
                 </select>
             </div>
             <div class="border-t mt-8">
                 <div class="flex font-semibold justify-between py-6 text-sm uppercase">
                     <span>Total</span>
                     <span id="priceTotal"><?=$total?>€</span>
-                    <input type="hidden" id="priceTotalHiddenInput" name="price" value="<?=$total?>">
+                    <?php
+                        date("d-m-Y H:i:s");
+                        ?>
+                    <input type="hidden" value="<?=date("d-m-Y H:i:s")?>" name="date_order">
+                    <input type="hidden" value="<?=$item['id']?>" name="product_id">
+                    <input type="hidden" value="<?=$item['nom']?>" name="product_name">
+                    <input type="hidden" value="<?=$user_id?>" name="user_id">
+                    <input type="hidden" value="<?=$user_name?>" name="user_name">
+                    <input type="hidden" value="<?=$item['quantity']?>" name="quantity">
+                    <input type="hidden" value="<?=$_SESSION["user"]["email"]?>" name="user_email">
+                    <input type="hidden" value="<?=$_SESSION["user"]["adress"]?>" name="user_adress">
+                    <input type="hidden" id="priceTotalHiddenInput" name="total_price" value="<?=$total?>">
                 </div>
-                <button type="submit" class="flex-none rounded-md bg-gray-700 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-700 mt-4">Passer au paiement</button>
+                <button type="submit" class="flex-none rounded-md bg-gray-700 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-700 mt-4" name="add_to_order">Valider la commande</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -214,8 +227,8 @@ document.addEventListener("DOMContentLoaded", function() {
         productTotals.forEach(element => {
             total += parseFloat(element.textContent.replace("€", ""));
         });
-        document.getElementById("priceTotal").textContent = `${total}€`;
-        document.getElementById("priceTotalHiddenInput").value = total;
+        document.getElementById("priceTotal").textContent = `${total.toFixed(2)}€`;
+        document.getElementById("priceTotalHiddenInput").value = total.toFixed(2);
     }
 });
 </script>

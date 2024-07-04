@@ -79,63 +79,73 @@ if (!empty($_POST)) {
 
 ?> 
 
-<h1>Modifier le produit <?=$produits['reference_produit']?></h1>
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Modifier Produit</title>
+  <link rel="stylesheet" href="../styles/output.css">
+  <link rel="stylesheet" href="../styles/reset.css">
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+    <form action="" method="post" enctype="multipart/form-data" class="max-w-md mx-auto bg-white p-6 rounded shadow-md w-full">
+        <h1 class="text-2xl font-bold mb-4">Modifier le Produit <?=$produits['reference_produit']?></h1>
+        <div class="relative z-0 w-full mb-5 group">
+            <input type="text" name="ref" id="ref" value="<?=$produits['reference_produit']?>" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+            <label for="ref" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Référence produit</label>
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            <input type="text" name="marque" id="marque" value="<?=$produits['marque']?>" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+            <label for="marque" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Marque du produit</label>
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            <input type="text" name="type" id="type" value="<?=$produits['type_de_produits']?>" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+            <label for="type" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Type du produit</label>
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            <input type="file" name="image" id="image" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" required />
+            <label for="image" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Image du produit</label>
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            <input type="text" name="couleur" id="couleur" value="<?=$produits['couleur']?>" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+            <label for="couleur" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Couleur du produit</label>
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            <input type="text" name="matiere" id="matiere" value="<?=$produits['matiere']?>" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+            <label for="matiere" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Matière du produit</label>
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            <input type="text" name="motif" id="motif" value="<?=$produits['motif']?>" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+            <label for="motif" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Motif du produit</label>
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            <input type="text" name="taille" id="taille" value="<?=$produits['taille']?>" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+            <label for="taille" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Taille du produit</label>
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            <select name="genre" id="genre" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" required>
+                <option value="homme" <?=($produits['genre'] == 'homme') ? 'selected' : '';?>>Homme</option>
+                <option value="femme" <?=($produits['genre'] == 'femme') ? 'selected' : '';?>>Femme</option>
+            </select>
+            <label for="genre" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Genre</label>
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            <input type="number" name="stock" id="stock" min="0" value="<?=$produits['stock']?>" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+            <label for="stock" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Stock du produit</label>
+        </div>
+        <div class="relative z-0 w-full mb-5 group">
+            <input type="text" name="prix" id="prix" value="<?=$produits['prix']?>" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+            <label for="prix" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Prix du produit</label>
+        </div>
+        <button type="submit" class="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600 mb-5">Modifier le produit</button>
+    </form>
 
-<form action="" method="post" enctype="multipart/form-data">
-    <div>
-        <label for="ref">Référence produit</label>
-        <input type="text" name="ref" value="<?=$produits['reference_produit']?>">
-    </div>
-    <div>
-        <label for="marque">Marque du produit</label>
-        <input type="text" name="marque" value="<?=$produits['marque']?>">
-    </div>
-    <div>
-        <label for="type">Type du produit</label>
-        <input type="text" name="type" value="<?=$produits['type_de_produits']?>">
-    </div>
-    <div>
-        <label for="image">Image du produit</label>
-        <input type="file" name="image" required>
-    </div>
-    <div>
-        <label for="couleur">Couleur du produit</label>
-        <input type="text" name="couleur" value="<?=$produits['couleur']?>" required>
-    </div>
-    <div>
-        <label for="matiere">Matière du produit</label>
-        <input type="text" name="matiere" value="<?=$produits['matiere']?>" required>
-    </div>
-    <div>
-        <label for="motif">Motif du produit</label>
-        <input type="text" name="motif" value="<?=$produits['motif']?>" required>
-    </div>
-    <div>
-        <label for="taille">Taille du produit</label>
-        <input type="text" name="taille" value="<?=$produits['taille']?>" required>
-    </div>
-    <div>
-        <label for="genre">Genre</label>
-        <select name="genre">
-            <option value="homme" <?=($produits['genre'] == 'homme') ? 'selected' : '';?>>Homme</option>
-            <option value="femme" <?=($produits['genre'] == 'femme') ? 'selected' : '';?>>Femme</option>
-        </select>
-    </div>
-    <div>
-        <label for="stock">Stock du produit</label>
-        <input type="number" name="stock" min="0" value="<?=$produits['stock']?>" required>
-    </div>
-    <div>
-        <label for="prix">Prix du produit</label>
-        <input type="text" name="prix" value="<?=$produits['prix']?>" required>
-    </div>
-    <button type="submit">Modifier le produit</button>
-</form>
-
-<form action="stock_discard.php?id=<?=$produits['id']?>" method="post">
-    <div>
-        <label for="raison_suppression">Raison de la suppression</label>
-        <input type="text" name="raison_suppression">
-    </div>
-    <button type="submit">Supprimer le produit</button>
-</form>
+    <form action="stock_discard.php?id=<?=$produits['id']?>" method="post" class="max-w-md mx-auto bg-white p-6 rounded shadow-md w-full mt-6">
+        <div class="relative z-0 w-full mb-5 group">
+            <input type="text" name="raison_suppression" id="raison_suppression" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+            <label for="raison_suppression" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Raison de la suppression</label>
+        </div>
+        <button type="submit" class="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600 mb-5">Supprimer le produit</button>
+    </form>
+</body>
+</html>

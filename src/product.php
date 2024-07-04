@@ -47,8 +47,9 @@ include_once("./includes/navbar.php");
                 <h1><?=strip_tags($product["nom"])?></h1> 
                 <p><?=strip_tags($product["prix"])?>€</p>
                 <div class="options">
-                <form method="POST" action="panier.php">
-                        <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
+                <form method="POST" action="client_side/panierG.php">
+                        <input type="hidden" name="product_id" value="<?= $product['id']?>">
+                        <input type="hidden" name="product_img" value="<?= $product['image']?>">
                         <input type="hidden" name="product_name" value="<?= htmlspecialchars($product['nom']) ?>">
                         <input type="hidden" name="product_price" value="<?= htmlspecialchars($product['prix']) ?>">
                         <button type="submit" name="add_to_cart">Ajouter au panier</button>

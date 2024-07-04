@@ -67,7 +67,7 @@ include 'includes/header.php';
       <img src="<?= $class ?>" alt="">
       <div class="info-article">
         <div class="article-name">
-          <span><?= $product["type_de_produits"] ?></span>
+          <span><?= $product["categorie"] ?></span>
         </div>
         <div class="article-price">
           <span><?= $product["prix"] ?>€</span>

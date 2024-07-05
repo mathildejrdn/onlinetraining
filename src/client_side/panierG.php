@@ -122,6 +122,11 @@ if (isset($_POST['add_to_cart'])) {
                     </div>
                 </div>
             </div>
+            <form action="paiementCommande.php" method="post">
+            <input type="hidden" name="product_id[]" value="<?=$item['id']?>">
+            <input type="hidden" name="product_name[]" value="<?=$item['nom']?>">
+            <input type="hidden" name="product_price[]" value="<?=$item['prix']?>">
+            <input type="hidden" name="product_quantity[]" value="<?=$item['quantity']?>">
             <?php
             }
             ?>
@@ -137,7 +142,7 @@ if (isset($_POST['add_to_cart'])) {
 
         <!-- Résumé de la commande -->
         <div id="summary" class="w-full sm:w-1/4 md:w-1/2 px-8 py-10 bg-white">
-            <form action="paiementCommande.php" method="post">
+            
             <h3>Résumé de votre commande</h3>
             <div>
                 <label class="font-medium inline-block mb-3 text-sm">
@@ -157,16 +162,16 @@ if (isset($_POST['add_to_cart'])) {
                         date("d-m-Y H:i:s");
                         ?>
                     <input type="hidden" value="<?=date("d-m-Y H:i:s")?>" name="date_order">
-                    <input type="hidden" value="<?=$item['id']?>" name="product_id">
-                    <input type="hidden" value="<?=$item['nom']?>" name="product_name">
                     <input type="hidden" value="<?=$user_id?>" name="user_id">
-                    <input type="hidden" value="<?=$user_name?>" name="user_name">
-                    <input type="hidden" value="<?=$item['quantity']?>" name="quantity">
+                    <input type="hidden" value="<?=$_SESSION["user"]["name"]?>" name="user_lastName">
+                    <input type="hidden" value="<?=$_SESSION["user"]["firstname"]?>" name="user_firstName">
                     <input type="hidden" value="<?=$_SESSION["user"]["email"]?>" name="user_email">
                     <input type="hidden" value="<?=$_SESSION["user"]["adress"]?>" name="user_adress">
+                    <input type="hidden" value="<?=$_SESSION["user"]["phonenumber"]?>" name="user_phoneNumber">
                     <input type="hidden" id="priceTotalHiddenInput" name="total_price" value="<?=$total?>">
                 </div>
                 <button type="submit" class="flex-none rounded-md bg-gray-700 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-700 mt-4" name="add_to_order">Valider la commande</button>
+                
             </div>
             </form>
         </div>

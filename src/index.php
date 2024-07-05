@@ -41,7 +41,7 @@ include 'includes/header.php';
 <?php include 'includes/footer.php'; ?>
 
 <!-- Liens supplémentaires commentés -->
-<!--
+
 <a href="../back_office/add_category.php">Ajouter une catégorie (super amdin)</a>
 <a href="../back_office/userlist.php">Liste des users (super admin)</a>
 <a href="../back_office/inbox.php">Messagerie</a>
@@ -76,7 +76,7 @@ include 'includes/header.php';
     </article>
   </section>
 <?php endforeach; ?>
--->
+
 
 </body>
 </html>

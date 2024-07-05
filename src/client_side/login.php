@@ -30,7 +30,8 @@ if(!empty($_POST)){
                     "name" => $user['last_name'],
                     "email" => $user['email'],
                     "birthdate" => $user["birth_date"],
-                    "adress" => $user["adress"]
+                    "adress" => $user["adress"],
+                    "phonenumber" => $user["phone_number"]
                 ];
                 header("Location: ../index.php");
                 exit;
@@ -52,7 +53,7 @@ if(!empty($_POST)){
                     "birthdate" => $admin["birth_date"],
                     "adress" => $admin["adress"]
                 ];
-                header("Location: ../index.php");
+                header("Location: ../back_office/inbox.php");
                 exit;
             }
 

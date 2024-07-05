@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+  require_once("../connect.php");
+
+  $sql= "SELECT order_id FROM order_ids";
+
+  $query = $db->prepare($sql);
+  $query->execute();
+  $orders= $query->fetchAll(PDO::FETCH_ASSOC);
+  
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -36,8 +49,14 @@
             </tr>
           </thead>
           <tbody>
+            <?php
+            foreach($orders as $order){
+              $orderId = $order["order_id"];
+              // Assurez-vous que 'back_office/' est le chemin correct vers vos images
+              $displayOrderId = 'CMD0' . $orderId;
+            ?>
             <tr class="bg-white border-b hover:bg-gray-50">
-              <td class="px-6 py-4">CMD001</td>
+              <td class="px-6 py-4"><?=$displayOrderId?></td>
               <td class="px-6 py-4">
                 <a href="edit_order.php" class="font-medium text-blue-600 hover:underline flex items-center space-x-1">
                   <svg class="w-6 h-6 text-blue-600 hover:text-blue-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -63,6 +82,9 @@
                 </a>
               </td>
             </tr>
+            <?php
+            }
+            ?>
           </tbody>
         </table>
       </form>

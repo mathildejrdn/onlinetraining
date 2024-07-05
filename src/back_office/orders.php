@@ -13,12 +13,14 @@ session_start();
 
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Online Training</title>
-  <link rel="stylesheet" href="../styles/output.css">
-  <link rel="stylesheet" href="../styles/reset.css">
+    <meta charset="UTF-8">
+    <title>Online Training</title>
+    <link rel="stylesheet" href="../styles/output.css">
+    <link rel="stylesheet" href="../styles/reset.css">
 </head>
+
 <body class="flex min-h-screen bg-gray-100">
   <!-- Navbar (sidebar) -->
   <?php include('navback.php'); ?>
@@ -49,14 +51,8 @@ session_start();
             </tr>
           </thead>
           <tbody>
-            <?php
-            foreach($orders as $order){
-              $orderId = $order["order_id"];
-              // Assurez-vous que 'back_office/' est le chemin correct vers vos images
-              $displayOrderId = 'CMD0' . $orderId;
-            ?>
             <tr class="bg-white border-b hover:bg-gray-50">
-              <td class="px-6 py-4"><?=$displayOrderId?></td>
+              <td class="px-6 py-4">CMD001</td>
               <td class="px-6 py-4">
                 <a href="edit_order.php" class="font-medium text-blue-600 hover:underline flex items-center space-x-1">
                   <svg class="w-6 h-6 text-blue-600 hover:text-blue-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -82,14 +78,11 @@ session_start();
                 </a>
               </td>
             </tr>
-            <?php
-            }
-            ?>
           </tbody>
         </table>
       </form>
     </div>
   </div>
 </body>
-</html>
 
+</html>

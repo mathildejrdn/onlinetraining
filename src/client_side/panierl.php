@@ -1,9 +1,56 @@
-<!doctype html>
+<?php
+
+session_start();
+
+require_once("../connect.php");
+
+/* Php pour gérer le lien avec le stock de la quantité */
+
+/* Récupération des données a vérifié */
+
+if (isset($_POST['product_id']) && isset($_POST['quantity'])) {
+    $product_id = $_POST['product_id'];
+    $quantity = $_POST['quantity'];
+
+    $sql = "SELECT * FROM products WHERE id = :product_id";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(":product_id", $product_id, PDO::PARAM_INT);
+    $stmt->execute();
+    $product = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($product && $product['stock'] >= $quantity) {
+        if (!isset($_SESSION['panier'])) {
+            $_SESSION['panier'] = array();
+        }
+
+        // Génère un numéro de commande aléatoire //
+             
+        $order_number = 'CMD' . sprintf('%03d', count($_SESSION['panier']) + 1);
+
+        $_SESSION['panier'][$order_number] = array(
+            'product_id' => $product_id,
+            'quantity' => $quantity,
+            'total_price' => $quantity * $product['price']
+        );
+
+            header('Content-Type: application/json');
+        echo json_encode(array('success' => true));
+        exit;
+    } else {
+        header('Content-Type: application/json');
+        echo json_encode(array('error' => 'Stock insuffisant pour ce produit.'));
+        exit;
+    }
+}
+
+?>
+
+<!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="utf-8">
-    <title>Online Training</title>
+    <title>Panier L</title>
     <link rel="stylesheet" href="../styles/output.css">
     <link rel="stylesheet" href="../styles/reset.css">
 
@@ -105,13 +152,90 @@
                         <input type="hidden" id="priceTotalHiddenInput" name="price" value="PRIX_TOTAL_HERE">
                     </div>
                     <button type="submit"
-                        class="flex-none rounded-md bg-gray-700 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-700 mt-4">Passer
-                        au paiement</button>
+                        class="flex-none rounded-md bg-gray-700 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-700 mt-4">Valider
+                        la commande</button>
                 </div>
             </div>
 
         </div>
     </div>
+
+    <script>
+    /* Gestion des tailles de vêtements */
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const tailleSelect = document.getElementById('size');
+        tailleSelect.addEventListener('change', function() {
+            const selectedTaille = this.value;
+            console.log('Taille sélectionnée:', selectedTaille);
+        });
+
+        const incrementButtons = document.querySelectorAll('.increment-button');
+        const decrementButtons = document.querySelectorAll('.decrement-button');
+
+        function checkStock(product_id, desiredQuantity, callback) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'panierl.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        try {
+                            const response = JSON.parse(xhr.responseText);
+                            console.log("Réponse du serveur :", response);
+
+                            if (response.error) {
+                                alert(response.error);
+                                callback(false);
+                            } else {
+                                callback(true, response.orde_number);
+                            }
+                        } catch (e) {
+                            console.error('Erreur lors du parsing JSON :', e);
+                            console.error('Réponse reçue (non-JSON) :', xhr.responseText);
+                        }
+                    } else {
+                        console.error('Erreur de requête AJAX :', xhr.status, xhr.statusText);
+                    }
+                }
+            };
+            xhr.send('product_id=' + encodeURIComponent(product_id) + '&quantity=' + encodeURIComponent(
+                desiredQuantity));
+        }
+
+        incrementButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const inputId = this.getAttribute('data-input-counter-increment');
+                const inputElement = document.getElementById(inputId);
+                const currentValue = parseInt(inputElement.value);
+                const productId = inputElement.getAttribute('data-product-id');
+
+                if (productId) {
+                    checkStock(productId, currentValue + 1, (isAvailable) => {
+                        if (isAvailable) {
+                            inputElement.value = currentValue + 1;
+                        } else {
+                            alert("Quantité maximale atteinte pour ce produit !");
+                        }
+                    });
+                } else {
+                    console.error("Le product_id n'est pas défini sur l'élément d'entrée.");
+                }
+            });
+        });
+
+        decrementButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const inputId = this.getAttribute('data-input-counter-decrement');
+                const inputElement = document.getElementById(inputId);
+                const currentValue = parseInt(inputElement.value);
+                if (currentValue > 1) {
+                    inputElement.value = currentValue - 1;
+                }
+            });
+        });
+    });
+    </script>
 
 </body>
 

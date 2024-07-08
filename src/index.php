@@ -16,7 +16,7 @@ include 'includes/header.php';
 <head>
   <meta charset="utf-8">
   <title>Online Training</title>
-  <link rel="stylesheet" href="./styles/styles.css">
+  <link rel="stylesheet" href="../styles/styles.css">
   <link rel="stylesheet" href="./styles/output.css">
   <link rel="stylesheet" href="./styles/reset.css">
   <link rel="stylesheet" href="./styles/font.css">
@@ -25,11 +25,34 @@ include 'includes/header.php';
 
 <!-- Affichage des images pour hommes et femmes -->
 <div class="container">
-  <img src="./images/femme.jpg" alt="femme">
-  <!-- ajouter l'effet de hover avec mode femme et mode homme -->
-  <img src="./images/homme.jpg" alt="homme">
-  <img src="./images/beauty.jpg" alt="beaute">
-  <!-- les produits de beauté arrivent bientôt comme texte en hover -->
+
+  <figure class="effect">
+	  <img src="./images/femme.jpg" height="750px" width="500px" alt="">
+	  <figcaption>
+		  <div class="RTP"> <span>MODE FEMME</span> </div>
+		    <p>ELEGANCE</p>
+		    <a href=""><button class="btn_effect">Découvrez</button></a>
+	  </figcaption>
+  </figure>
+    
+    <figure class="effect">
+			<img src="./images/homme.jpg"  alt="">
+			<figcaption>
+			  <div class="RTP"> <span>MODE FEMME</span> </div>
+			  <p>ELEGANCE</p>
+			  <a href=""><button class="btn_effect">Découvrez</button></a>
+			</figcaption>
+		</figure>
+            
+	<figure class="effect">
+			<img src="./images/beauty.jpg" alt="">
+			<figcaption>
+			  <div class="RTP"> <span>MODE FEMME</span> </div>
+			  <p>ELEGANCE</p>
+			  <a href=""><button class="btn_effect">Découvrez</button></a>
+			</figcaption>
+	</figure>
+  
 </div>
 
 <?php include 'includes/guaranties.php'; ?>

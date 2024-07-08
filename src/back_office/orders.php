@@ -3,12 +3,11 @@ session_start();
 
   require_once("../connect.php");
 
-  $sql= "SELECT order_id FROM order_ids";
+  $sql= "SELECT order_id FROM orders";
 
   $query = $db->prepare($sql);
   $query->execute();
   $orders= $query->fetchAll(PDO::FETCH_ASSOC);
-  
 ?>
 
 <!DOCTYPE html>
@@ -51,8 +50,18 @@ session_start();
             </tr>
           </thead>
           <tbody>
+          <?php
+               $displayedOrderIds = []; // Tableau pour garder la trace des order_id affichés
+               foreach($orders as $order) {
+                 $orderId = $order["order_id"];
+                 $displayOrderId = 'CMD0' . $orderId;
+           
+                 if (!in_array($orderId, $displayedOrderIds)) {
+                   // Ajouter l'order_id au tableau des order_id affichés
+                   $displayedOrderIds[] = $orderId;
+                   ?>
             <tr class="bg-white border-b hover:bg-gray-50">
-              <td class="px-6 py-4">CMD001</td>
+              <td class="px-6 py-4"><?=$displayOrderId?></td>
               <td class="px-6 py-4">
                 <a href="edit_order.php" class="font-medium text-blue-600 hover:underline flex items-center space-x-1">
                   <svg class="w-6 h-6 text-blue-600 hover:text-blue-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -78,6 +87,9 @@ session_start();
                 </a>
               </td>
             </tr>
+            <?php
+            }}
+            ?>
           </tbody>
         </table>
       </form>

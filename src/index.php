@@ -25,10 +25,19 @@ include 'includes/header.php';
 
 <!-- Affichage des images pour hommes et femmes -->
 <div class="container">
-  <img src="./images/femme.jpg" alt="femme">
-  <!-- ajouter l'effet de hover avec mode femme et mode homme -->
-  <img src="./images/homme.jpg" alt="homme">
-  <img src="./images/beauty.jpg" alt="beaute">
+<a href="client_side/products_grid.php?genre=homme">
+        <img src="./images/homme.jpg" alt="homme">
+    </a>
+
+    <!-- Image pour les femmes -->
+    <a href="client_side/products_grid.php?genre=femme">
+        <img src="./images/femme.jpg" alt="femme">
+    </a>
+
+    <!-- Image pour la catégorie "beauté" -->
+    <a href="client_side/products_grid.php?categorie=beauté">
+        <img src="./images/beauty.jpg" alt="beauté">
+    </a>
   <!-- les produits de beauté arrivent bientôt comme texte en hover -->
 </div>
 

@@ -44,8 +44,8 @@ if(!empty($_POST)){
                 <label for="categorie_genre" class="block text-sm font-medium text-gray-700">Genre de la catégorie</label>
                 <select name="categorie_genre" id="categorie_genre" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:border-red-600 focus:ring focus:ring-red-200 focus:ring-opacity-50" required>
                     <option value="" disabled selected>Choisir le genre</option>
-                    <option value="homme">Homme</option>
-                    <option value="femme">Femme</option>
+                    <option value="homme">homme</option>
+                    <option value="femme">femme</option>
                 </select>
             </div>
             

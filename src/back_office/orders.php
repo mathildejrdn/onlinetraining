@@ -3,12 +3,11 @@ session_start();
 
   require_once("../connect.php");
 
-  $sql= "SELECT order_id FROM order_ids";
+  $sql= "SELECT * FROM orders";
 
   $query = $db->prepare($sql);
   $query->execute();
   $orders= $query->fetchAll(PDO::FETCH_ASSOC);
-  
 ?>
 
 <!DOCTYPE html>
@@ -45,16 +44,30 @@ session_start();
           <thead class="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
               <th scope="col" class="px-6 py-3">Numéro de commande</th>
+              <th scope="col" class="px-6 py-3">Statut de la commande</th>
               <th scope="col" class="px-6 py-3">Gestion</th>
               <th scope="col" class="px-6 py-3">Archiver</th>
               <th scope="col" class="px-6 py-3">Supprimer</th>
             </tr>
           </thead>
           <tbody>
+          <?php
+               $displayedOrderIds = []; // Tableau pour garder la trace des order_id affichés
+               foreach($orders as $order) {
+                 $orderId = $order["order_id"];
+                 $displayOrderId = 'CMD0' . $orderId;
+           
+                 if (!in_array($orderId, $displayedOrderIds)) {
+                   // La condition if (!in_array($orderId, $displayedOrderIds)) vérifie si l'order_id de la commande actuelle n'est pas déjà présent dans le tableau $displayedOrderIds.
+                  //  in_array est une fonction PHP qui vérifie si une valeur existe dans un tableau.
+                  // L'order_id est alors ajouté au tableau $displayedOrderIds avec l'instruction $displayedOrderIds[] = $orderId;.
+                   $displayedOrderIds[] = $orderId;
+                   ?>
             <tr class="bg-white border-b hover:bg-gray-50">
-              <td class="px-6 py-4">CMD001</td>
+              <td class="px-6 py-4"><?=$displayOrderId?></td>
+              <td class="px-6 py-4"><?=$order["statut"]?></td>
               <td class="px-6 py-4">
-                <a href="edit_order.php" class="font-medium text-blue-600 hover:underline flex items-center space-x-1">
+                <a href="edit_order.php?id=<?=$order["order_id"]?>" class="font-medium text-blue-600 hover:underline flex items-center space-x-1">
                   <svg class="w-6 h-6 text-blue-600 hover:text-blue-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M10.779 17.779 4.36 19.918 6.5 13.5m4.279 4.279 8.364-8.643a3.027 3.027 0 0 0-2.14-5.165 3.03 3.03 0 0 0-2.14.886L6.5 13.5m4.279 4.279L6.499 13.5m2.14 2.14 6.213-6.504M12.75 7.04 17 11.28"/>
                   </svg>
@@ -62,7 +75,7 @@ session_start();
                 </a>
               </td>
               <td class="px-6 py-4">
-                <a href="orders_finished.php" class="font-medium text-green-600 hover:underline flex items-center space-x-1">
+                <a href="transferOrder.php?id=<?=$order["order_id"]?>" class="font-medium text-green-600 hover:underline flex items-center space-x-1">
                   <svg class="w-6 h-6 text-green-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 7 2 2 4-4m-5-9v4h4V3h-4Z"/>
                   </svg>
@@ -78,6 +91,9 @@ session_start();
                 </a>
               </td>
             </tr>
+            <?php
+            }}
+            ?>
           </tbody>
         </table>
       </form>

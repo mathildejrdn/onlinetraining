@@ -15,11 +15,11 @@ if (isset($_GET["id"]) && !empty($_GET["id"])) {
 }
 
 if (!empty($_POST)) {
-    if (isset($_POST["ref"], $_POST["marque"], $_POST["type"], $_POST["couleur"], $_POST["matiere"], $_POST["motif"], $_POST["taille"], $_POST["genre"], $_POST["stock"], $_POST["prix"])) {
+    if (isset($_POST["ref"], $_POST["marque"], $_POST["categorie"], $_POST["couleur"], $_POST["matiere"], $_POST["motif"], $_POST["taille"], $_POST["genre"], $_POST["stock"], $_POST["prix"])) {
 
         $ref = strip_tags($_POST["ref"]);
         $marque = strip_tags($_POST["marque"]);
-        $type = strip_tags($_POST["stock"]);
+        $categorie = strip_tags($_POST["categorie"]);
         $couleur = strip_tags($_POST["couleur"]);
         $matiere = strip_tags($_POST["matiere"]);
         $motif = strip_tags($_POST["motif"]);
@@ -51,13 +51,13 @@ if (!empty($_POST)) {
 
                 require_once("../connect.php");
 
-                $sql = "UPDATE products SET reference_produit = :reference_produit, marque = :marque, image = :image, type_de_produits = :type_de_produits, couleur = :couleur, matiere = :matiere, stock = :stock, motif = :motif, taille = :taille, genre = :genre, prix = :prix WHERE id = :id";
+                $sql = "UPDATE products SET reference_produit = :reference_produit, marque = :marque, image = :image, categorie = :categorie, couleur = :couleur, matiere = :matiere, stock = :stock, motif = :motif, taille = :taille, genre = :genre, prix = :prix WHERE id = :id";
 
                 $query = $db->prepare($sql);
                 $query->bindValue(":reference_produit", $ref, PDO::PARAM_INT);
                 $query->bindValue(":marque", $marque, PDO::PARAM_STR);
                 $query->bindValue(":image", $newfilename, PDO::PARAM_STR);
-                $query->bindValue(":type_de_produits", $type, PDO::PARAM_STR);
+                $query->bindValue(":categorie", $categorie, PDO::PARAM_STR);
                 $query->bindValue(":couleur", $couleur, PDO::PARAM_STR);
                 $query->bindValue(":matiere", $matiere, PDO::PARAM_STR);
                 $query->bindValue(":stock", $stock, PDO::PARAM_INT);
@@ -99,8 +99,8 @@ if (!empty($_POST)) {
             <label for="marque" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Marque du produit</label>
         </div>
         <div class="relative z-0 w-full mb-5 group">
-            <input type="text" name="type" id="type" value="<?=$produits['type_de_produits']?>" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
-            <label for="type" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Type du produit</label>
+            <input type="text" name="categorie" id="categorie" value="<?=$produits['categorie']?>" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " required />
+            <label for="categorie" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Type du produit</label>
         </div>
         <div class="relative z-0 w-full mb-5 group">
             <input type="file" name="image" id="image" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" required />

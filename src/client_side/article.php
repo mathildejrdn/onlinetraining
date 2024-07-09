@@ -1,6 +1,33 @@
 <?php
-ob_start();
 include('../includes/navbar.php');
+include('../connect.php'); // Assurez-vous d'inclure le fichier de connexion à la base de données
+
+// Vérifie si l'ID du produit est passé dans l'URL
+if (isset($_GET['id'])) {
+    $product_id = $_GET['id'];
+
+    // Query pour récupérer les détails du produit basé sur l'ID
+    $query = "SELECT * FROM products WHERE id = :id";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':id', $product_id);
+    $stmt->execute();
+    $product = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($product) {
+        // Récupérer les détails du produit
+        $nom_produit = $product['nom']; // Exemple de champ de la base de données
+        $description = $product['description']; // Exemple de champ de la base de données
+        $prix = $product['prix']; // Exemple de champ de la base de données
+        $image = '../back_office/' . $product['image']; // Chemin de l'image du produit
+        // Vous pouvez récupérer d'autres informations nécessaires ici
+    } else {
+        // Gérer le cas où le produit avec cet ID n'existe pas
+        echo "Produit non trouvé.";
+    }
+} else {
+    // Gérer le cas où l'ID du produit n'est pas passé dans l'URL
+    echo "ID de produit non spécifié.";
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -9,9 +36,9 @@ include('../includes/navbar.php');
     <meta charset="UTF-8">
     <title>Online training</title>
     <link rel="stylesheet" href="../styles/styles.css">
-  <link rel="stylesheet" href="../styles/output.css">
-  <link rel="stylesheet" href="../styles/reset.css">
-  <link rel="stylesheet" href="../styles/font.css">
+    <link rel="stylesheet" href="../styles/output.css">
+    <link rel="stylesheet" href="../styles/reset.css">
+    <link rel="stylesheet" href="../styles/font.css">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
 </head>
@@ -22,7 +49,7 @@ include('../includes/navbar.php');
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-lg:gap-16">
             <!-- Colonne 1: Image -->
             <div class="lg:min-h-82 lg:min-w-48">
-                <img src="../images/tshirt.jpg" alt="Produit"
+                <img src="<?php echo $image; ?>" alt="Produit"
                     class="w-full h-full object-cover rounded-md lg:h-82 lg:min-w-72" />
             </div>
 
@@ -31,15 +58,11 @@ include('../includes/navbar.php');
                 <div class="lg:pl-4">
                     <div class="flex flex-wrap items-start gap-4">
                         <div>
-                            <h2 class="text-2xl font-bold text-gray-800">Nom du produit</h2>
+                            <h2 class="text-2xl font-bold text-gray-800"><?php echo $nom_produit; ?></h2>
                         </div>
                     </div>
 
-                    <p class="text-sm text-gray-600 mt-4">Rehaussez votre style décontracté avec notre t-shirt
-                        premium pour hommes. Conçu pour le confort et avec une coupe moderne, ce t-shirt polyvalent est
-                        un ajout essentiel à votre garde-robe. Le tissu doux et respirant assure un confort toute la
-                        journée, en le rendant parfait pour un usage quotidien. Son col rond classique et ses manches
-                        courtes offrent un look intemporel.</p>
+                    <p class="text-sm text-gray-600 mt-4"><?php echo $description; ?></p>
 
                     <div class="flex items-center gap-4 mt-4">
                         <button type="button"
@@ -49,6 +72,11 @@ include('../includes/navbar.php');
                     <hr class="my-8" />
 
                     <div>
+                        <h3 class="text-xl font-bold text-gray-800">Prix</h3>
+                        <p class="text-lg font-semibold text-gray-800"><?php echo $prix; ?> €</p>
+                    </div>
+
+                    <div class="mt-4">
                         <h3 class="text-xl font-bold text-gray-800">Choisir une taille</h3>
                         <div class="flex flex-wrap gap-2 mt-4">
                             <button type="button"
@@ -79,9 +107,7 @@ include('../includes/navbar.php');
         </div>
     </div>
     <?php include('../includes/guaranties.php'); ?>
+
 </body>
 
 </html>
-<?php
-ob_end_flush();
-?>

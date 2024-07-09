@@ -5,12 +5,12 @@ $connectionFilePath = '../connect.php';
 if (file_exists($connectionFilePath)) {
     include($connectionFilePath);
 } else {
-    die('Database connection file not found.');
+    die('Fichier de connexion à la BDD non trouvé');
 }
 
 if (isset($db)) {
     try {
-        $query = "SELECT * FROM products ";
+        $query = "SELECT * FROM products";
         $params = array();
 
         // Vérifier si le genre est spécifié
@@ -20,15 +20,14 @@ if (isset($db)) {
             $params[':genre'] = $genre;
         }
 
-        // Vérification si la catégorie est spécifiée
+        // Vérifier si la catégorie est spécifiée
         if (isset($_GET['categorie'])) {
             $categorie = $_GET['categorie'];
-            // Si le genre n'est pas spécifié ou est différent de 'femme', filtrer par catégorie normalement
-            if (!isset($genre) || $genre !== 'femme') {
-                $query .= " WHERE categorie = :categorie";
+            // Ajouter la condition pour la catégorie
+            if (!isset($genre)) {
+                $query = " WHERE categorie = :categorie";
             } else {
-                // Si le genre est 'femme', filtrer sur les catégories 'robe' et 'jupe'
-                $query .= " WHERE (categorie = 'robe' OR categorie = 'jupe')";
+                $query = " AND categorie = :categorie";
             }
             $params[':categorie'] = $categorie;
         }
@@ -40,7 +39,7 @@ if (isset($db)) {
         die('Query failed: ' . $e->getMessage());
     }
 } else {
-    die('Database connection not established.');
+    die('Connexion à la base de donnée échouée');
 }
 ?>
 
@@ -62,14 +61,20 @@ if (isset($db)) {
             <!-- Filtrer par catégorie -->
             <div class="flex justify-center mb-8 space-x-4">
                 <?php
-                // Query pour récupérer les catégories distinctes
+                // Vérifier si le genre est spécifié pour filtrer les catégories en fonction
                 $query_categories = "SELECT DISTINCT nom_categorie FROM categories";
-                $type_categories = $db->query($query_categories);
-                $categories = $type_categories->fetchAll(PDO::FETCH_COLUMN);
+                if (isset($genre)) {
+                    $query_categories .= " WHERE categorie_genre = :genre";
+                    $cat_stmt = $db->prepare($query_categories);
+                    $cat_stmt->execute([':genre' => $genre]);
+                } else {
+                    $cat_stmt = $db->query($query_categories);
+                }
+                $categories = $cat_stmt->fetchAll(PDO::FETCH_COLUMN);
                 
                 // Afficher les boutons de filtre par catégorie
                 foreach ($categories as $category) {
-                    echo '<a href="products_grid.php?categorie=' . urlencode($category) . '" class="bg-red-500 text-white py-2 px-4 rounded-lg">' . $category . '</a>';
+                    echo '<a href="products_grid.php?categorie=' . urlencode($category) . (isset($genre) ? '&genre=' . urlencode($genre) : '') . '" class="bg-red-500 text-white py-2 px-4 rounded-lg">' . $category . '</a>';
                 }
                 ?>
             </div>
@@ -97,4 +102,5 @@ if (isset($db)) {
 
 </body>
 </html>
+
 

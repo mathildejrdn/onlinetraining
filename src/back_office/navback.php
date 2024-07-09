@@ -1,3 +1,15 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
+function isAdmin(){
+  return(isset($_SESSION["admin"]));
+}
+if(!isAdmin()){
+  header("Location: ../index.php");
+}
+?>
+
 <nav class="bg-gray-200 max-w-1/4 p-4 flex flex-col">
   <!-- Liens de la navbar -->
   <ul class="flex flex-col gap-2 mt-4">
@@ -28,6 +40,9 @@
     </li>
     <li>
       <a href="adminList.php" class="block py-2 px-4 bg-white border-b border-gray-300 hover:bg-gray-100">Gestion des apprenant(e)s</a>
+    </li>
+    <li>
+      <a href="../index.php" class="block py-2 px-4 bg-white border-b border-gray-300 hover:bg-gray-100">Retour au site</a>
     </li>
   </ul>
 

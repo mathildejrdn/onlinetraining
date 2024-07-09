@@ -10,7 +10,7 @@ $query->execute();
 
 // Récupérer les résultats
 $users = $query->fetchAll(PDO::FETCH_ASSOC);
-
+include('navback.php');
 ?>
 
 <!doctype html>
@@ -23,7 +23,7 @@ $users = $query->fetchAll(PDO::FETCH_ASSOC);
 </head>
 <body class="flex min-h-screen bg-gray-100">
   <!-- Navbar (sidebar) -->
-  <?php include('navback.php'); ?>
+  <?php  ?>
 
   <!-- Conteneur pour le contenu de la page -->
   <div class="flex-1 p-6">

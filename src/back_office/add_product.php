@@ -1,7 +1,7 @@
 <?php
 if(!empty($_POST))
 {
-    if(isset($_POST["ref"], $_POST["marque"], $_POST["categorie"], $_POST["nom"], $_POST["couleur"], $_POST["matiere"], $_POST["motif"], $_POST["taille"], $_POST["genre"], $_POST["stock"], $_POST["prix"], $_POST["description"]) && !empty($_POST["ref"]) && !empty($_POST["marque"]) && !empty($_POST["categorie"]) && !empty($_POST["nom"]) && !empty($_POST["couleur"]) && !empty($_POST["matiere"]) && !empty($_POST["motif"]) && !empty($_POST["taille"]) && !empty($_POST["genre"])&& !empty($_POST["stock"]) && !empty($_POST["prix"]) && !empty($_POST["description"]))
+    if(isset($_POST["ref"], $_POST["marque"], $_POST["categorie"], $_POST["nom"], $_POST["couleur"], $_POST["matiere"], $_POST["motif"], $_POST["taille"], $_POST["genre"], $_POST["stock"], $_POST["prix"], $_POST["description"]) && !empty($_POST["ref"]) && !empty($_POST["marque"]) && !empty($_POST["categorie"]) && !empty($_POST["nom"]) && !empty($_POST["couleur"]) && !empty($_POST["matiere"]) && !empty($_POST["motif"]) && !empty($_POST["taille"]) && !empty($_POST["genre"])&& !empty($_POST["stock"]) && !empty($_POST["prix"]) && !empty($_POST["description"])){
 
     $ref= strip_tags($_POST["ref"]);
     $marque= strip_tags($_POST["marque"]);
@@ -68,6 +68,7 @@ if(!empty($_POST))
         } else {
             die("Le formulaire est incomplet.");
         }  
+    }
 }
 
 ?>
@@ -107,7 +108,7 @@ if(!empty($_POST))
             <select name="categorie" id="categorie" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" required>
                 <option value="" disabled selected>Choisir une catégorie</option>
                 <?php foreach($categories as $categorie):?>
-                <option value="<?=$categorie["id"]?>"><?=$categorie["nom_categorie"]?></option>
+                <option value="<?=$categorie["nom_categorie"]?>"><?=$categorie["nom_categorie"]?></option>
                 <?php endforeach;?>
             </select>
             <label for="categorie" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Categorie</label>
@@ -153,9 +154,8 @@ if(!empty($_POST))
         <div class="relative z-0 w-full mb-5 group">
             <select name="genre" id="genre" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" required>
                 <option value="" disabled selected>Choisir un genre</option>
-                <?php foreach($categories as $categorie):?>
-                <option value="<?=$categorie["id"]?>"><?=$categorie["categorie_genre"]?></option>
-                <?php endforeach;?>
+                <option value="homme" >Homme</option>
+                <option value="femme" >Femme</option> 
             </select>
             <label for="genre" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Genre</label>
         </div>

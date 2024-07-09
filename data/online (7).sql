@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : db
--- Généré le : lun. 08 juil. 2024 à 07:40
+-- Généré le : mar. 09 juil. 2024 à 06:37
 -- Version du serveur : 8.0.37
 -- Version de PHP : 8.2.8
 
@@ -57,21 +57,59 @@ INSERT INTO `administrateurs` (`id`, `first_name`, `last_name`, `password`, `bir
 
 CREATE TABLE `categories` (
   `id` int NOT NULL,
-  `nom_categorie` varchar(255) NOT NULL
+  `nom_categorie` varchar(255) NOT NULL,
+  `categorie_genre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `categories`
 --
 
-INSERT INTO `categories` (`id`, `nom_categorie`) VALUES
-(1, 'robe'),
-(2, 'tee-shirt'),
-(3, 'pantalon'),
-(4, 'veste'),
-(5, 'chemise'),
-(7, 'polo'),
-(8, 'chaussures');
+INSERT INTO `categories` (`id`, `nom_categorie`, `categorie_genre`) VALUES
+(1, 'robe', ''),
+(2, 'tee-shirt', ''),
+(3, 'pantalon', ''),
+(4, 'veste', ''),
+(5, 'chemise', ''),
+(7, 'polo', ''),
+(8, 'chaussures', '');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `completed_orders`
+--
+
+CREATE TABLE `completed_orders` (
+  `id` int NOT NULL,
+  `order_id` int NOT NULL,
+  `user_name` varchar(255) NOT NULL,
+  `user_firstname` varchar(255) NOT NULL,
+  `user_id` int NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `total_price` decimal(10,2) NOT NULL,
+  `date_order` datetime NOT NULL,
+  `livraison` varchar(255) NOT NULL,
+  `product_id` int NOT NULL,
+  `product_name` varchar(255) NOT NULL,
+  `user_adress` varchar(255) NOT NULL,
+  `quantity` int NOT NULL,
+  `phone_number` varchar(15) NOT NULL,
+  `product_price` decimal(10,2) NOT NULL,
+  `statut` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `completed_orders`
+--
+
+INSERT INTO `completed_orders` (`id`, `order_id`, `user_name`, `user_firstname`, `user_id`, `email`, `total_price`, `date_order`, `livraison`, `product_id`, `product_name`, `user_adress`, `quantity`, `phone_number`, `product_price`, `statut`) VALUES
+(1, 4, 'machin', 'truc', 3, 'machin@email.com', 50.00, '2024-07-05 14:46:38', 'livraison standard', 26, '', 'truc adresse', 1, '966666666', 30.00, '0'),
+(2, 4, 'machin', 'truc', 3, 'machin@email.com', 50.00, '2024-07-05 14:46:38', 'livraison standard', 26, '', 'truc adresse', 1, '966666666', 30.00, '0'),
+(3, 5, 'machin', 'truc', 3, 'machin@email.com', 80.00, '2024-07-05 14:53:57', 'livraison standard', 26, '', 'truc adresse', 2, '966666666', 30.00, '0'),
+(4, 6, 'machin', 'truc', 3, 'machin@email.com', 80.00, '2024-07-08 06:51:26', 'livraison standard', 26, '', 'truc adresse', 2, '966666666', 30.00, '0'),
+(5, 7, 'machin', 'truc', 3, 'machin@email.com', 50.00, '2024-07-08 06:53:27', 'livraison standard', 27, 'ARDENE CROP TOP Manche courte', 'truc adresse', 1, '966666666', 20.00, '0'),
+(6, 8, 'machin', 'truc', 3, 'machin@email.com', 20.00, '2024-07-08 07:25:55', 'livraison chrono', 29, 'test', 'truc adresse', 1, '966666666', 20.00, '0');
 
 -- --------------------------------------------------------
 
@@ -128,16 +166,7 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `order_id`, `user_id`, `user_firstname`, `user_name`, `user_adress`, `email`, `phone_number`, `date_order`, `product_name`, `product_id`, `product_price`, `quantity`, `total_price`, `livraison`, `statut`) VALUES
-(19, 3, 3, 'truc', 'machin', 'truc adresse', 'machin@email.com', 966666666, '2024-07-05 14:23:38', '', 26, 30, 1, 30, 'livraison standard', 'en attente'),
-(20, 4, 3, 'truc', 'machin', 'truc adresse', 'machin@email.com', 966666666, '2024-07-05 14:46:38', '', 26, 30, 1, 50, 'livraison standard', 'en attente'),
-(21, 4, 3, 'truc', 'machin', 'truc adresse', 'machin@email.com', 966666666, '2024-07-05 14:46:38', 'ARDENE CROP TOP Manche courte', 27, 20, 1, 50, 'livraison standard', 'en attente'),
-(22, 5, 3, 'truc', 'machin', 'truc adresse', 'machin@email.com', 966666666, '2024-07-05 14:53:57', '', 26, 30, 2, 80, 'livraison standard', 'en attente'),
-(23, 5, 3, 'truc', 'machin', 'truc adresse', 'machin@email.com', 966666666, '2024-07-05 14:53:57', 'ARDENE CROP TOP Manche courte', 27, 20, 1, 80, 'livraison standard', 'en attente'),
-(24, 6, 3, 'truc', 'machin', 'truc adresse', 'machin@email.com', 966666666, '2024-07-08 06:51:26', '', 26, 30, 2, 80, 'livraison standard', 'en attente'),
-(25, 6, 3, 'truc', 'machin', 'truc adresse', 'machin@email.com', 966666666, '2024-07-08 06:51:26', 'ARDENE CROP TOP Manche courte', 27, 20, 1, 80, 'livraison standard', 'en attente'),
-(26, 7, 3, 'truc', 'machin', 'truc adresse', 'machin@email.com', 966666666, '2024-07-08 06:53:27', 'ARDENE CROP TOP Manche courte', 27, 20, 1, 50, 'livraison standard', 'en attente'),
-(27, 7, 3, 'truc', 'machin', 'truc adresse', 'machin@email.com', 966666666, '2024-07-08 06:53:27', 'Payper Polo manches longues Gris', 28, 30, 1, 50, 'livraison standard', 'en attente'),
-(28, 8, 3, 'truc', 'machin', 'truc adresse', 'machin@email.com', 966666666, '2024-07-08 07:25:55', 'test', 29, 20, 1, 20, 'livraison chrono', 'en attente');
+(19, 3, 3, 'truc', 'machin', 'truc adresse', 'machin@email.com', 966666666, '2024-07-05 14:23:38', '', 26, 30, 1, 30, 'livraison standard', 'en cours');
 
 -- --------------------------------------------------------
 
@@ -171,20 +200,6 @@ INSERT INTO `order_ids` (`order_id`, `user_name`, `user_firstname`, `user_id`, `
 (6, 'machin', 'truc', 3, 'machin@email.com', 80, '2024-07-08 06:51:26', 'livraison standard', 'truc adresse', '966666666'),
 (7, 'machin', 'truc', 3, 'machin@email.com', 50, '2024-07-08 06:53:27', 'livraison standard', 'truc adresse', '966666666'),
 (8, 'machin', 'truc', 3, 'machin@email.com', 20, '2024-07-08 07:25:55', 'livraison chrono', 'truc adresse', '966666666');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `order_items`
---
-
-CREATE TABLE `order_items` (
-  `order_id` int NOT NULL,
-  `product_id` int NOT NULL,
-  `product_name` varchar(255) NOT NULL,
-  `quantity` int NOT NULL,
-  `product_price` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -285,6 +300,12 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Index pour la table `completed_orders`
+--
+ALTER TABLE `completed_orders`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Index pour la table `message`
 --
 ALTER TABLE `message`
@@ -335,6 +356,12 @@ ALTER TABLE `administrateurs`
 --
 ALTER TABLE `categories`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT pour la table `completed_orders`
+--
+ALTER TABLE `completed_orders`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `message`

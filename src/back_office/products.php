@@ -1,6 +1,6 @@
 <?php
 require_once("../connect.php");
-
+include('navback.php'); 
 $sql = "SELECT * FROM products ORDER BY marque";
 $query = $db->prepare($sql);
 $query->execute();
@@ -16,8 +16,7 @@ $produits = $query->fetchAll(PDO::FETCH_ASSOC);
   <link rel="stylesheet" href="../styles/reset.css">
 </head>
 <body class="flex min-h-screen bg-gray-100">
-  <!-- Navbar (sidebar) -->
-  <?php include('navback.php'); ?>
+  
 
   <!-- Conteneur pour le contenu de la page -->
   <div class="flex-1 p-6">

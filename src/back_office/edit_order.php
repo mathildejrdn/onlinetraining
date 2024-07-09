@@ -1,4 +1,7 @@
 <?php
+session_start();
+$getFullName = $_SESSION["admin"]["firstname"] ." ". $_SESSION["admin"]["name"];
+
 if(isset($_GET["id"]) && !empty($_GET["id"])){
     require_once("../connect.php");
     $id = strip_tags($_GET["id"]);
@@ -16,7 +19,7 @@ if(isset($_GET["id"]) && !empty($_GET["id"])){
 }
 
 if(!empty($_POST)){
-    if(isset($_POST["firstname"], $_POST["lastname"], $_POST["adress"], $_POST["phonenumber"], $_POST["date"], $_POST["statut"]) && (!empty($_POST["firstname"])) && (!empty($_POST["lastname"])) && (!empty($_POST["adress"])) && (!empty($_POST["phonenumber"])) && (!empty($_POST["date"]))  && (!empty($_POST["statut"]))){
+    if(isset($_POST["firstname"], $_POST["lastname"], $_POST["adress"], $_POST["phonenumber"], $_POST["date"], $_POST["statut"], $_POST["nom_admin"]) && (!empty($_POST["firstname"])) && (!empty($_POST["lastname"])) && (!empty($_POST["adress"])) && (!empty($_POST["phonenumber"])) && (!empty($_POST["date"]))  && (!empty($_POST["statut"])) && (!empty($_POST["nom_admin"]))){
 
         $firstname = strip_tags($_POST["firstname"]);
         $lastname = strip_tags($_POST["lastname"]);
@@ -24,8 +27,9 @@ if(!empty($_POST)){
         $phonenumber = strip_tags($_POST["phonenumber"]);
         $statut = strip_tags($_POST["statut"]);
         $date = strip_tags($_POST["date"]);
+        $nom_admin = strip_tags($_POST["nom_admin"]);
 
-        $sql = "UPDATE orders SET user_firstname = :user_firstname, user_name = :user_name, user_adress = :user_adress, phone_number = :phone_number, statut = :statut,  date_order = :date_order WHERE order_id = :order_id";
+        $sql = "UPDATE orders SET user_firstname = :user_firstname, user_name = :user_name, user_adress = :user_adress, phone_number = :phone_number, statut = :statut,  date_order = :date_order, nom_admin = :nom_admin WHERE order_id = :order_id";
 
         $query = $db->prepare($sql);
         $query->bindValue("user_firstname", $firstname, PDO::PARAM_STR);
@@ -34,6 +38,7 @@ if(!empty($_POST)){
         $query->bindValue("phone_number", $phonenumber, PDO::PARAM_STR);
         $query->bindValue(":statut", $statut, PDO::PARAM_STR);
         $query->bindValue(":date_order", $date, PDO::PARAM_STR);
+        $query->bindValue(":nom_admin", $nom_admin, PDO::PARAM_STR);
         $query->bindValue(":order_id", $id, PDO::PARAM_INT);
 
         $query->execute();
@@ -109,12 +114,13 @@ if(!empty($_POST)){
         <div class="relative z-0 w-full mb-5 group">
             <select name="statut" id="statut" value="<?=$order[0]['statut']?>" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none focus:outline-none focus:ring-0 focus:border-red-600 peer" required>
                 <option value="" disabled selected>Statut de la commande</option>
-                <option value="pending">En attente</option>
-                <option value="en cours">En cours</option>
+                <option value="En attente">En attente</option>
+                <option value="En cours">En cours</option>
                 <option value="terminée">Terminée</option>
             </select>
             <label for="statut" class="peer-focus:font-medium absolute text-sm text-red-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-red-600 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Statut de la commande</label>
         </div>
+        <input type="hidden" value="<?=$getFullName?>" name="nom_admin">
         <div id="order_btn">
             <button type="submit" class="w-full bg-red-500 text-white py-2 rounded hover:bg-red-600 mb-5">Enregistrer</button>
         </div>

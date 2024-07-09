@@ -54,7 +54,7 @@ if (session_status() == PHP_SESSION_NONE) {
           <a href="#" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0">Beauté</a>
         </li>
         
-        <?php if (isset($_SESSION["admin"]) || isset($_SESSION["user"])): ?>
+        <?php if(isset($_SESSION["admin"]) || isset($_SESSION["user"])): ?>
         <li>
         <a href="../client_side/logout.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0">Déconnexion</a>
         </li>
@@ -62,10 +62,18 @@ if (session_status() == PHP_SESSION_NONE) {
         <li>
         <a href="../client_side/login.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0">Connexion</a>
         </li>
+
         <?php endif; ?>
+        <?php if(isset($_SESSION["user"])): ?>
         <li>
           <a href="../client_side/panierG.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0">Panier</a>
         </li>
+        <?php elseif(isset($_SESSION["admin"])): ?>
+        <li>
+        <a href="../back_office/inbox.php" class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-red-700 md:p-0">Administration</a>
+        </li>
+        <?php endif; ?>
+
       </ul>
     </div>
   </div>

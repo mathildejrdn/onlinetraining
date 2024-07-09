@@ -2,18 +2,11 @@
 session_start();
 require_once("../connect.php");
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    try {
-        // Traiter les actions POST si nécessaire
-        
-        $_SESSION['orders'] = "Actions POST traitées avec succès.";
-    } catch (PDOException $e) {
-        $_SESSION['orders'] = "Erreur lors du traitement des actions POST : " . $e->getMessage();
-    }
+$sql= "SELECT * FROM completed_orders";
 
-    header('Location: orders.php');
-    exit;
-}
+$query = $db->prepare($sql);
+$query->execute();
+$orders= $query->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!doctype html>
@@ -54,10 +47,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </tr>
           </thead>
           <tbody>
+          <?php
+               $displayedOrderIds = []; // Tableau pour garder la trace des order_id affichés
+               foreach($orders as $order) {
+                 $orderId = $order["order_id"];
+                 $displayOrderId = 'CMD0' . $orderId;
+           
+                 if (!in_array($orderId, $displayedOrderIds)) {
+                   // La condition if (!in_array($orderId, $displayedOrderIds)) vérifie si l'order_id de la commande actuelle n'est pas déjà présente dans le tableau $displayedOrderIds.
+                  //  in_array est une fonction PHP qui vérifie si une valeur existe dans un tableau.
+                  // L'order_id est alors ajouté au tableau $displayedOrderIds avec l'instruction $displayedOrderIds[] = $orderId;.
+                   $displayedOrderIds[] = $orderId;
+                   ?>
             <tr class="bg-white border-b hover:bg-gray-50">
-              <td class="px-6 py-4">CMD001</td>
-              <td class="px-6 py-4">2023-06-15</td>
-              <td class="px-6 py-4">John Doe</td>
+              <td class="px-6 py-4"><?=$displayOrderId?></td>
+              <td class="px-6 py-4"><?=$order["date_order"]?></td>
+              <td class="px-6 py-4"><?=$order["nom_admin"]?></td>
               <td class="flex items-center px-6 py-4 space-x-2">
                 <a href="orders.php" class="font-medium text-green-600 hover:underline flex items-center space-x-1">
                   <svg class="w-6 h-6 text-green-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -73,25 +78,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </a>
               </td>
             </tr>
-            <tr class="bg-white border-b hover:bg-gray-50">
-              <td class="px-6 py-4">CMD002</td>
-              <td class="px-6 py-4">2023-06-16</td>
-              <td class="px-6 py-4">Jane Smith</td>
-              <td class="flex items-center px-6 py-4 space-x-2">
-                <a href="orders.php" class="font-medium text-green-600 hover:underline flex items-center space-x-1">
-                  <svg class="w-6 h-6 text-green-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 7 2 2 4-4m-5-9v4h4V3h-4Z"/>
-                  </svg>
-                  <span>Désarchiver</span>
-                </a>
-                <a href="delete_order.php?id=2" class="font-medium text-red-600 hover:underline flex items-center space-x-1">
-                  <svg class="w-6 h-6 text-red-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
-                  </svg>
-                  <span>Supprimer</span>
-                </a>
-              </td>
-            </tr>
+            
+            <?php
+            }}
+            ?>
           </tbody>
         </table>
         

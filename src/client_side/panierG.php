@@ -1,5 +1,11 @@
 <?php
 session_start();
+function isUser(){
+    return(isset($_SESSION["user"]));
+}
+if(!isUser()){
+    header("Location: ../index.php");
+}
 require_once("../connect.php");
 
 if (isset($_POST['add_to_cart'])) {
@@ -159,9 +165,13 @@ if (isset($_POST['add_to_cart'])) {
                     <span>Total</span>
                     <span id="priceTotal"><?=$total?>€</span>
                     <?php
-                        date("d-m-Y H:i:s");
-                        ?>
-                    <input type="hidden" value="<?=date("d-m-Y H:i:s")?>" name="date_order">
+                    // Définir le fuseau horaire français
+                    date_default_timezone_set('Europe/Paris');
+
+                    // Obtenir la date et l'heure actuelles au format souhaité
+                    $current_date_time = date("d-m-Y H:i:s");
+                    ?>
+                    <input type="hidden" value="<?=$current_date_time?>" name="date_order">
                     <input type="hidden" value="<?=$user_id?>" name="user_id">
                     <input type="hidden" value="<?=$_SESSION["user"]["name"]?>" name="user_lastName">
                     <input type="hidden" value="<?=$_SESSION["user"]["firstname"]?>" name="user_firstName">

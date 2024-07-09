@@ -1,5 +1,20 @@
 <?php
 session_start();
+
+// Accés que pour les admins
+
+function isAdmin() {
+    if (isset($_SESSION['admin'])) {
+        return true;
+    }
+    return false;
+}
+
+if (!isAdmin()) {
+    header("Location: ../index.php");
+    exit();
+}
+
 include("../connect.php");
 
 if (!isset($_SESSION['email'])) {
@@ -37,49 +52,56 @@ if ($showMessages && $newMessagesCount > 0) {
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Les admines</title>
     <style>
-        .message-icon {
-            position: relative;
-            display: inline-block;
-            cursor: pointer;
-        }
-        .message-icon .icon {
-            font-size: 24px;
-        }
-        .message-icon .badge {
-            position: absolute;
-            top: -5px;
-            right: -10px;
-            background: red;
-            color: white;
-            border-radius: 50%;
-            padding: 2px 6px;
-            font-size: 12px;
-        }
-        .messages-list {
-            position: absolute;
-            top: 130px;
-            left:0;
-            background: white;
-            border: 1px solid #ccc;
-            width: 300px;
-            max-height: 400px;
-            overflow-y: auto;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .message-item {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-        }
-        .message-item:last-child {
-            border-bottom: none;
-        }
+    .message-icon {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .message-icon .icon {
+        font-size: 24px;
+    }
+
+    .message-icon .badge {
+        position: absolute;
+        top: -5px;
+        right: -10px;
+        background: red;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 6px;
+        font-size: 12px;
+    }
+
+    .messages-list {
+        position: absolute;
+        top: 130px;
+        left: 0;
+        background: white;
+        border: 1px solid #ccc;
+        width: 300px;
+        max-height: 400px;
+        overflow-y: auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .message-item {
+        padding: 10px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .message-item:last-child {
+        border-bottom: none;
+    }
     </style>
 </head>
+
 <body>
     <?php 
     $recupUser = $db->prepare("SELECT * FROM administrateurs WHERE id != :myId");
@@ -89,10 +111,10 @@ if ($showMessages && $newMessagesCount > 0) {
     // AFFICHER UN BOUCLE POUR MONTRER LES ADMIN
     while ($administrateur = $recupUser->fetch()){
         ?>
-        <a href="message.php?id=<?php echo $administrateur['id']?>">
-            <p><?php echo $administrateur["last_name"]; ?> <?php echo $administrateur["first_name"]; ?></p>
-        </a>
-        <?php
+    <a href="message.php?id=<?php echo $administrateur['id']?>">
+        <p><?php echo $administrateur["last_name"]; ?> <?php echo $administrateur["first_name"]; ?></p>
+    </a>
+    <?php
     }
     ?>
 
@@ -104,24 +126,25 @@ if ($showMessages && $newMessagesCount > 0) {
 
     <!-- Affichage de la liste des nouveaux messages si l'utilisateur a cliqué pour les afficher -->
     <?php if ($showMessages && $newMessagesCount > 0): ?>
-        <div class="messages-list">
-            <?php foreach ($newMessages as $message): ?>
-                <div class="message-item">
-                    <?php echo 'Expéditeur : ' . htmlspecialchars($message['first_name']) . ' ' . htmlspecialchars($message['last_name']) . '<br>'; ?>
-                    <?php echo 'La date: ' . htmlspecialchars($message['date_message']) . '<br>'; ?>
-                    <?php echo htmlspecialchars($message['message']); ?>
-                    <!-- Vérification et affichage des pièces jointes -->
-                    <?php if (!empty($message['file'])): ?>
-                        <div class="file">
-                            <a href="<?php echo htmlspecialchars($message['file']); ?>" target="_blank" download><img src="../images/pj.png" alt="Fichier"></a>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            <?php endforeach; ?>
+    <div class="messages-list">
+        <?php foreach ($newMessages as $message): ?>
+        <div class="message-item">
+            <?php echo 'Expéditeur : ' . htmlspecialchars($message['first_name']) . ' ' . htmlspecialchars($message['last_name']) . '<br>'; ?>
+            <?php echo 'La date: ' . htmlspecialchars($message['date_message']) . '<br>'; ?>
+            <?php echo htmlspecialchars($message['message']); ?>
+            <!-- Vérification et affichage des pièces jointes -->
+            <?php if (!empty($message['file'])): ?>
+            <div class="file">
+                <a href="<?php echo htmlspecialchars($message['file']); ?>" target="_blank" download><img
+                        src="../images/pj.png" alt="Fichier"></a>
+            </div>
+            <?php endif; ?>
         </div>
+        <?php endforeach; ?>
+    </div>
     <?php else: ?>
-        <p>Нет новых сообщений.</p>
+    <p>Нет новых сообщений.</p>
     <?php endif; ?>
 </body>
-</html>
 
+</html>

@@ -1,5 +1,20 @@
 <?php
 session_start();
+
+// Accés que pour les admins
+
+function isAdmin() {
+    if (isset($_SESSION['admin'])) {
+        return true;
+    }
+    return false;
+}
+
+if (!isAdmin()) {
+    header("Location: ../index.php");
+    exit();
+}
+
  include("../connect.php");
 
 
@@ -38,36 +53,39 @@ session_start();
    //Afficher les destinataire
    $destinataires = $db->query('SELECT last_name FROM administrateurs ORDER BY last_name');
 ?>
-   
 
 
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <meta>
-    </head>
-    <body>
-    
+</head>
+
+<body>
+
     <form action="" method="POST">
-     <label for="">Destinataire</label>
-    <select name="destinataire">
-        <?php while ($d = $destinataires->fetch()) { ?>
-    <option><?= $d['last_name'] ?></option>
-    <?php } ?>
-    </select>
-    <br />
-    <textarea placeholder="Votre message"   name="message" ></textarea>
-    <br />   <br /> 
-    <input type="submit" value="Envoyer" name="envoi_message"/>
-    <br />   <br /> 
-    <?php if(isset($error)) { echo '<span style="color:red">'.$error.'</span>'; } ?>
+        <label for="">Destinataire</label>
+        <select name="destinataire">
+            <?php while ($d = $destinataires->fetch()) { ?>
+            <option><?= $d['last_name'] ?></option>
+            <?php } ?>
+        </select>
+        <br />
+        <textarea placeholder="Votre message" name="message"></textarea>
+        <br /> <br />
+        <input type="submit" value="Envoyer" name="envoi_message" />
+        <br /> <br />
+        <?php if(isset($error)) { echo '<span style="color:red">'.$error.'</span>'; } ?>
     </form>
     <a href="inbox.php"> <button> Retour</button></a>
-    </body>
-    </html>
+</body>
+
+</html>
 <?php
   //else {
     //header('Location:inbox.php');

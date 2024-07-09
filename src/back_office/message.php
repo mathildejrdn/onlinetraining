@@ -1,5 +1,20 @@
 <?php
 session_start();
+
+// Accés que pour les admins
+
+function isAdmin() {
+    if (isset($_SESSION['admin'])) {
+        return true;
+    }
+    return false;
+}
+
+if (!isAdmin()) {
+    header("Location: ../index.php");
+    exit();
+}
+
 //On détermine sur quelle page on se trouve
 if(isset($_GET['page']) && !empty($_GET['page'])){
     $currentPage = (int) strip_tags($_GET['page']);
@@ -116,21 +131,21 @@ if($recupUser->rowCount() > 0){
 <nav>
     <ul class="pagination">
         <li class="page-item">
-            <a href=""class="page-link">Précédente</a>
+            <a href="" class="page-link">Précédente</a>
         </li>
         <li class="page-item">
-            <a href=""class="page-link">1</a>
+            <a href="" class="page-link">1</a>
         </li>
         <li class="page-item">
-            <a href=""class="page-link">2</a>
+            <a href="" class="page-link">2</a>
         </li>
         <li class="page-item">
-            <a href=""class="page-link">Suivante</a>
+            <a href="" class="page-link">Suivante</a>
         </li>
     </ul>
 </nav>
-    <section id="message">
-<?php
+<section id="message">
+    <?php
 
 
 //J'affiche tout les message (les conversations)
@@ -141,71 +156,74 @@ if($recupUser->rowCount() > 0){
     while($message = $recupMessage->fetch()){
        if($message['id_to'] == $_SESSION['id'])
        {
-        ?> 
-        <?php echo   htmlspecialchars($message['first_name']) . ' ' . htmlspecialchars($message['last_name']) . '<br>'; ?>
+        ?>
+    <?php echo   htmlspecialchars($message['first_name']) . ' ' . htmlspecialchars($message['last_name']) . '<br>'; ?>
     <p style='color:red;'><?= $message['message']; ?>
     <p><?= $message['date_message']; ?></p>
-   <?php 
+    <?php 
    if(!empty( $message['file'])){
     ?>
-        <a href="<?= $message['file'] ?>" download><img src="../images/pj.png" alt=""></a>
-        <?php
+    <a href="<?= $message['file'] ?>" download><img src="../images/pj.png" alt=""></a>
+    <?php
     }
 
     
     
 ?>
 
-     
+
 
 
     <?php
  
        }elseif ($message['id_to'] == $getid) {
 
-       ?> 
+       ?>
     <p style='color:green;'><?= $message['message']; ?></p>
     <p><?= $message['date_message']; ?></p>
 
     <?php 
    if(!empty( $message['file'])){
     ?>
-        <a target="_blank" href="<?= $message['file'] ?>" ><img src="../images/pj.png" alt=""></a>
-        <?php
+    <a target="_blank" href="<?= $message['file'] ?>"><img src="../images/pj.png" alt=""></a>
+    <?php
     }
 
     
     
 ?>
-<a href="">Supprimer</a>
+    <a href="">Supprimer</a>
 
 
 
-    
-        <?php
+
+    <?php
     }
 }
     ?>
-    </section>
-    <!DOCTYPE html>
+</section>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Message privé</title>
     <meta charset="utf-8">
 </head>
+
 <body>
 
     <form action="" method="POST" enctype="multipart/form-data">
-    <label for="message">Message:</label>
-      <textarea name="message" id=""></textarea>
-      <br>  <br>
-      <label for="attachment">File:</label>
-        <input type="file"  name="attachment"><br>
-      <input type="submit" name="envoyer">
+        <label for="message">Message:</label>
+        <textarea name="message" id=""></textarea>
+        <br> <br>
+        <label for="attachment">File:</label>
+        <input type="file" name="attachment"><br>
+        <input type="submit" name="envoyer">
     </form>
 
 
 </body>
+
 </html>

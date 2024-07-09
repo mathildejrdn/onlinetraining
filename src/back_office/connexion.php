@@ -25,27 +25,40 @@ if(isset($_POST['valider'])){
     }
 }
 
+// Accés que pour les admins
 
+function isAdmin() {
+    if (isset($_SESSION['admin'])) {
+        return true;
+    }
+    return false;
+}
+
+if (!isAdmin()) {
+    header("Location: ../index.php");
+    exit();
+}
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <meta charset="utf-8">
 </head>
+
 <body>
     <form method="POST" action="">
-<br>  <br>
-<input type="email" name="email">
-<input type="password" name="pass">
-<input type="submit" name="valider">
+        <br> <br>
+        <input type="email" name="email">
+        <input type="password" name="pass">
+        <input type="submit" name="valider">
 
     </form>
 </body>
+
 </html>
-
-

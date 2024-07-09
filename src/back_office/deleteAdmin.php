@@ -1,6 +1,20 @@
 <?php
 session_start();
 
+// Accés que pour les admins
+
+function isAdmin() {
+    if (isset($_SESSION['admin'])) {
+        return true;
+    }
+    return false;
+}
+
+if (!isAdmin()) {
+    header("Location: ../index.php");
+    exit();
+}
+
 if(isset($_GET["id"]) && !empty($_GET["id"])){
     require_once("../connect.php");
 

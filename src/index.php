@@ -31,7 +31,7 @@ include 'includes/header.php';
 	  <figcaption>
 		  <div class="RTP"> <span>MODE FEMME</span> </div>
 		    <p>ELEGANCE</p>
-		    <a href=""><button class="btn_effect">Découvrez</button></a>
+		    <a href="/client_side/products_grid.php?genre=femme"><button class="btn_effect">Découvrez</button></a>
 	  </figcaption>
   </figure>
     
@@ -40,19 +40,9 @@ include 'includes/header.php';
 			<figcaption>
 			  <div class="RTP"> <span>MODE FEMME</span> </div>
 			  <p>ELEGANCE</p>
-			  <a href=""><button class="btn_effect">Découvrez</button></a>
+			  <a href="/client_side/products_grid.php?genre=homme"><button class="btn_effect">Découvrez</button></a>
 			</figcaption>
 		</figure>
-            
-	<figure class="effect">
-			<img src="./images/beauty.jpg" alt="">
-			<figcaption>
-			  <div class="RTP"> <span>MODE FEMME</span> </div>
-			  <p>ELEGANCE</p>
-			  <a href=""><button class="btn_effect">Découvrez</button></a>
-			</figcaption>
-	</figure>
-  
 </div>
 
 <?php include 'includes/guaranties.php'; ?> 

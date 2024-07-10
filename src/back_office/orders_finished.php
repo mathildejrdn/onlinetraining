@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-include('navback.php');
 
 require_once("../connect.php");
 

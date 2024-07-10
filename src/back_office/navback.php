@@ -1,7 +1,8 @@
 <?php
-
+if(session_status() == PHP_SESSION_NONE){
+    session_start();
+}
 // Accés que pour les admins
-
 function isAdmin() {
     if (isset($_SESSION['admin'])) {
         return true;

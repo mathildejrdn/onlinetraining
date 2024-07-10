@@ -1,6 +1,6 @@
 <?php
  // Accés que pour les admins
-
+session_start();
 function isAdmin() {
     if (isset($_SESSION['admin'])) {
         return true;

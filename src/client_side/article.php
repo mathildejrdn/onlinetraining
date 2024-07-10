@@ -61,13 +61,15 @@ if (isset($_GET['id'])) {
                             <h2 class="text-2xl font-bold text-gray-800"><?php echo $nom_produit; ?></h2>
                         </div>
                     </div>
-
                     <p class="text-sm text-gray-600 mt-4"><?php echo $description; ?></p>
 
-                    <div class="flex items-center gap-4 mt-4">
-                        <button type="button"
-                            class="px-4 py-2 border border-gray-800 bg-transparent text-gray-800 rounded-md hover:bg-red-600 hover:text-white">Ajouter au panier</button>
-                    </div>
+                    <form method="POST" action="./panierG.php">
+                        <input type="hidden" name="product_id" value="<?= $product['id']?>">
+                        <input type="hidden" name="product_img" value="<?= $product['image']?>">
+                        <input type="hidden" name="product_name" value="<?= htmlspecialchars($product['nom']) ?>">
+                        <input type="hidden" name="product_price" value="<?= htmlspecialchars($product['prix']) ?>">
+                        <button class="px-4 py-2 border border-gray-800 bg-transparent text-gray-800 rounded-md hover:bg-red-600 hover:text-white" type="submit" name="add_to_cart">Ajouter au panier</button>
+                </form>
 
                     <hr class="my-8" />
 
@@ -77,16 +79,11 @@ if (isset($_GET['id'])) {
                     </div>
 
                     <div class="mt-4">
-                        <h3 class="text-xl font-bold text-gray-800">Choisir une taille</h3>
+                        <h3 class="text-xl font-bold text-gray-800">Taille</h3>
                         <div class="flex flex-wrap gap-2 mt-4">
                             <button type="button"
-                                class="w-12 h-12 border hover:border-gray-800 font-semibold text-sm rounded-md flex items-center justify-center">SM</button>
-                            <button type="button"
-                                class="w-12 h-12 border hover:border-gray-800 border-gray-800 font-semibold text-sm rounded-md flex items-center justify-center">MD</button>
-                            <button type="button"
-                                class="w-12 h-12 border hover:border-gray-800 font-semibold text-sm rounded-md flex items-center justify-center">LG</button>
-                            <button type="button"
-                                class="w-12 h-12 border hover:border-gray-800 font-semibold text-sm rounded-md flex items-center justify-center">XL</button>
+                                class="w-12 h-12 border hover:border-gray-800 font-semibold text-sm rounded-md flex items-center justify-center"><?=$product[""]?></button>
+
                         </div>
                     </div>
 

@@ -3,17 +3,7 @@ session_start();
 
  // Accés que pour les admins
 
-function isAdmin() {
-    if (isset($_SESSION['admin'])) {
-        return true;
-    }
-    return false;
-}
 
-if (!isAdmin()) {
-    header("Location: ../index.php");
-    exit();
-}
 
 require_once("../connect.php");
 $sql = "SELECT * FROM `users`";
@@ -38,8 +28,7 @@ include('navback.php');
 </head>
 
 <body class="flex min-h-screen bg-gray-100">
-    <!-- Navbar (sidebar) -->
-    <?php include('navback.php'); ?>
+  
 
     <!-- Conteneur pour le contenu de la page -->
     <div class="flex-1 p-6">

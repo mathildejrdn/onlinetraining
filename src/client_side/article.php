@@ -19,7 +19,8 @@ if (isset($_GET['id'])) {
         $description = $product['description']; // Exemple de champ de la base de données
         $prix = $product['prix']; // Exemple de champ de la base de données
         $image = '../back_office/' . $product['image']; // Chemin de l'image du produit
-        // Vous pouvez récupérer d'autres informations nécessaires ici
+        $taille= $product["taille"];
+        $couleur= $product["couleur"];
     } else {
         // Gérer le cas où le produit avec cet ID n'existe pas
         echo "Produit non trouvé.";
@@ -82,21 +83,16 @@ if (isset($_GET['id'])) {
                         <h3 class="text-xl font-bold text-gray-800">Taille</h3>
                         <div class="flex flex-wrap gap-2 mt-4">
                             <button type="button"
-                                class="w-12 h-12 border hover:border-gray-800 font-semibold text-sm rounded-md flex items-center justify-center"><?=$product[""]?></button>
+                                class="w-12 h-12 border hover:border-gray-800 font-semibold text-sm rounded-md flex items-center justify-center"><?=$product["taille"]?></button>
 
                         </div>
                     </div>
 
                     <div class="mt-4">
-                        <h3 class="text-xl font-bold text-gray-800">Choisir une couleur</h3>
+                        <h3 class="text-xl font-bold text-gray-800">Couleur</h3>
                         <div class="mt-2">
-                            <select
-                                class="block w-36 px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-200 focus:border-transparent">
-                                <option value="black">Noir</option>
-                                <option value="gray">Gris</option>
-                                <option value="orange">Orange</option>
-                                <option value="red">Rouge</option>
-                            </select>
+                        <button type="button"
+                        class="w-55 h-12 border hover:border-gray-800 font-semibold text-sm rounded-md flex items-center justify-center"><?=$product["couleur"]?></button>
                         </div>
                     </div>
                 </div>

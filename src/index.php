@@ -69,27 +69,6 @@ include 'includes/header.php';
 <a href="../client_side/signup.php">Formulaire d'inscription</a>
 <a href="../client_side/panier.php">panier</a>
 
-<?php foreach($products as $product): ?>
-  <section>
-    <article><a href="product.php?id=<?= $product["id"] ?>">
-      <?php
-      $imagePath = $product["image"];
-      // Assurez-vous que 'back_office/' est le chemin correct vers vos images
-      $class = 'back_office/' . $imagePath;
-      ?>
-      <img src="<?= $class ?>" alt="">
-      <div class="info-article">
-        <div class="article-name">
-          <span><?= $product["categorie"] ?></span>
-        </div>
-        <div class="article-price">
-          <span><?= $product["prix"] ?>€</span>
-        </div>
-      </div></a>
-    </article>
-  </section>
-<?php endforeach; ?>
-
 
 </body>
 </html>

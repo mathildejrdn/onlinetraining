@@ -73,7 +73,9 @@ if (isset($db)) {
                 $cat_stmt = $db->prepare($query_categories);
                 $cat_stmt->execute($cat_params);
                 $categories = $cat_stmt->fetchAll(PDO::FETCH_COLUMN);
-                
+                echo '<pre>';
+                print_r($categories);
+                echo '</pre>';
                 // Afficher les boutons de filtre par catégorie
                 foreach ($categories as $category) {
                     echo '<a href="products_grid.php?categorie=' . urlencode($category) . (isset($genre) ? '&genre=' . urlencode($genre) : '') . '" class="bg-red-500 text-white py-2 px-4 rounded-lg">' . $category . '</a>';

@@ -24,7 +24,7 @@ $query->execute();
 
 // Récupérer les résultats
 $users = $query->fetchAll(PDO::FETCH_ASSOC);
-
+include('navback.php');
 ?>
 
 <!doctype html>

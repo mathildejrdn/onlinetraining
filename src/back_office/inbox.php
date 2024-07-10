@@ -1,9 +1,4 @@
-<?php
-
-include('navback.php');
-
-?>
-
+<?php include('navback.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -16,6 +11,7 @@ include('navback.php');
 </head>
 
 <body class="flex">
+
     <!-- Conteneur pour le contenu de la page -->
     <div class="flex-1 p-6">
         <main class="flex w-full h-full shadow-lg rounded-3xl">

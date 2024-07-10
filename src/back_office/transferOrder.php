@@ -22,17 +22,18 @@ if(isset($_GET["id"]) && !empty($_GET["id"])){
     $query->bindValue(":order_id", $id, PDO::PARAM_INT);
     $query->execute();
         
-    $order = $query->fetch();
+    $orders = $query->fetchAll();
             
-    if(!$order){
+    if(!$orders){
         header("Location: ../index.php");
         exit;
     } else {
         $sql = "INSERT INTO `completed_orders` 
-                (`order_id`,`user_name`, `user_firstname`, `user_id`, `email`, `total_price`, `date_order`, `livraison`, `product_id`, `product_name`, `user_adress`, `quantity`, `phone_number`, `product_price`, `statut`) 
+                (`order_id`,`user_name`, `user_firstname`, `user_id`, `email`, `total_price`, `date_order`, `livraison`, `product_id`, `product_name`, `user_adress`, `quantity`, `phone_number`, `product_price`, `statut`, `nom_admin`) 
                 VALUES 
-                (:order_id, :user_name, :user_firstname, :user_id, :email, :total_price, :date_order, :livraison, :product_id, :product_name, :user_adress, :quantity, :phone_number, :product_price, :statut)";
+                (:order_id, :user_name, :user_firstname, :user_id, :email, :total_price, :date_order, :livraison, :product_id, :product_name, :user_adress, :quantity, :phone_number, :product_price, :statut, :nom_admin)";
 
+        foreach($orders as $order){
         $query = $db->prepare($sql);
         $query->bindValue(":order_id", $order["order_id"], PDO::PARAM_INT);
         $query->bindValue(":user_name", $order["user_name"]);
@@ -48,10 +49,11 @@ if(isset($_GET["id"]) && !empty($_GET["id"])){
         $query->bindValue(":user_adress", $order["user_adress"], PDO::PARAM_STR);
         $query->bindValue(":quantity", $order["quantity"], PDO::PARAM_INT);
         $query->bindValue(":phone_number", $order["phone_number"], PDO::PARAM_INT);
-        $query->bindValue(":statut", $order["statut"], PDO::PARAM_INT);
+        $query->bindValue(":statut", $order["statut"], PDO::PARAM_STR);
+        $query->bindValue(":nom_admin", $order["nom_admin"], PDO::PARAM_STR);
 
         $query->execute();
-
+        }
             // Supprimer l'utilisateur de la table users
             $sql = "DELETE FROM orders WHERE order_id = :order_id";
             $query = $db->prepare($sql);

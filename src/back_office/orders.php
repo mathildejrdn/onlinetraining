@@ -10,7 +10,7 @@ include('navback.php');
   $query = $db->prepare($sql);
   $query->execute();
   $orders= $query->fetchAll(PDO::FETCH_ASSOC);
-
+ include('navback.php'); 
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +25,7 @@ include('navback.php');
 
 <body class="flex min-h-screen bg-gray-100">
     <!-- Navbar (sidebar) -->
+
 
     <!-- Conteneur pour le contenu de la page -->
     <div class="flex-1 p-6">
@@ -52,6 +53,7 @@ include('navback.php');
                         <tr>
                             <th scope="col" class="px-6 py-3">Numéro de commande</th>
                             <th scope="col" class="px-6 py-3">Statut de la commande</th>
+                            <th scope="col" class="px-6 py-3">Apprenant(e)</th>
                             <th scope="col" class="px-6 py-3">Gestion</th>
                             <th scope="col" class="px-6 py-3">Archiver</th>
                             <th scope="col" class="px-6 py-3">Supprimer</th>
@@ -73,6 +75,7 @@ include('navback.php');
                         <tr class="bg-white border-b hover:bg-gray-50">
                             <td class="px-6 py-4"><?=$displayOrderId?></td>
                             <td class="px-6 py-4"><?=$order["statut"]?></td>
+                            <td class="px-6 py-4"><?=$order["nom_admin"]?></td>
                             <td class="px-6 py-4">
                                 <a href="edit_order.php?id=<?=$order["order_id"]?>"
                                     class="font-medium text-blue-600 hover:underline flex items-center space-x-1">
@@ -86,6 +89,10 @@ include('navback.php');
                                     <span>Gestion</span>
                                 </a>
                             </td>
+
+                            <?php
+              if($order["statut"] === "terminée"){
+              ?>
                             <td class="px-6 py-4">
                                 <a href="transferOrder.php?id=<?=$order["order_id"]?>"
                                     class="font-medium text-green-600 hover:underline flex items-center space-x-1">
@@ -99,6 +106,22 @@ include('navback.php');
                                     <span>Archiver</span>
                                 </a>
                             </td>
+                            <?php
+              }else{ ?>
+                            <td class="px-6 py-4">
+                                <class="font-medium text-green-600 hover:underline flex items-center space-x-1">
+
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2"
+                                        d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 7 2 2 4-4m-5-9v4h4V3h-4Z" />
+                                    </svg>
+                                    <span>Terminez la commande pour l'archiver.</span>
+                                    </a>
+                            </td>
+                            <?php
+              }
+              ?>
+
                             <td class="px-6 py-4">
                                 <a href="deleteOrder.php"
                                     class="font-medium text-red-600 hover:underline flex items-center space-x-1">

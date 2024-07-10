@@ -55,6 +55,10 @@ if (!isAdmin()) {
             <a href="adminList.php" class="block py-2 px-4 bg-white border-b border-gray-300 hover:bg-gray-100">Gestion
                 des apprenant(e)s</a>
         </li>
+        <li>
+            <a href="../index.php" class="block py-2 px-4 bg-white border-b border-gray-300 hover:bg-gray-100">Retour au
+                site</a>
+        </li>
     </ul>
 
     <!-- Bouton de déconnexion -->

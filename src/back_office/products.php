@@ -1,6 +1,6 @@
 <?php
 require_once("../connect.php");
-
+include('navback.php'); 
 $sql = "SELECT * FROM products ORDER BY marque";
 $query = $db->prepare($sql);
 $query->execute();

@@ -14,15 +14,26 @@ if (isset($db)) {
         $params = array();
         $conditions = array();
 
+         // Vérifier si le genre est spécifié
+         if (isset($_GET['genre']) && isset($_GET['categorie'])) {
+            $genre = $_GET['genre'];
+            $categorie = $_GET['categorie'];
+            $conditions[] = "genre = :genre";
+            $conditions[] .= "categorie = :categorie";
+            $params[':genre'] = $genre;
+            $params[':categorie'] = $categorie;
+        }
+
         // Vérifier si le genre est spécifié
-        if (isset($_GET['genre'])) {
+        elseif (isset($_GET['genre'])) {
             $genre = $_GET['genre'];
             $conditions[] = "genre = :genre";
             $params[':genre'] = $genre;
         }
 
         // Vérifier si la catégorie est spécifiée
-        if (isset($_GET['categorie'])) {
+        elseif (isset($_GET['categorie'])) {
+            
             $categorie = $_GET['categorie'];
             $conditions[] = "categorie = :categorie";
             $params[':categorie'] = $categorie;
@@ -73,9 +84,10 @@ if (isset($db)) {
                 $cat_stmt = $db->prepare($query_categories);
                 $cat_stmt->execute($cat_params);
                 $categories = $cat_stmt->fetchAll(PDO::FETCH_COLUMN);
-                echo '<pre>';
-                print_r($categories);
-                echo '</pre>';
+                // echo '<pre>';
+                // print_r($_GET['genre']);
+                // print_r($categories);
+                // echo '</pre>';
                 // Afficher les boutons de filtre par catégorie
                 foreach ($categories as $category) {
                     echo '<a href="products_grid.php?categorie=' . urlencode($category) . (isset($genre) ? '&genre=' . urlencode($genre) : '') . '" class="bg-red-500 text-white py-2 px-4 rounded-lg">' . $category . '</a>';

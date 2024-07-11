@@ -64,19 +64,30 @@ if (isset($_GET['id'])) {
                     <p class="text-sm text-gray-600 mt-4"><?php echo $description; ?></p>
 
                     <?php
-                    if(!isset($_SESSION["user"])){ ?>
-                        <button class="px-4 py-2 border border-gray-800 bg-transparent text-gray-800 rounded-md hover:bg-red-600 hover:text-white"  >Connectez-vous</button>
-                    <?php} else { ?>
+                     if(isset($_SESSION["admin"])) { ?>
+                        <a href="./logout.php">
+                        <button class="px-4 py-2 border border-gray-800 bg-transparent text-gray-800 rounded-md hover:bg-red-600 hover:text-white">
+                            Connectez-vous en tant qu'utilisateur
+                        </button>
+                    </a>
+                    <?php } elseif (!isset($_SESSION["user"])) { ?>
+                        <a href="./login.php">
+                            <button class="px-4 py-2 border border-gray-800 bg-transparent text-gray-800 rounded-md hover:bg-red-600 hover:text-white">
+                                Connectez-vous
+                            </button>
+                        </a>
+                        
+                    <?php } else { ?>
                         <form method="POST" action="./panierG.php">
-                        <input type="hidden" name="product_id" value="<?= $product['id']?>">
-                        <input type="hidden" name="product_img" value="<?= $product['image']?>">
-                        <input type="hidden" name="product_name" value="<?= htmlspecialchars($product['nom']) ?>">
-                        <input type="hidden" name="product_price" value="<?= htmlspecialchars($product['prix']) ?>">
-                        <button class="px-4 py-2 border border-gray-800 bg-transparent text-gray-800 rounded-md hover:bg-red-600 hover:text-white" type="submit" name="add_to_cart">Ajouter au panier</button>
-                </form>
-                <?php
-                    }
-                    ?>
+                            <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
+                            <input type="hidden" name="product_img" value="<?= $product['image'] ?>">
+                            <input type="hidden" name="product_name" value="<?= htmlspecialchars($product['nom']) ?>">
+                            <input type="hidden" name="product_price" value="<?= htmlspecialchars($product['prix']) ?>">
+                            <button class="px-4 py-2 border border-gray-800 bg-transparent text-gray-800 rounded-md hover:bg-red-600 hover:text-white" type="submit" name="add_to_cart">
+                                Ajouter au panier
+                            </button>
+                        </form>
+                    <?php } ?>
 
                     <hr class="my-8" />
 

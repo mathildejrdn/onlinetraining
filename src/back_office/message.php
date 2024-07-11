@@ -1,27 +1,8 @@
 <?php
 session_start();
 
-// Accés que pour les admins
-
-function isAdmin() {
-    if (isset($_SESSION['admin'])) {
-        return true;
-    }
-    return false;
-}
-
-if (!isAdmin()) {
-    header("Location: ../index.php");
-    exit();
-}
-
 
 include("../connect.php");
-
-if (!isset($_SESSION['email'])) {
-    header("Location: connexion.php");
-    exit;
-}
 
 $messageStatus = "";
 
@@ -72,7 +53,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 
             if (!empty($message) || !empty($filePath)) {
                 $insererMessage = $db->prepare('INSERT INTO message(id_from, id_to, message, date_message, `read`, `file`) VALUES (?, ?, ?, ?, ?, ?)');
-                $insererMessage->execute(array($_SESSION["id"], $id_to, $message, $date_message, 0, $filePath));
+                $insererMessage->execute(array($_SESSION["admin"]["id"], $id_to, $message, $date_message, 0, $filePath));
                 $messageStatus = "Message envoyé avec succès!";
             } else {
                 $messageStatus = "Le champ message et le fichier joint sont vides.";
@@ -80,7 +61,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         }
 
         $recupMessage = $db->prepare('SELECT * FROM message JOIN administrateurs ON message.id_from = administrateurs.id WHERE (id_from = ? AND id_to = ?) OR (id_from = ? AND id_to = ?)');
-        $recupMessage->execute(array($_SESSION['id'], $getid, $getid, $_SESSION['id']));
+        $recupMessage->execute(array($_SESSION["admin"]['id'], $getid, $getid, $_SESSION["admin"]['id']));
     }
 } else {
     echo "ID utilisateur non valide.";
@@ -106,7 +87,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         <div class="bg-white p-4 rounded shadow">
             <?php while($message = $recupMessage->fetch()): ?>
                 <div class="mb-4">
-                    <?php if ($message['id_to'] == $_SESSION['id']): ?>
+                    <?php if ($message['id_to'] == $_SESSION["admin"]['id']): ?>
                         <div class="text-right">
                             <p class="text-red-500"><?php echo htmlspecialchars($message['first_name']) . ' ' . htmlspecialchars($message['last_name']); ?></p>
                             <p class="bg-red-100 p-2 rounded inline-block"><?php echo $message['message']; ?></p>

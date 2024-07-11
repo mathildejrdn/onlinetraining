@@ -1,28 +1,11 @@
 <?php
 session_start();
 
-// Accés que pour les admins
-
-function isAdmin() {
-    if (isset($_SESSION['admin'])) {
-        return true;
-    }
-    return false;
-}
-
-if (!isAdmin()) {
-    header("Location: ../index.php");
-    exit();
-}
-
 include("../connect.php");
 
-if (!isset($_SESSION['email'])) {
-    header("Location: connexion.php");
-    exit();
-}
 
-$myId = $_SESSION['id'];
+
+$myId = $_SESSION['admin']["id"];
 
 $newMessagesCount = 0;  // Initialiser la variable
 $newMessages = [];
@@ -101,14 +84,7 @@ if ($showMessages && $newMessagesCount > 0) {
     <!-- ici le bouton de supression -->
 
     
-    <a href="#" class="w-16 p-4 border text-gray-700 rounded-2xl mb-24">
-       
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                        </svg>
-                    </a>
+    
                     <!-- bloc des messages à gauche -->
                     <?php 
     $recupUser = $db->prepare("SELECT * FROM administrateurs WHERE id != :myId");

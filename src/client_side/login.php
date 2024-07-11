@@ -54,7 +54,7 @@ if(!empty($_POST)){
                     "adress" => $admin["adress"],
                     "role" => $admin["role"]
                 ];
-                header("Location: ../back_office/inbox.php");
+                header("Location: ../back_office/accueil.php");
                 exit;
             }
 

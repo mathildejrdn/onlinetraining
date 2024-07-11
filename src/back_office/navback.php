@@ -25,7 +25,7 @@ if (!isAdmin()) {
                 class="block py-2 px-4 bg-white border-b border-gray-300 text-center font-bold">Heureux de te revoir <?=$_SESSION["admin"]["firstname"]?>!</a>
         </li>
         <li>
-            <a href="inbox.php"
+            <a href="accueil.php"
                 class="block py-2 px-4 bg-white border-b border-gray-300 hover:bg-gray-100">Messagerie</a>
         </li>
         <li>

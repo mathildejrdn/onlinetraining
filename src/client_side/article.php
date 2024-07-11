@@ -1,6 +1,5 @@
 <?php
-include('../includes/navbar.php');
-include('../connect.php'); // Assurez-vous d'inclure le fichier de connexion à la base de données
+include('navbar.php');
 
 // Vérifie si l'ID du produit est passé dans l'URL
 if (isset($_GET['id'])) {

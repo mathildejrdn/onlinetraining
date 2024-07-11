@@ -1,5 +1,20 @@
 <?php
 session_start();
+
+// Accés que pour les admins
+
+function isAdmin() {
+    if (isset($_SESSION['admin'])) {
+        return true;
+    }
+    return false;
+}
+
+if (!isAdmin()) {
+    header("Location: ../index.php");
+    exit();
+}
+
 include("../connect.php");
 
 if (!isset($_SESSION['email'])) {
@@ -37,6 +52,7 @@ if ($showMessages && $newMessagesCount > 0) {
 ?>
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,6 +62,7 @@ if ($showMessages && $newMessagesCount > 0) {
     <title>Les admines</title>
     
 </head>
+
 <body>
 
 <body class="flex">
@@ -61,21 +78,22 @@ if ($showMessages && $newMessagesCount > 0) {
 
     <!-- Affichage de la liste des nouveaux messages si l'utilisateur a cliqué pour les afficher -->
     <?php if ($showMessages && $newMessagesCount > 0): ?>
-        <div class="messages-list">
-            <?php foreach ($newMessages as $message): ?>
-                <div class="message-item">
-                    <?php echo 'Expéditeur : ' . htmlspecialchars($message['first_name']) . ' ' . htmlspecialchars($message['last_name']) . '<br>'; ?>
-                    <?php echo 'La date: ' . htmlspecialchars($message['date_message']) . '<br>'; ?>
-                    <?php echo htmlspecialchars($message['message']); ?>
-                    <!-- Vérification et affichage des pièces jointes -->
-                    <?php if (!empty($message['file'])): ?>
-                        <div class="file">
-                            <a href="<?php echo htmlspecialchars($message['file']); ?>" target="_blank" download><img src="../images/pj.png" alt="Fichier"></a>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            <?php endforeach; ?>
+    <div class="messages-list">
+        <?php foreach ($newMessages as $message): ?>
+        <div class="message-item">
+            <?php echo 'Expéditeur : ' . htmlspecialchars($message['first_name']) . ' ' . htmlspecialchars($message['last_name']) . '<br>'; ?>
+            <?php echo 'La date: ' . htmlspecialchars($message['date_message']) . '<br>'; ?>
+            <?php echo htmlspecialchars($message['message']); ?>
+            <!-- Vérification et affichage des pièces jointes -->
+            <?php if (!empty($message['file'])): ?>
+            <div class="file">
+                <a href="<?php echo htmlspecialchars($message['file']); ?>" target="_blank" download><img
+                        src="../images/pj.png" alt="Fichier"></a>
+            </div>
+            <?php endif; ?>
         </div>
+        <?php endforeach; ?>
+    </div>
     <?php else: ?>
         
     <?php endif; ?>
@@ -128,5 +146,5 @@ if ($showMessages && $newMessagesCount > 0) {
     }
     ?>
 </body>
-</html>
 
+</html>

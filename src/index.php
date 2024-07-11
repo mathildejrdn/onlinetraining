@@ -1,13 +1,9 @@
 <?php 
-require_once("connect.php");
+include('./includes/navbar2.php');
 
-$sql = "SELECT * FROM products";
-$query = $db->prepare($sql);
-$query->execute();
-$products = $query->fetchAll(PDO::FETCH_ASSOC);
 
 // Inclusion du header et du navbar
-include('./includes/navbar.php');
+
 include 'includes/header.php';
 ?>
 
@@ -17,7 +13,7 @@ include 'includes/header.php';
   <meta charset="utf-8">
   <title>Online Training</title>
   <link rel="stylesheet" href="../styles/styles.css">
-  <link rel="stylesheet" href="./styles/output.css">
+  <link rel="stylesheet" href="../styles/output.css">
   <link rel="stylesheet" href="./styles/reset.css">
   <link rel="stylesheet" href="./styles/font.css">
 </head>
@@ -31,7 +27,7 @@ include 'includes/header.php';
 	  <figcaption>
 		  <div class="RTP"> <span>MODE FEMME</span> </div>
 		    <p>ELEGANCE</p>
-		    <a href=""><button class="btn_effect">Découvrez</button></a>
+		    <a href="/client_side/products_grid.php?genre=femme"><button class="btn_effect">Découvrez</button></a>
 	  </figcaption>
   </figure>
     
@@ -40,19 +36,9 @@ include 'includes/header.php';
 			<figcaption>
 			  <div class="RTP"> <span>MODE FEMME</span> </div>
 			  <p>ELEGANCE</p>
-			  <a href=""><button class="btn_effect">Découvrez</button></a>
+			  <a href="/client_side/products_grid.php?genre=homme"><button class="btn_effect">Découvrez</button></a>
 			</figcaption>
 		</figure>
-            
-	<figure class="effect">
-			<img src="./images/beauty.jpg" alt="">
-			<figcaption>
-			  <div class="RTP"> <span>MODE FEMME</span> </div>
-			  <p>ELEGANCE</p>
-			  <a href=""><button class="btn_effect">Découvrez</button></a>
-			</figcaption>
-	</figure>
-  
 </div>
 
 <?php include 'includes/guaranties.php'; ?> 
@@ -61,7 +47,7 @@ include 'includes/header.php';
 <?php include 'client_side/contact.php'; ?>
 
 <!-- Inclusion du formulaire de contact -->
-<?php include 'includes/footer.php'; ?>
+<?php include './includes/footer.php'; ?>
 
 <!-- Liens supplémentaires commentés -->
 
@@ -78,27 +64,6 @@ include 'includes/header.php';
 <a href="../client_side/login.php">Formulaire de connection</a>
 <a href="../client_side/signup.php">Formulaire d'inscription</a>
 <a href="../client_side/panier.php">panier</a>
-
-<?php foreach($products as $product): ?>
-  <section>
-    <article><a href="product.php?id=<?= $product["id"] ?>">
-      <?php
-      $imagePath = $product["image"];
-      // Assurez-vous que 'back_office/' est le chemin correct vers vos images
-      $class = 'back_office/' . $imagePath;
-      ?>
-      <img src="<?= $class ?>" alt="">
-      <div class="info-article">
-        <div class="article-name">
-          <span><?= $product["categorie"] ?></span>
-        </div>
-        <div class="article-price">
-          <span><?= $product["prix"] ?>€</span>
-        </div>
-      </div></a>
-    </article>
-  </section>
-<?php endforeach; ?>
 
 
 </body>

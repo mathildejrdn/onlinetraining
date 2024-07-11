@@ -1,3 +1,4 @@
+<?php include('navback.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -10,7 +11,7 @@
 </head>
 
 <body class="flex">
-    <?php include('navback.php'); ?>
+
     <!-- Conteneur pour le contenu de la page -->
     <div class="flex-1 p-6">
         <main class="flex w-full h-full shadow-lg rounded-3xl">
@@ -26,8 +27,7 @@
                 <nav class="relative flex flex-col py-4 items-center">
                     <!-- ici s'affichent les msg non lus -->
                     <a href="#" class="relative w-16 p-4 bg-purple-100 text-purple-900 rounded-2xl mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
                                 d="M8 4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-2m-4-1v8m0 0l3-3m-3 3L9 8m-5 5h2.586a1 1 0 01.707.293l2.414 2.414a1 1 0 00.707.293h3.172a1 1 0 00.707-.293l2.414-2.414a1 1 0 01.707-.293H20" />
                         </svg>
@@ -36,8 +36,7 @@
                     </a>
                     <!-- ici le bouton de supression -->
                     <a href="#" class="w-16 p-4 border text-gray-700 rounded-2xl mb-24">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
                                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                         </svg>
@@ -81,8 +80,10 @@
                 <div id="message-1" class="message-content hidden">
                     <h1 class="text-2xl font-bold">Message from Akhil Gautam</h1>
                     <p class="mt-4">I have a problem to solve
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                        labore
+                        et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi
+                        ut
                         aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
                         cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
                         culpa qui officia deserunt mollit anim id est laborum.
@@ -99,28 +100,27 @@
             </section>
         </main>
         <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const messageList = document.getElementById('message-list');
-                const messageContents = document.querySelectorAll('.message-content');
+        document.addEventListener('DOMContentLoaded', function() {
+            const messageList = document.getElementById('message-list');
+            const messageContents = document.querySelectorAll('.message-content');
 
-                messageList.addEventListener('click', function (e) {
-                    const target = e.target.closest('li');
-                    if (!target) return;
+            messageList.addEventListener('click', function(e) {
+                const target = e.target.closest('li');
+                if (!target) return;
 
-                    // Hide all message contents
-                    messageContents.forEach(content => content.classList.add('hidden'));
+                // Hide all message contents
+                messageContents.forEach(content => content.classList.add('hidden'));
 
-                    // Show the selected message content
-                    const messageId = target.dataset.message;
-                    const messageContent = document.getElementById(messageId);
-                    if (messageContent) {
-                        messageContent.classList.remove('hidden');
-                    }
-                });
+                // Show the selected message content
+                const messageId = target.dataset.message;
+                const messageContent = document.getElementById(messageId);
+                if (messageContent) {
+                    messageContent.classList.remove('hidden');
+                }
             });
+        });
         </script>
     </div>
 </body>
 
 </html>
-

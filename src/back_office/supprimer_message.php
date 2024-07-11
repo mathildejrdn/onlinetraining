@@ -1,4 +1,19 @@
 <?php
+
+// Accés que pour les admins
+
+function isAdmin() {
+    if (isset($_SESSION['admin'])) {
+        return true;
+    }
+    return false;
+}
+
+if (!isAdmin()) {
+    header("Location: ../index.php");
+    exit();
+}
+
 // On verifie qu' il ya bien un id dans l'url et que l'utilisateur correspondant existe
 // On vérifie qu'il y a bien un id dans l'url et que l'utilisateur correspondant existe
 if (isset($_GET["id"]) && !empty($_GET["id"])) {
@@ -22,5 +37,3 @@ if (isset($_GET["id"]) && !empty($_GET["id"])) {
 }else {
     header("Location: acueil.php");
 }
-
-

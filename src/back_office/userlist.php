@@ -30,8 +30,8 @@ include('navback.php');
     <!-- Conteneur pour le contenu de la page -->
     <div class="flex-1 p-6">
         <div id="liste_produit" class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <h1>Liste des utilisateurs</h1>
-            <a href="adminList.php">Voir le tableau des administrateurs</a>
+            <h1 class="text-center font-bold">Liste des utilisateurs</h1>
+            <a class="hover:text-white" href="adminList.php">Voir le tableau des administrateurs</a>
             <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b">
                     <tr>

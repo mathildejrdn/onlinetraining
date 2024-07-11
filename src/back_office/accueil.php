@@ -56,73 +56,25 @@ if ($showMessages && $newMessagesCount > 0) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/output.css">
+    <link rel="stylesheet" href="../styles/reset.css">
+    <link rel="stylesheet" href="../styles/font.css">
     <title>Les admines</title>
-    <style>
-    .message-icon {
-        position: relative;
-        display: inline-block;
-        cursor: pointer;
-    }
-
-    .message-icon .icon {
-        font-size: 24px;
-    }
-
-    .message-icon .badge {
-        position: absolute;
-        top: -5px;
-        right: -10px;
-        background: red;
-        color: white;
-        border-radius: 50%;
-        padding: 2px 6px;
-        font-size: 12px;
-    }
-
-    .messages-list {
-        position: absolute;
-        top: 130px;
-        left: 0;
-        background: white;
-        border: 1px solid #ccc;
-        width: 300px;
-        max-height: 400px;
-        overflow-y: auto;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .message-item {
-        padding: 10px;
-        border-bottom: 1px solid #eee;
-    }
-
-    .message-item:last-child {
-        border-bottom: none;
-    }
-    </style>
+    
 </head>
 
 <body>
-    <?php 
-    $recupUser = $db->prepare("SELECT * FROM administrateurs WHERE id != :myId");
-    $recupUser->bindValue(':myId', $myId, PDO::PARAM_INT);
-    $recupUser->execute();
+
+<body class="flex">
+<?php include('navback.php'); ?>
     
-    // AFFICHER UN BOUCLE POUR MONTRER LES ADMIN
-    while ($administrateur = $recupUser->fetch()){
-        ?>
-    <a href="message.php?id=<?php echo $administrateur['id']?>">
-        <p><?php echo $administrateur["last_name"]; ?> <?php echo $administrateur["first_name"]; ?></p>
-    </a>
-    <?php
-    }
-    ?>
 
     <!-- Affichage de l'icône de message avec le nombre de nouveaux messages -->
     <div class="message-icon">
         <span class="icon"><a href="?show_messages=1">📧</a></span>
         <span class="badge"><?php echo $newMessagesCount; ?></span>
     </div>
+    
 
     <!-- Affichage de la liste des nouveaux messages si l'utilisateur a cliqué pour les afficher -->
     <?php if ($showMessages && $newMessagesCount > 0): ?>
@@ -143,8 +95,56 @@ if ($showMessages && $newMessagesCount > 0) {
         <?php endforeach; ?>
     </div>
     <?php else: ?>
-    <p>Нет новых сообщений.</p>
+        
     <?php endif; ?>
+
+    <!-- ici le bouton de supression -->
+
+    
+    <a href="#" class="w-16 p-4 border text-gray-700 rounded-2xl mb-24">
+       
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                        </svg>
+                    </a>
+                    <!-- bloc des messages à gauche -->
+                    <?php 
+    $recupUser = $db->prepare("SELECT * FROM administrateurs WHERE id != :myId");
+    $recupUser->bindValue(':myId', $myId, PDO::PARAM_INT);
+    $recupUser->execute();
+    
+    // AFFICHER UN BOUCLE POUR MONTRER LES ADMIN
+    while ($administrateur = $recupUser->fetch()){
+        ?>
+        <div class="flex-1 flex-col p-6">
+            
+        
+              <section class="flex flex-col pt-3  bg-gray-50 h-full">
+                <!-- bloc des messages à gauche -->
+                 <div class="flex flex-col">
+                <ul class="mt-6" id="message-list">
+                    <li class="py-5 border-b px-3 transition hover:bg-indigo-100" >
+                        <!-- message 1 -->
+                        <a href="message.php?id=<?php echo $administrateur['id']?>" class="flex ">
+                            <h3 class="text-lg font-semibold"><?php echo $administrateur["last_name"]; ?> <?php echo $administrateur["first_name"]; ?></h3>
+        
+                        </a>
+                        
+                        <!-- titre du message -->
+                    </li>
+                    <!-- fin du li -->
+                   
+                </ul>
+                </div>
+            </section>
+        
+    </div>
+
+            <?php
+    }
+    ?>
 </body>
 
 </html>

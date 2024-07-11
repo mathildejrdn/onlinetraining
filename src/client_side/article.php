@@ -99,6 +99,9 @@ if (isset($_GET['id'])) {
         </div>
     </div>
     <?php include('../includes/guaranties.php'); ?>
+    <!-- Inclusion du footer -->
+<?php include '../includes/footer.php'; ?>
+
 
 </body>
 

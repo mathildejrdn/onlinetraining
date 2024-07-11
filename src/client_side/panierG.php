@@ -187,6 +187,9 @@ if (isset($_POST['add_to_cart'])) {
         </div>
     </div>
 </div>
+<!-- Inclusion du footer -->
+<?php include '../includes/footer.php'; ?>
+
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const decrementButtons = document.querySelectorAll(".decrement-button");

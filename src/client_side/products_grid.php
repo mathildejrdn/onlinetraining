@@ -117,7 +117,8 @@ if (isset($db)) {
             </div>
         </div>
     </div>
-
+    <!-- Inclusion du footer -->
+<?php include '../includes/footer.php'; ?>
 </body>
 </html>
 

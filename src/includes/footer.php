@@ -5,7 +5,7 @@
                 <div class="mb-4 mr-8 w-full sm:w-auto">
                     <ul class="text-gray-400">
                         <a href="#" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse ml-auto">
-                            <img src="./images/logo_white.svg" class="h-12" alt="Online formapro Logo" />
+                            <img src="../images/logo_white.svg" class="h-12" alt="Online formapro Logo" />
                         </a>
                         <li class="mb-2">
                             <p class="text-gray-400">Permettre au plus grand nombre d’accéder librement,<br>sans contrainte de lieu, de temps ou de rythme<br>à des formations modulaires et souples.</p>
@@ -48,7 +48,7 @@
                         <li class="mb-2">Téléphone :<a href="#" class="hover:text-red-500">+33 (0)3 84 76 52 44</a></li>
                         <li class="mb-2">E-mail : <a href="#" class="hover:text-red-500">projet@onlineformapro.com</a></li>
                     </ul>
-                    <img src="./images/etiquette.png" class="h-24" alt="Flowbite Logo" />
+                    <img src="../images/etiquette.png" class="h-24" alt="Flowbite Logo" />
                 </div>
             </div>
         </div>

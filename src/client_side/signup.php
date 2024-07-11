@@ -37,11 +37,15 @@ if(!empty($_POST)){
         $id = $db->lastInsertId();
 
         $_SESSION["user"] = [
-            "id"=>$id,
-            "firstname" => $_POST["firstname"],
-            "name"=> $_POST["lastname"],
-            "email"=>$_POST["email"],
+            "id" => $user["id"],
+            "firstname" => $user['first_name'],
+            "name" => $user['last_name'],
+            "email" => $user['email'],
+            "birthdate" => $user["birth_date"],
+            "adress" => $user["adress"],
+            "phonenumber" => $user["phone_number"]
         ];
+        
         header("Location: ../index.php");
         
     } else {

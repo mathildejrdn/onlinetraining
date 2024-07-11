@@ -30,8 +30,8 @@ $admins= $query->fetchAll(PDO::FETCH_ASSOC);
     <!-- Conteneur pour le contenu de la page -->
     <div class="flex-1 p-6">
         <div id="liste_produit" class="relative overflow-x-auto shadow-md sm:rounded-lg">
-            <h1>Liste des Administrateurs</h1>
-            <a href="userlist.php">Voir le tableau des utilisateurs</a>
+            <h1 class="text-center font-bold">Liste des Administrateurs</h1>
+            <a class="hover:text-white" href="userlist.php">Voir le tableau des utilisateurs</a>
             <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b">
                     <tr>
@@ -56,10 +56,20 @@ $admins= $query->fetchAll(PDO::FETCH_ASSOC);
                         <td><?=$admin["genre"]?></td>
                         <td><?=$admin["role"]?></td>
                         <td>
-                            <a href="#" onclick="confirmAdminTransfer(<?= $admin['id'] ?>)">Basculer en utilisateur</a>
-                            <a href="deleteAdmin.php?id=<?= $admin['id']?>">SUPPRIMER</a>
-                            <a href="edit_user.php?id=<?= $admin['id']?>">Ajouter un métier</a>
+                            <a href="#" onclick="confirmAdminTransfer(<?= $admin['id'] ?>)" 
+                                class="inline-block px-4 py-2 bg-blue-500 text-white font-semibold text-sm rounded hover:bg-blue-600">
+                                Basculer en utilisateur
+                            </a>
+                            <a href="deleteAdmin.php?id=<?= $admin['id']?>" 
+                                class="inline-block px-4 py-2 bg-red-500 text-white font-semibold text-sm rounded hover:bg-red-600">
+                                SUPPRIMER
+                            </a>
+                            <a href="edit_user.php?id=<?= $admin['id']?>" 
+                                class="inline-block px-4 py-2 bg-green-500 text-white font-semibold text-sm rounded hover:bg-green-600">
+                                Ajouter un rôle
+                            </a>
                         </td>
+
                     </tr>
                     <?php endforeach; ?>
                 </tbody>

@@ -69,6 +69,7 @@ if (isset($_POST["livraison"], $_POST["add_to_order"]) && !empty($_POST["livrais
 
         $query->execute();
     }
+    
 
     $sql = "DELETE FROM panier WHERE user_id = :user_id";
         $query = $db->prepare($sql);

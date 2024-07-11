@@ -21,6 +21,10 @@ if (!isAdmin()) {
     <!-- Liens de la navbar -->
     <ul class="flex flex-col gap-2 mt-4">
         <li>
+            <a 
+                class="block py-2 px-4 bg-white border-b border-gray-300 text-center font-bold">Heureux de te revoir <?=$_SESSION["admin"]["firstname"]?>!</a>
+        </li>
+        <li>
             <a href="inbox.php"
                 class="block py-2 px-4 bg-white border-b border-gray-300 hover:bg-gray-100">Messagerie</a>
         </li>
@@ -44,18 +48,30 @@ if (!isAdmin()) {
                 <li><a href="orders_finished.php" class="block py-2 px-4 hover:bg-gray-100">Commandes terminées</a></li>
             </ul>
         </li>
-        <li>
-            <a href="sales.php"
-                class="block py-2 px-4 bg-white border-b border-gray-300 hover:bg-gray-100">Comptabilité</a>
+        <?php
+        if (isset($_SESSION["admin"]["role"]) && $_SESSION["admin"]["role"] === "superAdmin") {
+            ?>
+        <li class="relative">
+            <a href="javascript:void(0)"
+                class="flex items-center justify-between block py-2 px-4 bg-white border-b border-gray-300 hover:bg-gray-100"
+                onclick="toggleDrop('logistique-drop', this)">
+                <span>Formateur</span>
+                <svg class="w-4 h-4 transition-transform duration-200" id="dropdown-arrow"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </a>
+            <ul id="logistique-drop" class="hidden flex-col bg-white border border-gray-300 w-full z-10 mt-1">
+                <li><a href="userlist.php" class="block py-2 px-4 hover:bg-gray-100">Gestion
+                des utilisateurs</a></li>
+                <li><a href="adminList.php" class="block py-2 px-4 hover:bg-gray-100">Gestion
+                des apprenant(e)s</a></li>
+                <li><a href="categories.php" class="block py-2 px-4 hover:bg-gray-100">Voir les catégories</a></li>
+            </ul>
         </li>
-        <li>
-            <a href="userlist.php" class="block py-2 px-4 bg-white border-b border-gray-300 hover:bg-gray-100">Gestion
-                des utilisateurs</a>
-        </li>
-        <li>
-            <a href="adminList.php" class="block py-2 px-4 bg-white border-b border-gray-300 hover:bg-gray-100">Gestion
-                des apprenant(e)s</a>
-        </li>
+        <?php
+        }
+        ?>
         <li>
             <a href="../index.php" class="block py-2 px-4 bg-white border-b border-gray-300 hover:bg-gray-100">Retour au
                 site</a>
@@ -74,6 +90,12 @@ if (!isAdmin()) {
 
 <script>
 function toggleDropdown(id, element) {
+    const dropdown = document.getElementById(id);
+    const arrow = element.querySelector('svg');
+    dropdown.classList.toggle('hidden');
+    arrow.classList.toggle('rotate-180');
+}
+function toggleDrop(id, element) {
     const dropdown = document.getElementById(id);
     const arrow = element.querySelector('svg');
     dropdown.classList.toggle('hidden');

@@ -51,7 +51,8 @@ if(!empty($_POST)){
                     "name" => $admin['last_name'],
                     "email" => $admin['email'],
                     "birthdate" => $admin["birth_date"],
-                    "adress" => $admin["adress"]
+                    "adress" => $admin["adress"],
+                    "role" => $admin["role"]
                 ];
                 header("Location: ../back_office/inbox.php");
                 exit;

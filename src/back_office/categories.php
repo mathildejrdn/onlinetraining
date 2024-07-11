@@ -3,26 +3,12 @@ session_start();
 
 require_once("../connect.php");
 
-$sql= "SELECT * FROM categories";
+$sql= "SELECT * FROM categories ORDER BY categorie_genre";
 $query = $db->prepare($sql);
 $query->execute();
 
 $categories =$query->fetchAll(PDO::FETCH_ASSOC);
-
-// Accés que pour les admins
-
-function isAdmin() {
-    if (isset($_SESSION['admin'])) {
-        return true;
-    }
-    return false;
-}
-
-if (!isAdmin()) {
-    header("Location: ../index.php");
-    exit();
-}
-
+include('navback.php'); 
 ?>
 <!doctype html>
 <html lang="fr">
@@ -36,12 +22,13 @@ if (!isAdmin()) {
 
 <body class="flex min-h-screen bg-gray-100">
     <!-- Navbar (sidebar) -->
-    <?php include('navback.php'); ?>
+    
     <button><a href="add_category.php">Ajouter une catégorie</a></button>
     <table class="w-full text-sm text-left rtl:text-right text-gray-500">
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b">
             <tr>
                 <th scope="col" class="px-2 py-3">Nom</th>
+                <th scope="col" class="px-2 py-3">Genre</th>
                 <th scope="col" class="px-2 py-3">Action</th>
             </tr>
         </thead>
@@ -49,6 +36,7 @@ if (!isAdmin()) {
             <?php foreach($categories as $category): ?>
             <tr>
                 <td><?=$category["nom_categorie"]?></td>
+                <td><?=$category["categorie_genre"]?></td>
                 <td><a href="deleteCategory.php?id=<?=$category["id"]?>">Supprimer</a></td>
             </tr>
             <?php endforeach;?>

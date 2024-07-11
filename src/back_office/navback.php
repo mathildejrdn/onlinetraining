@@ -1,5 +1,7 @@
 <nav class="bg-gray-200 max-w-1/4 p-4 flex flex-col">
   <!-- Liens de la navbar -->
+
+
   <ul class="flex flex-col gap-2 mt-4">
     <li>
       <a href="inbox.php" class="block py-2 px-4 bg-white border-b border-gray-300 hover:bg-gray-100">Messagerie</a>

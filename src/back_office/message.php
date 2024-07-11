@@ -1,211 +1,146 @@
 <?php
 session_start();
-//On détermine sur quelle page on se trouve
-if(isset($_GET['page']) && !empty($_GET['page'])){
-    $currentPage = (int) strip_tags($_GET['page']);
-
-}else{
-    $currentPage = 1;
-}
 include("../connect.php");
-//On determine le nombre total de message
-$sql = 'SELECT COUNT(*) AS nb_message FROM message';
-$query = $db->prepare($sql);
-// On execute
-$query->execute();
 
-//Je recupere le nombre de message
-$result = $query->fetch();
-
-$nbMessage = (int) $result['nb_message'];
-// On determine le nombre message par page
-$parPage = 10;
-
-
-
-//On calcule le nombre de message total  ceil ca veut dire 99/10 on aura 10 page si non les9 dernier il s'affiche pas
-
-$pages = ceil($nbMessage / $parPage);
-
-
-
-//Calcule du 1er message de la page
-$premier = ($currentPage * $parPage) - $parPage;
-
-
-$sql = 'SELECT * FROM message ORDER BY date_message DESC LIMIT :premier, :parpage;';
-
-//On prepare la requete
-$query = $db->prepare($sql);
-
-
-
-$query->bindValue(':premier', $premier, PDO::PARAM_INT);
-$query->bindValue(':parpage', $parPage, PDO::PARAM_INT);
-
-
-
-//on execute
-$query->execute();
-
-
-
-if(!isset($_SESSION['email'])){
-header("Location: connexion.php");
-
+if (!isset($_SESSION['email'])) {
+    header("Location: connexion.php");
+    exit;
 }
-if(isset($_GET['id']) AND !empty($_GET['id'])){
-// Si il y a un id admin on execute le code si no echo
+
+$messageStatus = "";
+
+if (isset($_GET['id']) && !empty($_GET['id'])) {
     $getid = $_GET['id'];
     $recupUser = $db->prepare("SELECT * FROM administrateurs WHERE id = ?");
     $recupUser->execute(array($getid));
 
-}if($recupUser->rowCount() > 0){
+    if ($recupUser->rowCount() > 0) {
+        $user = $recupUser->fetch();
+        $userName = htmlspecialchars($user['last_name']) . ' ' . htmlspecialchars($user['first_name']);
+
+         // Suppression du message
+         if (isset($_GET['delete']) && !empty($_GET['delete'])) {
+            $deleteId = (int)$_GET['delete'];
+            
+            //  le message existe ou pas
+    $checkMessage = $db->prepare('SELECT * FROM message WHERE id = :id');
+    $checkMessage->bindValue(":id", $deleteId, PDO::PARAM_INT);
+    $checkMessage->execute();
+
+    if ($checkMessage->rowCount() > 0) {
+        // Supprimer le message
+        $deleteMessage = $db->prepare('DELETE FROM message WHERE id = :id');
+        $deleteMessage->bindValue(":id", $deleteId, PDO::PARAM_INT);
+        $deleteMessage->execute();
+       
+            $messageStatus = "Message supprimé avec succès!";
         
+    }  
+}
 
 
-        if(isset($_POST['envoyer'])){
-           $id_to = $_GET["id"];
-           $message = nl2br(htmlspecialchars($_POST["message"]));
-            //Définir la date du message
+        if (isset($_POST['envoyer'])) {
+            $id_to = $_GET["id"];
+            $message = nl2br(htmlspecialchars($_POST["message"]));
             $date_message = date("Y:m:d H:i:s");
             $filePath = '';
+
+            if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] == 0) {
+                $fileName = basename($_FILES['attachment']['name']);
+                $filePath = '../messages/uploads/' . $fileName;
+                if (!move_uploaded_file($_FILES['attachment']['tmp_name'], $filePath)) {
+                    echo "Erreur de téléchargement.";
+                    exit;
+                }
+            }
+
+            if (!empty($message) || !empty($filePath)) {
+                $insererMessage = $db->prepare('INSERT INTO message(id_from, id_to, message, date_message, `read`, `file`) VALUES (?, ?, ?, ?, ?, ?)');
+                $insererMessage->execute(array($_SESSION["id"], $id_to, $message, $date_message, 0, $filePath));
+                $messageStatus = "Message envoyé avec succès!";
+            } else {
+                $messageStatus = "Le champ message et le fichier joint sont vides.";
+            }
         }
-// // Gestion des fichiers joints
-if (isset($_FILES['attachment']) && $_FILES['attachment']['error'] == 0) {
-    $fileName = basename($_FILES['attachment']['name']);
-    $filePath = '../messages/uploads/' . $fileName;
-    if (move_uploaded_file($_FILES['attachment']['tmp_name'], $filePath)) {
-        // File a été télécharger
-        // Affichez le lien de téléchargement
-        
-      
-    } else {
-        echo "Erreur de téléchargement.";
-        exit;
+
+        $recupMessage = $db->prepare('SELECT * FROM message JOIN administrateurs ON message.id_from = administrateurs.id WHERE (id_from = ? AND id_to = ?) OR (id_from = ? AND id_to = ?)');
+        $recupMessage->execute(array($_SESSION['id'], $getid, $getid, $_SESSION['id']));
     }
+} else {
+    echo "ID utilisateur non valide.";
+    exit;
 }
-
-
-
-//insérer le message
-
-if (!empty($message) || !empty($filePath)) {
-
-    $insererMessage = $db->prepare('INSERT INTO message(id_from, id_to, message, date_message, `read`, `file`) VALUES (?, ?, ?, ?, ?, ?)');
-    $insererMessage->execute(array($_SESSION["id"], $_GET['id'], $message, $date_message, 0, $filePath));
-
-    echo "Message envoyé avec succès!";
-           
-            
-    }else {
-        $messageStatus = "Le champ message et le fichier joint sont vides.";
-    }
-}
-
-?>
-<!--  j'affiche le nom du destinataire en haut de la page -->
-<?php
-if($recupUser->rowCount() > 0){
-        $user = $recupUser->fetch();
-        $nom = htmlspecialchars($user['last_name']) . ' ' . htmlspecialchars($user['first_name']) . '<br>'; // Remplacez 'nom' par le nom de la colonne contenant le nom de l'utilisateur
-    }
-?>
-<!-- Affiche le nom du destinataire en haut de la page -->
-<h1>Bonjour, <?php echo $nom; ?></h1>
-<nav>
-    <ul class="pagination">
-        <li class="page-item">
-            <a href=""class="page-link">Précédente</a>
-        </li>
-        <li class="page-item">
-            <a href=""class="page-link">1</a>
-        </li>
-        <li class="page-item">
-            <a href=""class="page-link">2</a>
-        </li>
-        <li class="page-item">
-            <a href=""class="page-link">Suivante</a>
-        </li>
-    </ul>
-</nav>
-    <section id="message">
-<?php
-
-
-//J'affiche tout les message (les conversations)
-//Afficher les message recu  OR id_from = ? AND id_to = ?CE CODE QUI RECUPER 
-    $recupMessage = $db->prepare('SELECT * FROM message JOIN administrateurs ON message.id_from = administrateurs.id
-    WHERE id_from = ? AND id_to = ? OR id_from = ? AND id_to = ?');
-    $recupMessage->execute(array($_SESSION['id'], $getid, $getid, $_SESSION['id']));
-    while($message = $recupMessage->fetch()){
-       if($message['id_to'] == $_SESSION['id'])
-       {
-        ?> 
-        <?php echo   htmlspecialchars($message['first_name']) . ' ' . htmlspecialchars($message['last_name']) . '<br>'; ?>
-    <p style='color:red;'><?= $message['message']; ?>
-    <p><?= $message['date_message']; ?></p>
-   <?php 
-   if(!empty( $message['file'])){
-    ?>
-        <a href="<?= $message['file'] ?>" download><img src="../images/pj.png" alt=""></a>
-        <?php
-    }
-
-    
-    
 ?>
 
-     
-
-
-    <?php
- 
-       }elseif ($message['id_to'] == $getid) {
-
-       ?> 
-    <p style='color:green;'><?= $message['message']; ?></p>
-    <p><?= $message['date_message']; ?></p>
-
-    <?php 
-   if(!empty( $message['file'])){
-    ?>
-        <a target="_blank" href="<?= $message['file'] ?>" ><img src="../images/pj.png" alt=""></a>
-        <?php
-    }
-
-    
-    
-?>
-<a href="">Supprimer</a>
-
-
-
-    
-        <?php
-    }
-}
-    ?>
-    </section>
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Message privé</title>
-    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gray-100">
+<section style="display:flex;">
+<?php include('navback.php'); ?>
+    <div class="container mx-auto mt-8">
+        <h1 class="text-2xl font-bold mb-4">Bonjour, <?php echo $userName; ?></h1>
 
-    <form action="" method="POST" enctype="multipart/form-data">
-    <label for="message">Message:</label>
-      <textarea name="message" id=""></textarea>
-      <br>  <br>
-      <label for="attachment">File:</label>
-        <input type="file"  name="attachment"><br>
-      <input type="submit" name="envoyer">
-    </form>
+        <div class="bg-white p-4 rounded shadow">
+            <?php while($message = $recupMessage->fetch()): ?>
+                <div class="mb-4">
+                    <?php if ($message['id_to'] == $_SESSION['id']): ?>
+                        <div class="text-right">
+                            <p class="text-red-500"><?php echo htmlspecialchars($message['first_name']) . ' ' . htmlspecialchars($message['last_name']); ?></p>
+                            <p class="bg-red-100 p-2 rounded inline-block"><?php echo $message['message']; ?></p>
+                            <p class="text-xs text-gray-500"><?php echo $message['date_message']; ?></p>
+                            <?php if (!empty($message['file'])): ?>
+                                <a href="<?php echo $message['file']; ?>" download>
+                                    <img src="../images/pj.png" alt="Attachment" class="inline-block">
+                                </a>
+                                
+                            <?php endif; ?>
+                        </div>
+                    <?php else: ?>
+                        <div>
+                            <p class="bg-green-100 p-2 rounded inline-block"><?php echo $message['message']; ?></p>
+                            <p class="text-xs text-gray-500"><?php echo $message['date_message']; ?></p>
+                            <?php if (!empty($message['file'])): ?>
+                                <a href="<?php echo $message['file']; ?>" target="_blank">
+                                    <img src="../images/pj.png" alt="Attachment" class="inline-block">
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
+                    <a href="?id=<?php echo $getid; ?>&delete=<?php echo $message['0']; ?>" class="text-red-500 hover:text-red-700">Supprimer</a>
+                </div>
+            <?php endwhile; ?>
+        </div>
 
-
+        <div class="bg-white p-4 rounded shadow mt-4">
+            <?php if (!empty($messageStatus)): ?>
+                <div class="mb-4 p-2 <?php echo strpos($messageStatus, 'succès') !== false ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'; ?> rounded">
+                    <?php echo $messageStatus; ?>
+                </div>
+            <?php endif; ?>
+            <form action="" method="POST" enctype="multipart/form-data">
+                <div class="mb-4">
+                    <label for="message" class="block text-gray-700">Message:</label>
+                    <textarea name="message" id="message" class="w-full p-2 border rounded"></textarea>
+                </div>
+                <div class="mb-4">
+                    <label for="attachment" class="block text-gray-700">Pièce jointe:</label>
+                    <input type="file" name="attachment" id="attachment" class="block w-full text-gray-700 border rounded">
+                </div>
+                <button type="submit" name="envoyer" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">Envoyer</button>
+            </form>
+        </div>
+    </div>
+    </section>
 </body>
 </html>
+
+
+           
+
+    

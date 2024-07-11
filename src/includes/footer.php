@@ -1,4 +1,4 @@
-<footer class="bg-white rounded-lg shadow bg-gray-900 m-4">
+<footer class="rounded-lg shadow bg-gray-900 m-4">
     <div class="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <div class="sm:flex sm:items-start sm:justify-between">
             <div class="flex flex-wrap items-start justify-between w-full sm:w-auto">

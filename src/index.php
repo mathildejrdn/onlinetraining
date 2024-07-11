@@ -13,7 +13,7 @@ include 'includes/header.php';
   <meta charset="utf-8">
   <title>Online Training</title>
   <link rel="stylesheet" href="../styles/styles.css">
-  <link rel="stylesheet" href="./styles/output.css">
+  <link rel="stylesheet" href="../styles/output.css">
   <link rel="stylesheet" href="./styles/reset.css">
   <link rel="stylesheet" href="./styles/font.css">
 </head>
@@ -47,7 +47,7 @@ include 'includes/header.php';
 <?php include 'client_side/contact.php'; ?>
 
 <!-- Inclusion du formulaire de contact -->
-<?php include 'includes/footer.php'; ?>
+<?php include './includes/footer.php'; ?>
 
 <!-- Liens supplémentaires commentés -->
 

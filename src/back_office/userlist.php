@@ -2,9 +2,6 @@
 session_start();
 
  // Accés que pour les admins
-
-
-
 require_once("../connect.php");
 $sql = "SELECT * FROM `users`";
 

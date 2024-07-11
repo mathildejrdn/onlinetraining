@@ -1,13 +1,9 @@
 <?php 
-require_once("connect.php");
+include('./includes/navbar2.php');
 
-$sql = "SELECT * FROM products";
-$query = $db->prepare($sql);
-$query->execute();
-$products = $query->fetchAll(PDO::FETCH_ASSOC);
 
 // Inclusion du header et du navbar
-include('./includes/navbar.php');
+
 include 'includes/header.php';
 ?>
 

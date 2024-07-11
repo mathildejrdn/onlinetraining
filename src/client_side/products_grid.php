@@ -1,12 +1,12 @@
 <?php
-include('../includes/navbar.php');
+include('./navbar.php');
 
-$connectionFilePath = '../connect.php';
-if (file_exists($connectionFilePath)) {
-    include($connectionFilePath);
-} else {
-    die('Fichier de connexion à la BDD non trouvé');
-}
+// $connectionFilePath ='../connect.php';
+// if (file_exists($connectionFilePath)) {
+//     include($connectionFilePath);
+// } else {
+//     die('Fichier de connexion à la BDD non trouvé');
+// }
 
 if (isset($db)) {
     try {
